@@ -5,7 +5,7 @@ import { hot } from 'react-hot-loader/root';
 
 import '../../styles/reflect/person.less';
 
-const EditableContext = React.createContext<any>();
+const EditableContext = React.createContext<any>('');
 
 const EditableRow = ({ index, ...props }) => {
     const [form] = Form.useForm();
@@ -28,8 +28,8 @@ const EditableCell: any = ({
     ...restProps
 }) => {
     const [editing, setEditing] = useState(false);
-    const inputRef = useRef();
-    const form = useContext(EditableContext);
+    const inputRef: any = useRef();
+    const form: any = useContext(EditableContext);
     useEffect(() => {
         if (editing) {
             inputRef.current.focus();
@@ -89,6 +89,8 @@ const EditableCell: any = ({
 };
 
 class EditableTable extends React.Component {
+    columns: any;
+    state: any;
     constructor(props: any) {
         super(props);
         this.columns = [
@@ -161,8 +163,8 @@ class EditableTable extends React.Component {
     };
 
     handleSave = (row: any) => {
-        const newData:any = [...this.state.dataSource];
-        const index = newData.findIndex((item:any) => row.key === item.key);
+        const newData: any = [...this.state.dataSource];
+        const index = newData.findIndex((item: any) => row.key === item.key);
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
         this.setState({
@@ -172,14 +174,14 @@ class EditableTable extends React.Component {
 
     render() {
         console.log(this.state);
-        const { dataSource} = this.state;
+        const { dataSource } = this.state;
         const components = {
             body: {
                 row: EditableRow,
                 cell: EditableCell,
             },
         };
-        const columns:any = this.columns.map((col: any) => {
+        const columns: any = this.columns.map((col: any) => {
             if (!col.editable) {
                 return col;
             }
