@@ -1,10 +1,9 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { Table, Input, Button, Popconfirm, Form } from 'antd';
-// import { PlusCircleOutlined } from '@ant-design/icons';
+
+import { PlusCircleOutlined } from '@ant-design/icons';
 import { hot } from 'react-hot-loader/root';
-
-import '../../styles/reflect/person.less';
-
+import '../styles/reflect/editorCell.less';
 const EditableContext = React.createContext<any>('');
 
 const EditableRow = ({ index, ...props }) => {
@@ -18,7 +17,7 @@ const EditableRow = ({ index, ...props }) => {
     );
 };
 
-const EditableCell: any = ({
+const EditableCell = ({
     title,
     editable,
     children,
@@ -29,7 +28,7 @@ const EditableCell: any = ({
 }) => {
     const [editing, setEditing] = useState(false);
     const inputRef: any = useRef();
-    const form: any = useContext(EditableContext);
+    const form = useContext(EditableContext);
     useEffect(() => {
         if (editing) {
             inputRef.current.focus();
@@ -43,14 +42,13 @@ const EditableCell: any = ({
         });
     };
 
-    const save = async (e: any) => {
-        console.log(e);
+    const save = async () => {
         try {
             const values = await form.validateFields();
             toggleEdit();
             handleSave({ ...record, ...values });
-        } catch (error) {
-            console.log('Save failed:', error);
+        } catch (errInfo) {
+            console.log('Save failed:', errInfo);
         }
     };
 
@@ -88,10 +86,10 @@ const EditableCell: any = ({
     return <td {...restProps}>{childNode}</td>;
 };
 
-class EditableTable extends React.Component {
+class EditableCellComp extends React.Component {
     columns: any;
     state: any;
-    constructor(props: any) {
+    constructor(props) {
         super(props);
         this.columns = [
             {
@@ -111,7 +109,7 @@ class EditableTable extends React.Component {
             {
                 title: 'operation',
                 dataIndex: 'operation',
-                render: (text, record) =>
+                render: (_, record) =>
                     this.state.dataSource.length >= 1 ? (
                         <Popconfirm
                             title="Sure to delete?"
@@ -141,7 +139,7 @@ class EditableTable extends React.Component {
         };
     }
 
-    handleDelete = (key: any) => {
+    handleDelete = (key) => {
         const dataSource = [...this.state.dataSource];
         this.setState({
             dataSource: dataSource.filter((item) => item.key !== key),
@@ -152,7 +150,7 @@ class EditableTable extends React.Component {
         const { count, dataSource } = this.state;
         const newData = {
             key: count,
-            name: `待定... ${count}`,
+            name: `Edward King ${count}`,
             age: 32,
             address: `London, Park Lane no. ${count}`,
         };
@@ -162,9 +160,9 @@ class EditableTable extends React.Component {
         });
     };
 
-    handleSave = (row: any) => {
-        const newData: any = [...this.state.dataSource];
-        const index = newData.findIndex((item: any) => row.key === item.key);
+    handleSave = (row) => {
+        const newData = [...this.state.dataSource];
+        const index = newData.findIndex((item) => row.key === item.key);
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
         this.setState({
@@ -173,7 +171,6 @@ class EditableTable extends React.Component {
     };
 
     render() {
-        console.log(this.state);
         const { dataSource } = this.state;
         const components = {
             body: {
@@ -181,14 +178,14 @@ class EditableTable extends React.Component {
                 cell: EditableCell,
             },
         };
-        const columns: any = this.columns.map((col: any) => {
+        const columns = this.columns.map((col) => {
             if (!col.editable) {
                 return col;
             }
 
             return {
                 ...col,
-                onCell: (record: any) => ({
+                onCell: (record) => ({
                     record,
                     editable: col.editable,
                     dataIndex: col.dataIndex,
@@ -198,27 +195,33 @@ class EditableTable extends React.Component {
             };
         });
         return (
-            <div>
+            <div className="editorCellCla">
                 <div className="tableContainerPerson">
                     <Table
                         components={components}
                         rowClassName={() => 'editable-row'}
                         // bordered
+                        pagination={false}
                         dataSource={dataSource}
                         columns={columns}
                     />
                 </div>
-                <Button
-                    onClick={this.handleAdd}
-                    type="primary"
-                    style={{
-                        marginBottom: 16,
-                    }}
-                >
-                    添加目标(新添一行)
-                </Button>
-
-                <div>
+                <div className="addOneBtnCla">
+                    <Button
+                        onClick={() => this.handleAdd()}
+                        block
+                        style={{
+                            marginBottom: 16,
+                            textAlign: 'left',
+                            height: '55px',
+                            lineHeight: '55px',
+                        }}
+                    >
+                        <PlusCircleOutlined></PlusCircleOutlined>
+                        添加目标
+                    </Button>
+                </div>
+                <div className="calcelSaveCla">
                     <Button
                         onClick={this.handleAdd}
                         type="primary"
@@ -245,4 +248,4 @@ class EditableTable extends React.Component {
     }
 }
 
-export default hot(EditableTable);
+export default hot(EditableCellComp);

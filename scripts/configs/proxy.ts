@@ -1,7 +1,7 @@
 import { ProxyTable } from '../typings/server';
 
 const proxyTable: ProxyTable = {
-    // '/path_to_be_proxy': { target: 'http://target.domain.com', changeOrigin: true },
+    '/api': { target: 'http://106.54.207.247:8086', changeOrigin: true },
 };
 
 export default proxyTable;

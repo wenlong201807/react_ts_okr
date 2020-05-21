@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'connected-react-router';
+import store from './store';
+import history from './historys';
 
 // import { Provider } from 'react-redux';
 import App from './App';
@@ -9,9 +12,11 @@ import App from './App';
 // const store = { test: 'wenlong' };
 
 ReactDOM.render(
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>,
+    <Provider store={store}>
+        <ConnectedRouter history={history}>
+            <App />
+        </ConnectedRouter>
+    </Provider>,
     // <Provider store={store}>
     //     <App />
     // </Provider>,

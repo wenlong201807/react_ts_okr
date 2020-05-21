@@ -1,62 +1,111 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Link, Route, Switch } from 'react-router-dom';
-import { Button } from 'antd';
+import { Menu } from 'antd';
+import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
+const { SubMenu } = Menu;
 
 import '../styles/reflect/home.less';
 import About from './About';
-import Boss from './modules/Boss';
 import Teams from './modules/Teams';
-import Person from './modules/Person';
+// import Person from './modules/Person';
 import Login from './Login';
-
-const homeBtn = () => {
-    console.log('我是首页');
-};
+import CollapseSelf from '../components/collapse';
+import List from '../components/List';
+import Editorrow from '../components/EditorRow';
+import Editorcell from '../components/Editorcell';
 
 function Home() {
+    let state: any = {
+        theme: 'light',
+        current: '/home/list',
+    };
+    let [status, setStatus] = useState(state);
+
+    const handleClick = (e) => {
+        setStatus({
+            current: e.key,
+        });
+    };
     return (
-        <div className="home">
+        <div  className="home-container">
+          
+            <div className="okrTitle">OKR管理</div>
+            <div className="home">
+            
+           
             <div className="side">
-                <h1>我是菜单栏</h1>
-                <ul>
-                    <li>
-                        <Link to="/home/about">about</Link>
-                    </li>
-                    <li>
-                        <Link to="/home/boss">boss</Link>
-                    </li>
-                    <li>
-                        <Link to="/home/teams">teams</Link>
-                    </li>
-                    <li>
-                        <Link to="/home/person">person</Link>
-                    </li>
-                    <li>
-                        <Link to="/login">login</Link>
-                    </li>
-                </ul>
+                <Menu
+                    theme={status.theme}
+                    onClick={handleClick}
+                    style={{ width: 200 }}
+                    defaultOpenKeys={['sub5']}
+                    selectedKeys={[status.current]}
+                    mode="inline"
+                >
+                    <SubMenu key="sub1" icon={<MailOutlined />} title="我的OKR">
+                        <Menu.Item key="1">王伟</Menu.Item>
+                    </SubMenu>
+                    <SubMenu key="sub2" icon={<AppstoreOutlined />} title="团队OKR">
+                        <Menu.Item key="4">测试环境团队</Menu.Item>
+                    </SubMenu>
+                    <SubMenu key="sub3" icon={<AppstoreOutlined />} title="个人OKR管理">
+                        <Menu.Item key="5">张利</Menu.Item>
+                        <Menu.Item key="6">李雷</Menu.Item>
+                        <Menu.Item key="7">张三</Menu.Item>
+                    </SubMenu>
+                    <SubMenu key="sub4" icon={<SettingOutlined />} title="团队OKR考核">
+                        <Menu.Item key="9">考核全景视图</Menu.Item>
+                        <Menu.Item key="10">系统组</Menu.Item>
+                        <Menu.Item key="11">开发组</Menu.Item>
+                        <Menu.Item key="12">网络组</Menu.Item>
+                        <Menu.Item key="13">前端</Menu.Item>
+                    </SubMenu>
+                    <Menu.Item key="/home/person">
+                        <Link to="/home/person">中心OKR基线</Link>
+                    </Menu.Item>
+                    <SubMenu key="sub5" icon={<AppstoreOutlined />} title="测试中...">
+                        <Menu.Item key="/home/about">
+                            <Link to="/home/about">自我测试</Link>
+                        </Menu.Item>
+
+                        <Menu.Item key="/home/teams">
+                            <Link to="/home/teams">测试环境团队</Link>
+                        </Menu.Item>
+                        <Menu.Item key="/home/collapse">
+                            <Link to="/home/collapse">折叠面板(共用的)</Link>
+                        </Menu.Item>
+                        <Menu.Item key="/home/list">
+                            <Link to="/home/list">列表</Link>
+                        </Menu.Item>
+                        <Menu.Item key="/home/EditorRow">
+                            <Link to="/home/EditorRow">单行全编辑</Link>
+                        </Menu.Item>
+                        <Menu.Item key="/home/Editorcell">
+                            <Link to="/home/Editorcell">编辑单元格</Link>
+                        </Menu.Item>
+                        <Menu.Item key="login">
+                            <Link to="/login">登录</Link>
+                        </Menu.Item>
+                    </SubMenu>
+                </Menu>
             </div>
             <div className="content">
-                <div className="navBar">
-                    <h1>
-                        我是小标题
-                        <Button type="primary" onClick={homeBtn}>
-                            退出
-                        </Button>
-                    </h1>
-                </div>
+
                 <Switch>
                     {/* <Route path={`${match.path}/app`} component={Home} /> */}
-
                     <Route path="/home/about" component={About} />
-                    <Route path="/home/boss" component={Boss} />
                     <Route path="/home/teams" component={Teams} />
-                    <Route path="/home/person" component={Person} />
+                    <Route path="/home/person" component={Editorcell} />
+                    <Route path="/home/collapse" component={CollapseSelf} />
+                    <Route path="/home/list" component={List} />
+                    <Route path="/home/EditorRow" component={Editorrow} />
+                    <Route path="/home/Editorcell" component={Editorcell} />
                     <Route path="/login" component={Login} />
                 </Switch>
             </div>
-        </div>
+            </div>
+            </div>
     );
 }
 

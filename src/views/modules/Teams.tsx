@@ -7,11 +7,16 @@ const teamBtn = () => {
 };
 function Teams() {
     return (
-        <div className="team">
-            <h2 className="title">团队大哥看的页面</h2>
-            <Button type="primary" onClick={teamBtn}>
-                团队
-            </Button>
+        <div className="team-container">
+            <div className="header-introduce">
+                <h2 className="title">测试环境团队OKR管理</h2>
+                <Button type="primary" onClick={teamBtn}>
+                    团队55
+                </Button>
+            </div>
+            <div>
+            
+            </div>
         </div>
     );
 }

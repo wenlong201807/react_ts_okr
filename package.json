@@ -1,12 +1,12 @@
 {
-    "name": "react-typescript-boilerplate",
+    "name": "react-okr",
     "version": "1.0.0",
     "description": "An awesome boilerplate for react + typescript development",
     "private": true,
     "author": {
-        "name": "YuTengjing",
-        "url": "https://github.com/tjx666",
-        "email": "ytj2713151713@gmail.com"
+        "name": "okr",
+        "url": "https://localhost:3000",
+        "email": "okr@qq.com"
     },
     "repository": {
         "type": "git",
@@ -18,17 +18,13 @@
         "build": "cross-env-shell NODE_ENV=production ts-node --files -P scripts/tsconfig.json scripts/build",
         "build-analyze": "yarn build --analyze",
         "test": "echo 'skip test...'",
+        "json": "json-server --port 3003 db.json",
         "lint": "yarn run lint-eslint && yarn run lint-stylelint",
-        "lint-eslint": "eslint -c .eslintrc.js --ext .ts,.tsx,.js {src,scripts}/**/*.{ts,tsx,js}",
+        "lint-eslint": "eslint -c .eslintrc.js --ext .ts,.tsx,.js {src,scripts}/**/*.{ts,tsx,js} --fix",
         "lint-stylelint": "stylelint --config .stylelintrc.json src/**/*.{css,less,scss}",
         "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
     },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged",
-            "commit-msg": "commitlint -c .commitlintrc.js -E HUSKY_GIT_PARAMS"
-        }
-    },
+
     "lint-staged": {
         "*.{ts,tsx,js}": [
             "eslint -c .eslintrc.js"
@@ -50,16 +46,25 @@
         "@ant-design/icons": "^4.1.0",
         "@csstools/normalize.css": "^10.1.0",
         "@hot-loader/react-dom": "^16.12.0",
+        "@types/react": "^16.9.35",
+        "@types/react-dom": "^16.9.8",
         "@types/react-redux": "^7.1.8",
+        "@types/react-router-dom": "^5.1.5",
         "antd": "^4.2.3",
+        "axios": "^0.19.2",
+        "connected-react-router": "^6.8.0",
+        "history": "^4.10.1",
         "react": "^16.13.0",
         "react-dom": "^16.13.0",
         "react-hot-loader": "^4.12.19",
         "react-redux": "^7.2.0",
         "react-router-dom": "^5.1.2",
-        "redux-devtools-extension": "^2.13.8"
+        "redux": "^4.0.5",
+        "redux-promise": "^0.6.0",
+        "redux-thunk": "^2.3.0"
     },
     "devDependencies": {
+        "redux-devtools-extension": "^2.13.8",
         "@babel/core": "^7.8.7",
         "@babel/plugin-proposal-class-properties": "^7.8.3",
         "@babel/plugin-proposal-decorators": "^7.8.3",
@@ -83,9 +88,6 @@
         "@types/http-proxy-middleware": "^0.19.3",
         "@types/mini-css-extract-plugin": "^0.9.1",
         "@types/optimize-css-assets-webpack-plugin": "^5.0.1",
-        "@types/react": "^16.9.34",
-        "@types/react-dom": "^16.9.6",
-        "@types/react-router-dom": "^5.1.4",
         "@types/terser-webpack-plugin": "^2.2.0",
         "@types/webpack": "^4.41.12",
         "@types/webpack-bundle-analyzer": "^2.13.3",
