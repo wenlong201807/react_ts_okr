@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
 // import React, { useContext, useState, useEffect, useRef } from 'react';
-import { Table, Input, InputNumber, Form, Button,message, Popconfirm, Popover } from 'antd';
+import {
+    Table,
+    Input,
+    InputNumber,
+    Form,
+    Button,
+    message,
+    DatePicker,
+    Popconfirm,
+    Popover,
+} from 'antd';
 
 import { PlusCircleOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 import { hot } from 'react-hot-loader/root';
-import '../styles/reflect/editorCell.less';
+import '../../styles/reflect/BaseCenterOKR.less';
 
 const EditableCell = ({
     editing,
@@ -72,7 +82,7 @@ const choiceAction = ({ editingKey, edit, record, delRow }) => {
     );
 };
 
-const EditableCellComp = () => {
+const BaseCenterOKR = () => {
     const originData: any = [
         {
             id: 1,
@@ -182,6 +192,10 @@ const EditableCellComp = () => {
         }
     };
 
+    const yearOnChange = (date, dateString) => {
+        console.log(date, dateString);
+    };
+
     const columns = [
         {
             title: '序列号',
@@ -207,6 +221,7 @@ const EditableCellComp = () => {
         {
             title: '操作',
             dataIndex: 'operation',
+            className: 'headerSelfOperationCla',
             render: (_, record) => {
                 const editable = isEditing(record);
                 return editable ? (
@@ -264,6 +279,19 @@ const EditableCellComp = () => {
     });
     return (
         <div className="editorCellCla">
+            <div className="centerTitle">
+                <div className="baseTitle">实施管理中心年度目标</div>
+                <div className="baseRight">
+                    <div>
+                        {' '}
+                        <DatePicker onChange={yearOnChange} picker="year" />
+                    </div>
+                    <div>
+                        {' '}
+                        <Button type="primary">导出</Button>
+                    </div>
+                </div>
+            </div>
             <div className="tableContainerPerson">
                 <Form form={form} component={false}>
                     <Table
@@ -279,21 +307,11 @@ const EditableCellComp = () => {
                     />
                 </Form>
             </div>
-            <div className="addOneBtnCla">
-                <Button
-                    onClick={() => addOneRow()}
-                    // block
-                    type="dashed"
-                    style={{
-                        marginBottom: 16,
-                        textAlign: 'left',
-                        // height: '55px',
-                        // lineHeight: '55px',
-                    }}
-                >
+            <div className="addOneBtnCla"  onClick={() => addOneRow()}>
+               
                     <PlusCircleOutlined></PlusCircleOutlined>
                     添加目标
-                </Button>
+               
             </div>
             <div className="calcelSaveCla">
                 <Button
@@ -321,4 +339,4 @@ const EditableCellComp = () => {
     );
 };
 
-export default hot(EditableCellComp);
+export default hot(BaseCenterOKR);
