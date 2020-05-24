@@ -6,7 +6,7 @@ import { Table, Input, InputNumber, Form, Button, message, Popconfirm, Menu, Pop
 import { PlusOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 import { hot } from 'react-hot-loader/root';
-import '@/styles/child/TestEnvTeamTable.less';
+import '@/styles/TestEnvTeam/TestEnvTeamTable.less';
 
 const EditableCell = ({
   editing,
@@ -103,8 +103,8 @@ const choiceAction = ({ editingKey, edit, record, delRow }) => {
   );
 };
 
-const TestEnvTeamTable = (props: any) => {
-  console.log(props);
+const TestEnvTeamTable = (TableList: any) => {
+  console.log('TableList:',TableList);
   const originData: any = [
     {
       id: 1,
@@ -119,6 +119,8 @@ const TestEnvTeamTable = (props: any) => {
       targetMean: '赋能事业群',
     },
   ];
+
+  console.log(originData)
 
   const [form] = Form.useForm();
   const [data, setData] = useState(originData);

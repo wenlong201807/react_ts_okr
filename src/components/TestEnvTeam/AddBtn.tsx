@@ -7,7 +7,7 @@ import { PlusCircleOutlined } from '@ant-design/icons';
 
 import { hot } from 'react-hot-loader/root';
 // import '../styles/reflect/editorCell.less';
-import '@/styles/child/AddBtn.less';
+import '@/styles/TestEnvTeam/AddBtn.less';
 
 const AddbtnComp = () => {
   const [data, setData] = useState('originData');

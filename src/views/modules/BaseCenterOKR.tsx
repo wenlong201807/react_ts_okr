@@ -15,7 +15,7 @@ import {
 import { PlusCircleOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 import { hot } from 'react-hot-loader/root';
-import '../../styles/reflect/BaseCenterOKR.less';
+import '@/styles/reflect/BaseCenterOKR.less';
 
 const EditableCell = ({
   editing,
