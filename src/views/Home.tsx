@@ -11,6 +11,7 @@ import Teams from './modules/Teams';
 import BaseCenterOKR from './modules/BaseCenterOKR';
 import Login from './Login';
 import CollapseSelf from '../components/collapse';
+import DefinedCollapse from '../components/DefinedCollapse';
 import List from '../components/List';
 import Editorrow from '../components/EditorRow';
 import Editorcell from '../components/Editorcell';
@@ -71,6 +72,9 @@ function Home() {
                             <Menu.Item key="/home/collapse">
                                 <Link to="/home/collapse">折叠面板(共用的)</Link>
                             </Menu.Item>
+                            <Menu.Item key="/home/DefinedCollapse">
+                                <Link to="/home/DefinedCollapse">折叠面板(自定义)</Link>
+                            </Menu.Item>
                             <Menu.Item key="/home/list">
                                 <Link to="/home/list">列表</Link>
                             </Menu.Item>
@@ -93,6 +97,7 @@ function Home() {
                         <Route path="/home/teams" component={Teams} />
                         <Route path="/home/BaseCenterOKR" component={BaseCenterOKR} />
                         <Route path="/home/collapse" component={CollapseSelf} />
+                        <Route path="/home/DefinedCollapse" component={DefinedCollapse} />
                         <Route path="/home/list" component={List} />
                         <Route path="/home/EditorRow" component={Editorrow} />
                         <Route path="/home/Editorcell" component={Editorcell} />

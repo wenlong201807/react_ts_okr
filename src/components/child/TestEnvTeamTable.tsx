@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { Table, Input, InputNumber, Form, Button, message, Popconfirm, Menu, Popover } from 'antd';
 // import { Table, Input, InputNumber, Form, Button, message, Popconfirm, Menu, Dropdown } from 'antd';
 //
-import { PlusCircleOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { PlusOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 import { hot } from 'react-hot-loader/root';
-import '../styles/reflect/editorCell.less';
+import '@/styles/child/TestEnvTeamTable.less';
 
 const EditableCell = ({
   editing,
@@ -103,20 +103,20 @@ const choiceAction = ({ editingKey, edit, record, delRow }) => {
   );
 };
 
-const EditableCellComp = () => {
+const TestEnvTeamTable = (props: any) => {
+  console.log(props);
   const originData: any = [
     {
       id: 1,
       key: '1',
-      centerObjectCatage: '实施平台化战略',
-      targetMean: '建设全流程智慧协同平台，以智慧驱动研发流程，以协同提升研发效能',
+      centerObjectCatage: 'KR1：与开发进度信息对接，展示环境拓扑图上各组件版本开发完成情况',
+      targetMean: '建设全流程',
     },
     {
       id: 2,
       key: '2',
-      centerObjectCatage: '专业能力建设',
-      targetMean:
-        '加强专业化测试与质控能力内建，为项目实施提供专业保障，通过技术工具推广赋能事业群质量内建',
+      centerObjectCatage: 'KR2：根据测试环境绿灯雷达监测，展示测试环境作战地图上各组件的应用健康检查情况',
+      targetMean: '赋能事业群',
     },
   ];
 
@@ -201,42 +201,50 @@ const EditableCellComp = () => {
     }
   };
 
-  const sendCancen = () => {
-    console.log('取消发送');
-  };
-  const sendAllData = () => {
-    if (editingKey) {
-      console.log('请先保存当前编辑内容,才能发送数据');
-      message.warning('请先保存当前编辑内容,才能发送数据');
-    } else {
-      console.log('发送所有数据', data);
-    }
-  };
+  // const sendCancen = () => {
+  //   console.log('取消发送');
+  // };
+  // const sendAllData = () => {
+  //   if (editingKey) {
+  //     console.log('请先保存当前编辑内容,才能发送数据');
+  //     message.warning('请先保存当前编辑内容,才能发送数据');
+  //   } else {
+  //     console.log('发送所有数据', data);
+  //   }
+  // };
 
   const columns = [
     {
-      title: '序列号',
-      dataIndex: 'id',
-      width: '8%',
-      editable: false,
-      className: 'headerSelfCla',
-    },
-    {
       title: '中心目标分类',
       dataIndex: 'centerObjectCatage',
-      width: '15',
+      width: '50%',
       editable: true,
       className: 'headerSelfCla',
     },
     {
       title: '目标含义',
       dataIndex: 'targetMean',
-      width: '60%',
+      width: '15%',
+      editable: true,
+      className: 'headerSelfCla',
+    },
+    {
+      title: '目标含义',
+      dataIndex: 'targetMean',
+      width: '15%',
+      editable: true,
+      className: 'headerSelfCla',
+    },
+    {
+      title: '目标含义',
+      dataIndex: 'targetMean',
+      width: '10%',
       editable: true,
       className: 'headerSelfCla',
     },
     {
       title: '操作',
+      width: '10%',
       dataIndex: 'operation',
       render: (_, record) => {
         const editable = isEditing(record);
@@ -301,7 +309,7 @@ const EditableCellComp = () => {
     };
   });
   return (
-    <div className="editorCellCla">
+    <div className="TestEnvTeamTableCla">
       <div className="tableContainerPerson">
         <Form form={form} component={false}>
           <Table
@@ -310,6 +318,7 @@ const EditableCellComp = () => {
                 cell: EditableCell,
               },
             }}
+            bordered
             pagination={false}
             showHeader={false}
             dataSource={data}
@@ -319,29 +328,15 @@ const EditableCellComp = () => {
         </Form>
       </div>
       {/*
-      <div className="addOneBtnCla">
-        <Button
-          onClick={() => addOneRow()}
-          // block
-          type="dashed"
-          style={{
-            marginBottom: 16,
-            textAlign: 'left',
-            // height: '55px',
-            // lineHeight: '55px',
-          }}
-        >
-          <PlusCircleOutlined></PlusCircleOutlined>
-          添加目标
-        </Button>
-      </div>
+   
       */}
       <div className="addOneBtnCla" onClick={() => addOneRow()}>
-        <PlusCircleOutlined></PlusCircleOutlined>
+        <PlusOutlined />
 
-        <span className="addTargetCla">添加目标</span>
+        <span className="addTargetCla">添加Key Results</span>
       </div>
-      <div className="calcelSaveCla">
+      {/*
+       <div className="calcelSaveCla">
         <Button
           onClick={() => sendCancen()}
           type="primary"
@@ -363,8 +358,9 @@ const EditableCellComp = () => {
           保存
         </Button>
       </div>
+      */}
     </div>
   );
 };
 
-export default hot(EditableCellComp);
+export default hot(TestEnvTeamTable);
