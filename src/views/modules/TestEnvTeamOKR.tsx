@@ -128,7 +128,7 @@ function TestEnvTeamOKR() {
               content: 'woshineir1',
               myWeight: '30%',
               myFinish: '20%',
-              myAdmin: '朱',
+              myAdmin: '朱之歌',
               myAction: '详情',
             },
             {
@@ -137,7 +137,7 @@ function TestEnvTeamOKR() {
               content: 'woshineir2',
               myWeight: '50%',
               myFinish: '70%',
-              myAdmin: '文',
+              myAdmin: '文话',
               myAction: '详情',
             },
           ],

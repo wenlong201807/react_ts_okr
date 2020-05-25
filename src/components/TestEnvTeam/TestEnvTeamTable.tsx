@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 // import React, { useContext, useState, useEffect, useRef } from 'react';
 import { Table, Input, InputNumber, Form, Button, message, Popconfirm, Menu, Popover } from 'antd';
-// import { Table, Input, InputNumber, Form, Button, message, Popconfirm, Menu, Dropdown } from 'antd';
-//
 import { PlusOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 import { hot } from 'react-hot-loader/root';
@@ -19,6 +17,7 @@ const EditableCell = ({
   ...restProps
 }) => {
   const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
+ 
   return (
     <td {...restProps}>
       {editing ? (
@@ -90,21 +89,22 @@ const choiceAction = ({ editingKey, edit, record, delRow }) => {
   return (
     <Menu>
       <Menu.Item>
-        <a className="EditDelRowCla" onClick={(e) => edit(e, record)}>
-          1st tem编辑6
-        </a>
+        <span className="EditDelRowCla" onClick={() => edit(record)}>
+          编辑6
+        </span>
       </Menu.Item>
       <Menu.Item>
-        <a className="EditDelRowCla" onClick={() => delRow(record)}>
+        <span className="EditDelRowCla" onClick={() => delRow(record)}>
           删除7
-        </a>
+        </span>
       </Menu.Item>
     </Menu>
   );
 };
 
 const TestEnvTeamTable = (TableList: any) => {
-  console.log('TableList:',TableList);
+  console.log('TableList:', TableList);
+  console.log('TableList:', TableList.list);
   const originData: any = [
     {
       id: 1,
@@ -115,21 +115,22 @@ const TestEnvTeamTable = (TableList: any) => {
     {
       id: 2,
       key: '2',
-      centerObjectCatage: 'KR2：根据测试环境绿灯雷达监测，展示测试环境作战地图上各组件的应用健康检查情况',
+      centerObjectCatage:
+        'KR2：根据测试环境绿灯雷达监测，展示测试环境作战地图上各组件的应用健康检查情况',
       targetMean: '赋能事业群',
     },
   ];
 
-  console.log(originData)
+  console.log(originData);
 
   const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
+  const [data, setData] = useState(TableList.list);
   const [editingKey, setEditingKey] = useState('');
 
   const isEditing = (record) => record.key === editingKey;
 
-  const edit = (e, record) => {
-    console.log('edit--record--cell:', e, record);
+  const edit = (record) => {
+    console.log('edit--record--cell:', record);
     form.setFieldsValue({
       centerObjectCatage: '',
       targetMean: '',
@@ -154,14 +155,22 @@ const TestEnvTeamTable = (TableList: any) => {
     } else {
       form.resetFields();
       let len = data.length;
-      const newIndex = data[len - 1].id + 1;
-      console.log(len, data[len - 1]);
+      console.log('data:', data, len);
+      let newIndex = 0;
+      if (len) {
+        newIndex = data[len - 1].id + 1;
+      } else {
+        newIndex = 1;
+      }
+
       setEditingKey(newIndex.toString()); // 新添加的这一行变成可编辑状态
       const newRow = {
         id: newIndex,
         key: newIndex.toString(),
-        centerObjectCatage: ``,
-        targetMean: ``,
+        content: ``,
+        myWeight: ``,
+        myFinish: ``,
+        myAdmin: ``,
       };
       data.push(newRow);
       const newData = [...data];
@@ -218,28 +227,28 @@ const TestEnvTeamTable = (TableList: any) => {
   const columns = [
     {
       title: '中心目标分类',
-      dataIndex: 'centerObjectCatage',
+      dataIndex: 'content',
       width: '50%',
       editable: true,
       className: 'headerSelfCla',
     },
     {
-      title: '目标含义',
-      dataIndex: 'targetMean',
+      title: '权重',
+      dataIndex: 'myWeight',
       width: '15%',
       editable: true,
       className: 'headerSelfCla',
     },
     {
-      title: '目标含义',
-      dataIndex: 'targetMean',
+      title: '完成度',
+      dataIndex: 'myFinish',
       width: '15%',
       editable: true,
       className: 'headerSelfCla',
     },
     {
-      title: '目标含义',
-      dataIndex: 'targetMean',
+      title: '负责人',
+      dataIndex: 'myAdmin',
       width: '10%',
       editable: true,
       className: 'headerSelfCla',
@@ -320,7 +329,16 @@ const TestEnvTeamTable = (TableList: any) => {
                 cell: EditableCell,
               },
             }}
-            bordered
+            // bordered
+            onRow={record => {
+              return {
+                onClick: event => {
+                  console.log('点击行触发:',record,event)
+                  console.log('TableList:',TableList)
+                }, // 点击行
+              
+              };
+            }}
             pagination={false}
             showHeader={false}
             dataSource={data}

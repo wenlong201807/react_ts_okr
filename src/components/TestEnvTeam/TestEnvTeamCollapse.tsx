@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { hot } from 'react-hot-loader/root';
 import '@/styles/TestEnvTeam/TestEnvTeamCollapse.less';
 
-import { Collapse } from 'antd';
-// import { SettingOutlined } from '@ant-design/icons';
-import { PlusCircleOutlined, SendOutlined } from '@ant-design/icons';
-// import AddBtn from '@/components/child/AddBtn'
+import { Collapse, Input, Button, Form, message,Popover,Menu } from 'antd';
+
+import { PlusCircleOutlined, SendOutlined, EllipsisOutlined,CloseOutlined } from '@ant-design/icons';
 import TestEnvTeamTable from '@/components/TestEnvTeam/TestEnvTeamTable';
 const { Panel } = Collapse;
 
@@ -13,16 +12,31 @@ function callback(key) {
   console.log(key);
 }
 
-const myHead = (row) => {
-  // console.log('折叠面板表头内容：',row)
+const choiceAction = ({ editingKey,
+  editObjective,
+  editResult,
+  row,
+  delNewCollapse }) => {
+  console.log(editingKey);
+ 
   return (
-    <div className="collapseHeaderCla">
-      <div>{row.headItem.head}</div>
-      <div>权重：{row.headItem.weight}%</div>
-      <div>完成度：{row.headItem.finish}%</div>
-      <div>{row.headItem.admin}</div>
-      <div>{row.headItem.isAction ? '编辑' : '查看'}</div>
-    </div>
+    <Menu>
+      <Menu.Item>
+        <span className="EditDelRowCla" onClick={() => editObjective(row)}>
+        编辑Objective
+        </span>
+      </Menu.Item>
+      <Menu.Item>
+        <span className="EditDelRowCla" onClick={() => editResult(row)}>
+        编辑Result
+        </span>
+      </Menu.Item>
+      <Menu.Item>
+        <span className="EditDelRowCla" onClick={() => delNewCollapse(row)}>
+          删除Objective
+        </span>
+      </Menu.Item>
+    </Menu>
   );
 };
 
@@ -89,34 +103,170 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
     },
   ];
   console.log('数据格式：', CollapseList);
-
+  const [form] = Form.useForm();
   const [CollapseListData, setCollapseListData] = useState(parentObejct.objectArr);
+  const [editingKey, setEditingKey] = useState('');
+
+  const isEditing = (record) => record.headItem.head === editingKey;
+  // const [CurrentList, setCurrentList] = useState([]);
+  console.log('editingKey:', editingKey);
   // const [CollapseListData, setCollapseListData] = useState(CollapseList);
 
-  const addOneCollapse = () => {
-    console.log(66);
-    let Len = CollapseListData[CollapseListData.length - 1].list.length + 1;
-    console.log(CollapseListData[CollapseListData.length - 1]);
-    let obj = {
-      key: Len.toString(),
-      id: Len,
-      headItem: {
-        head: `O${Len}：dsaf`,
-        weight: '10%',
-        finish: '86%',
-        admin: '李jing',
-        isAction: true,
-      },
-    };
-    // useEffect(() => {
-    const newCollapseListData = [...CollapseListData];
-    newCollapseListData.push(obj);
-    //   return () => {
-    setCollapseListData(newCollapseListData);
-    //   }
-    // }, [CollapseListData])
+  const myHead = (row,order) => {
+    console.log('折叠面板表头内容：', row, isEditing,order);
+    console.log('折叠面板表头内容order：', order);
+    // console.log('折叠面板表头是否存在内容row.headItem.head：', row.headItem.head);
+    const isEditInput = isEditing(row);
+    // console.log('是否可编辑：', isEditInput);
+    if (isEditInput) {
+      return (
+        <div className="collapseHeaderCla">
+          <div className="objectOrder">O{order+1}:</div>
 
-    console.log(CollapseListData);
+          <div className="objectInput">
+            <Form.Item
+              name={'headSelf'}
+              
+              style={{
+                margin: 0,
+              }}
+              rules={[
+                {
+                  required: true,
+                  message: `添加Objective的内容不能为空`,
+                  // message: `KR${title} 不能为空`,
+                },
+              ]}
+            >
+              <Input defaultValue={row.headItem.head} />
+            </Form.Item>
+          </div>
+          <div className="objectAdmin">
+          <CloseOutlined  onClick={() => delNewCollapse(row)}/>
+          </div>
+          <div className="objectIsAction">
+            <Button
+              onClick={() => save(row.key)}
+              style={{
+                marginRight: 8,
+              }}
+            >
+              保存
+            </Button>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="collapseHeaderCla">
+          <div className="objectTitle">
+            <span className="objectTitleNum">O{order+1}:</span> {row.headItem.head}
+          </div>
+          <div className="objectWeight">权重：{row.headItem.weight}%</div>
+          <div className="objectFinish">完成度：{row.headItem.finish}%</div>
+          <div className="objectAdmin">负责人</div>
+          <div className="objectIsAction">
+          <Popover
+          placement="bottom"
+          content={choiceAction({
+            editingKey,
+            editObjective,
+            editResult,
+            row,
+            delNewCollapse
+          })}
+          trigger="click"
+        >
+          <EllipsisOutlined />
+        </Popover>
+          </div>
+        </div>
+      );
+    }
+  };
+
+  const save = async (key) => {
+    try {
+      const row = await form.validateFields();
+      console.log('编辑之后的row:', row); // 当前被编辑过的input对象
+      const newData = [...CollapseListData]; // 获取更新之后的新数组，放入表格中的
+      console.log('编辑之后的newData:', newData);
+      const index = newData.findIndex((item) => key === item.key);
+      console.log('选中被修改的newData:', newData[index]);
+
+      newData[index].headItem.head = row.headSelf;
+      delete newData[index].headSelf;
+      if (index > -1) {
+        const item = newData[index]; // 编辑过的当前行
+        console.log('item不存在的时候:', item);
+        newData.splice(index, 1, { ...item, ...row }); // item必须在前，row必须在后
+        setCollapseListData(newData);
+        setEditingKey('');
+      } else {
+        // newData.push(row);
+        setCollapseListData(newData);
+        setEditingKey('');
+      }
+    } catch (errInfo) {
+      console.log('编辑出错啦:', errInfo);
+    }
+  };
+
+  const editObjective = (row) => {
+    console.log('editObjective', row)
+    console.log('当前页面中现有的数据：', CollapseListData);
+    const newCollapseListData = [...CollapseListData];
+    const index = newCollapseListData.findIndex((item) => row.key === item.key);
+    console.log('需要编辑的行', index)
+    // 选中需要编辑的head的内容
+    let oldHead = newCollapseListData[index].headItem.head
+    setEditingKey(oldHead)
+    
+  }
+  const editResult = (row) => {
+    console.log('editResult',row)
+  }
+
+  const delNewCollapse = (row) => {
+    // console.log(row)
+    // console.log('当前页面中现有的数据：', CollapseListData);
+    const newCollapseListData = [...CollapseListData];
+    const index = newCollapseListData.findIndex((item) => row.key === item.key);
+    newCollapseListData.splice(index, 1);
+    setCollapseListData(newCollapseListData);
+    setEditingKey('');
+  }
+
+  const addOneCollapse = () => {
+    console.log(66, CollapseListData);
+    if (editingKey) {
+      message.warning('请先保存当前编辑的Objective');
+    } else {
+      form.resetFields();
+      let len = CollapseListData.length;
+      // console.log('list:', CollapseListData[len - 1].list)
+
+      // const newIndex = len + 1;
+      // let Len = CollapseListData.length - 1].list.length + 1;
+      // console.log(newIndex.toString());
+      setEditingKey(''); // row.headItem.head 为空时，可编辑
+      let obj = {
+        key: len.toString(),
+        id: len,
+        headItem: {
+          head: ``,
+          weight: '100%',
+          finish: '0%',
+          admin: '负责人',
+          isAction: true,
+        },
+        list: [],
+      };
+
+      CollapseListData.push(obj);
+      const newCollapseListData = [...CollapseListData];
+      setCollapseListData(newCollapseListData);
+    }
   };
   return (
     <div className="DefinedCollapseContainer">
@@ -124,20 +274,24 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
         <SendOutlined />
         <span className="objectTypeTitle">{parentObejct.title}</span>{' '}
       </div>
-      <Collapse
-        defaultActiveKey={['1']}
-        onChange={callback}
-        bordered={false}
-        expandIconPosition={'right'}
-      >
-        {CollapseListData.map((item) => {
-          return (
-            <Panel header={myHead(item)} key={item.key}>
-              <TestEnvTeamTable key={item.key} {...item}></TestEnvTeamTable>
-            </Panel>
-          );
-        })}
-      </Collapse>
+
+      <Form form={form} component={false}>
+        <Collapse
+          defaultActiveKey={['1']}
+          onChange={callback}
+          bordered={false}
+          expandIconPosition={'right'}
+        >
+          {CollapseListData.map((item,order) => {
+            return (
+              <Panel header={myHead(item,order)} key={item.key}>
+                <TestEnvTeamTable key={item.key} {...item}></TestEnvTeamTable>
+              </Panel>
+            );
+          })}
+        </Collapse>
+      </Form>
+
       <div className="addOneBtnCla" onClick={() => addOneCollapse()}>
         <PlusCircleOutlined></PlusCircleOutlined>
         <span className="addTargetCla">添加Objective</span>

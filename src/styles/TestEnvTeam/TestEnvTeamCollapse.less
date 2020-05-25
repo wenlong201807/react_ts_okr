@@ -1,9 +1,14 @@
 .DefinedCollapseContainer {
-  background: pink;
+  // background: pink;
   // height: 500px;
   margin-bottom: 3px;
 
-  .objectTypeCla{
+  // 修改弹出框的默认样式
+  .ant-popover-inner-content {
+    padding: 0 !important;
+  }
+
+  .objectTypeCla {
     line-height: 42px;
     height: 42px;
     // border: 1px solid #ccc;
@@ -15,7 +20,7 @@
     margin-bottom: 1px;
     padding-left: 15px;
 
-    .objectTypeTitle{
+    .objectTypeTitle {
       margin-left: 15px;
     }
   }
@@ -26,6 +31,44 @@
     background: #fff;
     display: flex;
     justify-content: flex-start;
+
+    .objectOrder {
+      // margin-left: 10px;
+      width: 40px;
+      // border-right: 1px solid #ccc;
+    }
+    .objectInput {
+      width: 65%;
+      // border-right: 1px solid #ccc;
+    }
+
+    .objectTitle {
+      width: 55%;
+      // border-right: 1px solid #ccc;
+      .objectTitleNum {
+        margin-right: 20px;
+      }
+    }
+    .objectWeight {
+      margin-left: 10px;
+      width: 16%;
+      // border-right: 1px solid #ccc;
+    }
+    .objectFinish {
+      margin-left: 10px;
+      width: 16%;
+      // border-right: 1px solid #ccc;
+    }
+    .objectAdmin {
+      margin-left: 10px;
+      width: 10%;
+      // border-right: 1px solid #ccc;
+    }
+    .objectIsAction {
+      margin-left: 10px;
+      width: 10%;
+      // border-right: 1px solid #ccc;
+    }
   }
 
   .addOneBtnCla {
