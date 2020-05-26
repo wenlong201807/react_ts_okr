@@ -5,7 +5,8 @@ import '@/styles/TestEnvTeam/TestEnvTeamCollapse.less';
 import { Collapse, Input, Button, Form, message,Popover,Menu } from 'antd';
 
 import { PlusCircleOutlined, SendOutlined, EllipsisOutlined,CloseOutlined } from '@ant-design/icons';
-import TestEnvTeamTable from '@/components/TestEnvTeam/TestEnvTeamTable';
+import TestEnvTeamList from '@/components/TestEnvTeam/TestEnvTeamList';
+// import TestEnvTeamTable from '@/components/TestEnvTeam/TestEnvTeamTable';
 const { Panel } = Collapse;
 
 function callback(key) {
@@ -284,8 +285,9 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
         >
           {CollapseListData.map((item,order) => {
             return (
-              <Panel header={myHead(item,order)} key={item.key}>
-                <TestEnvTeamTable key={item.key} {...item}></TestEnvTeamTable>
+              <Panel header={myHead(item, order)} key={item.key}>
+                {/*<TestEnvTeamTable key={item.key} {...item}></TestEnvTeamTable>*/}
+                <TestEnvTeamList key={item.key} {...item}></TestEnvTeamList>
               </Panel>
             );
           })}

@@ -10,6 +10,7 @@ import About from './About';
 import Teams from './modules/Teams';
 import BaseCenterOKR from './modules/BaseCenterOKR';
 import TestEnvTeamOKR from './modules/TestEnvTeamOKR';
+import TestEnvTeamOKR2 from './modules/TestEnvTeamOKR2';
 import Login from './Login';
 import CollapseSelf from '../components/collapse';
 import List from '../components/List';
@@ -46,6 +47,9 @@ function Home() {
             <SubMenu key="sub2" icon={<AppstoreOutlined />} title="团队OKR">
               <Menu.Item key="/home/TestEnvTeamOKR">
                 <Link to="/home/TestEnvTeamOKR">测试环境团队</Link>
+              </Menu.Item>
+              <Menu.Item key="/home/TestEnvTeamOKR2">
+                <Link to="/home/TestEnvTeamOKR2">测试环境团队2</Link>
               </Menu.Item>
             </SubMenu>
             <SubMenu key="sub3" icon={<AppstoreOutlined />} title="个人OKR管理">
@@ -97,6 +101,7 @@ function Home() {
             <Route path="/home/teams" component={Teams} />
             <Route path="/home/BaseCenterOKR" component={BaseCenterOKR} />
             <Route path="/home/TestEnvTeamOKR" component={TestEnvTeamOKR} />
+            <Route path="/home/TestEnvTeamOKR2" component={TestEnvTeamOKR2} />
             <Route path="/home/collapse" component={CollapseSelf} />
 
             <Route path="/home/list" component={List} />
