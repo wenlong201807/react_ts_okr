@@ -1,34 +1,94 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
-// import { Button } from 'antd';
-import { EllipsisOutlined, UpOutlined } from '@ant-design/icons';
-// import { Button } from 'antd';
+import { Form, Input, Button } from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
-// const loginBtn = () => {
-//     console.log('登录');
-// };
-function CRUD() {
+import '@/styles/reflect/CRUD.less';
+
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 4 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 20 },
+  },
+};
+const formItemLayoutWithOutLabel = {
+  wrapperCol: {
+    xs: { span: 24, offset: 0 },
+    sm: { span: 20, offset: 4 },
+  },
+};
+
+const CRUD = () => {
+  const onFinish = (values) => {
+    console.log('Received values of form:', values);
+  };
+
   return (
-    <div className="CRUD">
-      <h2>增删改查</h2>
-      <div className="contentList">
-        <div className="listTitle">
-          <div className="objectTitle">
-            <span className="objectTitleNum">O{1}:</span> {'row.headItem.head'}
-          </div>
-          <div className="objectWeight">权重：{'row.headItem.weight'}%</div>
-          <div className="objectFinish">完成度：{'row.headItem.finish'}%</div>
-          <div className="objectAdmin">负责人</div>
-          <div className="objectIsAction">
-            <EllipsisOutlined />
-          </div>
-          <div className="objectArrow">
-            <UpOutlined />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+    <Form name="dynamic_form_item" {...formItemLayoutWithOutLabel} onFinish={onFinish}>
+      <Form.List name="names">
+        {(fields, { add, remove }) => {
+          return (
+            <div>
+              {fields.map((field, index) => (
+                <Form.Item
+                  {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+                  label={index === 0 ? 'Passengers' : `第${index+1}个:`}
+                  required={false}
+                  key={field.key}
+                >
+                  <Form.Item
+                    {...field}
+                    
+                    // validateTrigger={['onChange', 'onBlur']}
+                    rules={[
+                      {
+                        // required: true,
+                        whitespace: true,
+                        message: "必填项",
+                      },
+                    ]}
+                    noStyle
+                  >
+                    <Input placeholder="passenger name" style={{ width: '60%' }} />
+                  </Form.Item>
+                
+                  {fields.length > 1 ? (
+                    <MinusCircleOutlined
+                      className="dynamic-delete-button"
+                      style={{ margin: '0 8px' }}
+                      onClick={() => {
+                        remove(field.name);
+                      }}
+                    />
+                  ) : null}
+                </Form.Item>
+              ))}
+              <Form.Item>
+                <Button
+                  type="dashed"
+                  onClick={() => {
+                    add();
+                  }}
+                  style={{ width: '60%' }}
+                >
+                  <PlusOutlined /> 添加一列
+                </Button>
+              </Form.Item>
+            </div>
+          );
+        }}
+      </Form.List>
 
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          保存
+        </Button>
+      </Form.Item>
+    </Form>
+  );
+};
 export default hot(CRUD);

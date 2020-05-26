@@ -14,6 +14,8 @@ import TestEnvTeamOKR2 from './modules/TestEnvTeamOKR2';
 import Login from './Login';
 import CollapseSelf from '../components/collapse';
 import List from '../components/List';
+import multiRowForm from '../components/multiRowForm';
+import CRUD from '../components/CRUD';
 import Editorrow from '../components/EditorRow';
 import Editorcell from '../components/Editorcell';
 
@@ -42,8 +44,11 @@ function Home() {
             selectedKeys={[status.current]}
             mode="inline"
           >
-            <Menu.Item key="1">我的OKR</Menu.Item>
-
+            <SubMenu key="sub1" icon={<AppstoreOutlined />} title="我的OKR">
+              <Menu.Item key="/home/TestEnvTeamOKR">
+                <Link to="/home/TestEnvTeamOKR">王伟(待定)</Link>
+              </Menu.Item>
+            </SubMenu>
             <SubMenu key="sub2" icon={<AppstoreOutlined />} title="团队OKR">
               <Menu.Item key="/home/TestEnvTeamOKR">
                 <Link to="/home/TestEnvTeamOKR">测试环境团队</Link>
@@ -82,6 +87,12 @@ function Home() {
               <Menu.Item key="/home/list">
                 <Link to="/home/list">列表</Link>
               </Menu.Item>
+              <Menu.Item key="/home/CRUD">
+                <Link to="/home/CRUD">表单CRUD</Link>
+              </Menu.Item>
+              <Menu.Item key="/home/multiRowForm">
+                <Link to="/home/multiRowForm">多行表单</Link>
+              </Menu.Item>
               <Menu.Item key="/home/EditorRow">
                 <Link to="/home/EditorRow">单行全编辑</Link>
               </Menu.Item>
@@ -104,7 +115,9 @@ function Home() {
             <Route path="/home/TestEnvTeamOKR2" component={TestEnvTeamOKR2} />
             <Route path="/home/collapse" component={CollapseSelf} />
 
+            <Route path="/home/multiRowForm" component={multiRowForm} />
             <Route path="/home/list" component={List} />
+            <Route path="/home/CRUD" component={CRUD} />
             <Route path="/home/EditorRow" component={Editorrow} />
             <Route path="/home/Editorcell" component={Editorcell} />
             <Route path="/login" component={Login} />
