@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Form, Menu, Dropdown, Input, Button } from 'antd';
 // import { Button ,Menu, Dropdown } from 'antd';
@@ -10,10 +10,12 @@ import '@/styles/TestEnvTeam/TestEnvTeamSecond.less';
 function TestEnvTeamSecond(TableList: any) {
   // console.log('TableList:', TableList);
   // console.log('TableList.objectArr:', TableList.objectArr);
+
   const [data, setData] = useState(TableList.objectArr);
   const [editingKey, setEditingKey] = useState('');
   const [oldheadValue, setOldheadValue] = useState('');
   const [isEditObjList, setEditObjList] = useState(false);
+  const childRef:any = useRef();
 
   const isEditing = (record) => record.headItem.head === editingKey;
   const isEditObjListChange = (record) => record.headItem.isAction === isEditObjList;
@@ -32,6 +34,7 @@ function TestEnvTeamSecond(TableList: any) {
         <Menu.Item onClick={() => editObjective(objItem)}> 修改Objective</Menu.Item>
         <Menu.Item onClick={() => delObject(objItem)}>删除Objective</Menu.Item>
         <Menu.Item onClick={() => editObjList(objItem)}>修改KPIs</Menu.Item>
+        <Menu.Item onClick={() => pToC(objItem)}>test</Menu.Item>
       </Menu>
     );
   };
@@ -39,6 +42,11 @@ function TestEnvTeamSecond(TableList: any) {
   // const onFinish = (values: any) => {
   //   console.log('Received values of form:', values);
   // };
+  const pToC = (objItem) => {
+    console.log(objItem)
+   childRef.current.changeVal()
+   childRef.current.getFormValues()
+  }
 
   const editObjective = (objItem) => {
     // console.log('修改objective==objItem', objItem);
@@ -139,7 +147,7 @@ function TestEnvTeamSecond(TableList: any) {
                   <Button onClick={() => delObject(objItem)}>删除</Button>
                 </div>
               </div>
-              <TestEnvTeamList isEditList={false} key={objIndex} {...objItem}></TestEnvTeamList>
+              <TestEnvTeamList cRef={childRef}  isEditList={false} key={objIndex} {...objItem}></TestEnvTeamList>
             </div>
           );
         } else {
@@ -167,7 +175,7 @@ function TestEnvTeamSecond(TableList: any) {
               是否可编辑子列表的内容
   
               */}
-                <TestEnvTeamList isEditList={false} key={objIndex} {...objItem}></TestEnvTeamList>
+                <TestEnvTeamList cRef={childRef}  isEditList={false} key={objIndex} {...objItem}></TestEnvTeamList>
               </div>
             );
           } else {
@@ -191,7 +199,7 @@ function TestEnvTeamSecond(TableList: any) {
               是否可编辑子列表的内容
   
               */}
-                <TestEnvTeamList isEditList={true} key={objIndex} {...objItem}></TestEnvTeamList>
+                <TestEnvTeamList cRef={childRef}  isEditList={true} key={objIndex} {...objItem}></TestEnvTeamList>
               </div>
             );
           }

@@ -19,7 +19,7 @@ const rowlist: any = [
   },
 ];
 
-const EditTable2 = () => {
+const EditTable = () => {
   const [data, setdataInfo] = useState<Array<any>>(rowlist);
   const addRow = () => {
     setdataInfo([
@@ -46,7 +46,14 @@ const EditTable2 = () => {
     RemoveValByIndex(copydata, index);
     setdataInfo(copydata);
   };
-
+  const saveRow = (id: number) => {
+    let copydata = JSON.parse(JSON.stringify(data));
+    let index = data.findIndex((item) => item.id === id);
+    copydata[index] = Object.assign(copydata[index], {
+      edit: false,
+    });
+    setdataInfo(copydata);
+  };
   const getContent = (value: string, index: number) => {
     console.log(value);
     let copydata = JSON.parse(JSON.stringify(data));
@@ -71,12 +78,12 @@ const EditTable2 = () => {
       item.edit = false;
     });
     setdataInfo(copydata);
-    console.log('获取所有值', data);
+    console.log(data);
   };
   const editall = () => {
     let copydata = JSON.parse(JSON.stringify(data));
     copydata.forEach((item: any, index: number) => {
-      console.log(index);
+      console.log(index)
       item.edit = true;
     });
     // data.forEach(item => {
@@ -86,52 +93,48 @@ const EditTable2 = () => {
     // console.log(data)
   };
   return (
-    <div className="multiRowFormCla">
+    <div>
       <Button type="primary" onClick={addRow}>
         添加一行
       </Button>
-      <Button onClick={saveTable}>保存==获取所有值</Button>
+      <Button onClick={saveTable}>保存</Button>
       <Button onClick={editall}>全体编辑</Button>
       {data.map((item: any, index: number) => {
         if (item.edit) {
           return (
-            <div key={item.id} className="multiRowwrap">
-              <div className="multiRowFormInner">
+            <div key={item.id}>
+              <div className="wrap">
                 <Input
-                className="rowInp"
-                  placeholder={'KR' + (index + 1)}
+                  placeholder="1"
                   value={item.title}
+                  style={{ width: '200px' }}
                   onChange={(e) => getTitle(e.target.value, index)}
                 />
-
                 <Input
-                className="rowInp"
-                  placeholder="权重"
+                  placeholder="2"
                   value={item.content}
+                  style={{ width: '200px' }}
                   onChange={(e) => getContent(e.target.value, index)}
                 />
-
                 <Input
-                className="rowInp"
-                  placeholder="完成度"
+                  placeholder="3"
                   value={item.conname}
+                  style={{ width: '200px' }}
                   onChange={(e) => getConname(e.target.value, index)}
                 />
-
+                <Button onClick={() => saveRow(item.id)}>保存</Button>
                 <Button onClick={() => deleRow(index)}>删除</Button>
               </div>
             </div>
           );
         } else {
           return (
-            <div key={item.id} className="multiRowwrap">
-              <div className="multiRowFormInner">
-                <div className="rowInp">
-                  KR{index + 1}：{item.title}
-                </div>
-                <div className="rowInp">权重： {item.content}</div>
-                <div className="rowInp">完成度：{item.conname}</div>
-                <Button className="rowInp" onClick={() => deleRow(index)}>删除</Button>
+            <div key={item.id}>
+              <div className="wrap">
+                <span>{item.title}</span>
+                <span>{item.content}</span>
+                <span>{item.conname}</span>
+                <Button onClick={() => deleRow(index)}>删除</Button>
               </div>
             </div>
           );
@@ -141,4 +144,4 @@ const EditTable2 = () => {
   );
 };
 
-export default EditTable2;
+export default EditTable;

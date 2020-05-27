@@ -12,8 +12,10 @@ import BaseCenterOKR from './modules/BaseCenterOKR';
 import TestEnvTeamOKR from './modules/TestEnvTeamOKR';
 import TestEnvTeamOKR2 from './modules/TestEnvTeamOKR2';
 import Login from './Login';
+import Empty from './Empty';
 import CollapseSelf from '../components/collapse';
 import List from '../components/List';
+import editEdit from '../components/editEdit';
 import multiRowForm from '../components/multiRowForm';
 import CRUD from '../components/CRUD';
 import Editorrow from '../components/EditorRow';
@@ -93,6 +95,9 @@ function Home() {
               <Menu.Item key="/home/multiRowForm">
                 <Link to="/home/multiRowForm">多行表单</Link>
               </Menu.Item>
+              <Menu.Item key="/home/editEdit">
+                <Link to="/home/editEdit">表单</Link>
+              </Menu.Item>
               <Menu.Item key="/home/EditorRow">
                 <Link to="/home/EditorRow">单行全编辑</Link>
               </Menu.Item>
@@ -101,6 +106,9 @@ function Home() {
               </Menu.Item>
               <Menu.Item key="login">
                 <Link to="/login">登录</Link>
+              </Menu.Item>
+              <Menu.Item key="Empty">
+                <Link to="/Empty">空页</Link>
               </Menu.Item>
             </SubMenu>
           </Menu>
@@ -117,10 +125,12 @@ function Home() {
 
             <Route path="/home/multiRowForm" component={multiRowForm} />
             <Route path="/home/list" component={List} />
+            <Route path="/home/editEdit" component={editEdit} />
             <Route path="/home/CRUD" component={CRUD} />
             <Route path="/home/EditorRow" component={Editorrow} />
             <Route path="/home/Editorcell" component={Editorcell} />
             <Route path="/login" component={Login} />
+            <Route path="/Empty" component={Empty} />
           </Switch>
         </div>
       </div>

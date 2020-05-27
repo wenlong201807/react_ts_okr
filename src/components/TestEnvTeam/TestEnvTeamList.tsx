@@ -1,17 +1,28 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
+import React, { useState, useImperativeHandle } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Form, Input, Button } from 'antd';
 
 import '@/styles/TestEnvTeam/TestEnvTeamList.less';
 function TestEnvTeamList(secondParentList) {
   // console.log('secondParentList.headItem.isAction:', secondParentList.headItem.isAction);
-  console.log('secondParentList.isEditList:', secondParentList.isEditList);
-  // console.log('当前列表数据:', secondParentList.list);
+  // console.log('secondParentList.isEditList:', secondParentList.isEditList);
+  console.log('当前父组件的secondParentList所有:', secondParentList);
 
   const [data, setData] = useState(secondParentList.list);
   const [isEditList, setEditList] = useState(secondParentList.isEditList);
+  const [form] = Form.useForm();
   // console.log(data);
-
+  // const cRef: any ;
+  useImperativeHandle(secondParentList.cRef, () => ({
+    // changeVal 就是暴露给父组件的方法
+    changeVal: (newVal: any = '父调用子组件方法') => {
+      console.log(newVal);
+    },
+    getFormValues: () => {
+      console.log('当前表格数据：',form.getFieldsValue())
+    }
+  }));
   const saveKRs = (v, item) => {
     console.log('保存KRs', v, item);
   };
@@ -27,7 +38,6 @@ function TestEnvTeamList(secondParentList) {
   };
   return (
     <div className="TestEnvTeamListCla">
-     
       {data.map((item, ind) => {
         // console.log('当前行内容item:', item);
         // let isEdit = isEditList;
@@ -36,6 +46,7 @@ function TestEnvTeamList(secondParentList) {
             <div className="TestEnvTeamEditRow" key={ind}>
               <Form
                 name="normal_login"
+                form={form}
                 // className="login-form"
                 // initialValues={{ remember: true }}
                 onFinish={(v) => saveKRs(v, item)}
