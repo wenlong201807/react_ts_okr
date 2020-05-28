@@ -1,4 +1,4 @@
-import React, { useState,useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Form, Menu, Dropdown, Input, Button } from 'antd';
 // import { Button ,Menu, Dropdown } from 'antd';
@@ -15,7 +15,7 @@ function TestEnvTeamSecond(TableList: any) {
   const [editingKey, setEditingKey] = useState('');
   const [oldheadValue, setOldheadValue] = useState('');
   const [isEditObjList, setEditObjList] = useState(false);
-  const childRef:any = useRef();
+  const childRef: any = useRef();
 
   const isEditing = (record) => record.headItem.head === editingKey;
   const isEditObjListChange = (record) => record.headItem.isAction === isEditObjList;
@@ -43,10 +43,10 @@ function TestEnvTeamSecond(TableList: any) {
   //   console.log('Received values of form:', values);
   // };
   const pToC = (objItem) => {
-    console.log(objItem)
-   childRef.current.changeVal()
-   childRef.current.getFormValues()
-  }
+    console.log(objItem);
+    childRef.current.changeVal();
+    childRef.current.getFormValues();
+  };
 
   const editObjective = (objItem) => {
     // console.log('修改objective==objItem', objItem);
@@ -77,7 +77,7 @@ function TestEnvTeamSecond(TableList: any) {
     // console.log('保存之后的isAction',newObjData)
     setData(newObjData);
     // setEditObjList(false);
-    console.log('进入objItem修改之后',isEditObjList, objItem);
+    console.log('进入objItem修改之后', isEditObjList, objItem);
   };
   const delObject = (objItem) => {
     console.log('删除objective==objItem', objItem);
@@ -91,6 +91,7 @@ function TestEnvTeamSecond(TableList: any) {
 
   const AddNewObject = () => {
     console.log('AddNewObject', data);
+    setEditingKey('');
     let len = data.length + 1;
 
     let NewObj = {
@@ -137,17 +138,22 @@ function TestEnvTeamSecond(TableList: any) {
                     </Form.Item>
                     <Form.Item>
                       <Button type="primary" htmlType="submit" className="login-form-button">
-                        保存
+                        保存6
                       </Button>
                     </Form.Item>
                   </Form>
                 </div>
 
                 <div className="objectDel">
-                  <Button onClick={() => delObject(objItem)}>删除</Button>
+                  <Button onClick={() => delObject(objItem)}>删除7</Button>
                 </div>
               </div>
-              <TestEnvTeamList cRef={childRef}  isEditList={false} key={objIndex} {...objItem}></TestEnvTeamList>
+              <TestEnvTeamList
+                cRef={childRef}
+                isEditList={false}
+                key={objIndex}
+                {...objItem}
+              ></TestEnvTeamList>
             </div>
           );
         } else {
@@ -175,7 +181,12 @@ function TestEnvTeamSecond(TableList: any) {
               是否可编辑子列表的内容
   
               */}
-                <TestEnvTeamList cRef={childRef}  isEditList={false} key={objIndex} {...objItem}></TestEnvTeamList>
+                <TestEnvTeamList
+                  cRef={childRef}
+                  isEditList={false}
+                  key={objIndex}
+                  {...objItem}
+                ></TestEnvTeamList>
               </div>
             );
           } else {
@@ -190,7 +201,7 @@ function TestEnvTeamSecond(TableList: any) {
                   <div className="objectAdmin"></div>
                   <div className="objectIsAction">
                     <Button type="primary" onClick={() => saveObjList(objItem)}>
-                      保存
+                      保存5
                     </Button>
                   </div>
                   <div className="objectArrow"></div>
@@ -199,7 +210,12 @@ function TestEnvTeamSecond(TableList: any) {
               是否可编辑子列表的内容
   
               */}
-                <TestEnvTeamList cRef={childRef}  isEditList={true} key={objIndex} {...objItem}></TestEnvTeamList>
+                <TestEnvTeamList
+                  cRef={childRef}
+                  isEditList={true}
+                  key={objIndex}
+                  {...objItem}
+                ></TestEnvTeamList>
               </div>
             );
           }
