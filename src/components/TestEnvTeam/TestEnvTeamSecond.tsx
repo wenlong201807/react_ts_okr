@@ -70,17 +70,23 @@ function TestEnvTeamSecond(TableList: any) {
     setEditingKey(''); // 1.表头时不可编辑的  
     console.log('进入objItem编辑列表', objItem);
     objItem.headItem.isEditKRs = true; // 2.并且设置当前KRs 列表为可编辑状态
+     // 3.将列表中的编辑列表状态设置成true
+    objItem.list.forEach(item => {
+       item.isEditKRs = true
+     })
     const newObjData = [...data];
     // console.log('修改之后的isAction',newObjData)
     setData(newObjData);
   };
   const saveObjList = (objItem) => {
-    // objItem.headItem.isEditObjHead = false; // 表头也是不可编辑状态
     setEditingKey(''); // 1.表头时不可编辑的 
     objItem.headItem.isEditKRs = false; // 2.并且设置当前KRs 列表为不可编辑状态
-    // setEditObjList(false) // 保存时，为不可编辑状态
-    // childRef.current.getFormValues();
-    console.log('进入objItem保存列表', objItem);
+
+    childRef.current.getFormValues(); // 3.获取编辑之后的input数据
+    // 3.将列表中的编辑列表状态设置成true
+    objItem.list.forEach(item => {
+      item.isEditKRs = false
+    })
     const newObjData = [...data];
     // console.log('保存之后的isAction',newObjData)
     setData(newObjData);

@@ -10,7 +10,7 @@ function TestEnvTeamList(secondParentList) {
   // console.log('当前父组件的secondParentList所有:', secondParentList);
 
   const [data, setData] = useState(secondParentList.list);
-  const [isEditList, setEditList] = useState(secondParentList.isEditList);
+  const [isEditList, setEditList] = useState(false);
   const [form] = Form.useForm();
   // console.log(data);
   // const cRef: any ;
@@ -27,7 +27,7 @@ function TestEnvTeamList(secondParentList) {
       // setData(data);
       // console.log('jump:', data);
       // console.log('isEditList:', isEditList);
-      setEditList(true);
+      // setEditList(true);
     }
   }));
   const saveKRs = (v, item) => {
