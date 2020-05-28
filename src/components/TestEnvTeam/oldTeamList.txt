@@ -1,7 +1,7 @@
 // import React, { useState } from 'react';
 import React, { useState, useImperativeHandle } from 'react';
 import { hot } from 'react-hot-loader/root';
-import { Input, Button } from 'antd';
+import { Form, Input, Button } from 'antd';
 
 import '@/styles/TestEnvTeam/TestEnvTeamList.less';
 function TestEnvTeamList(secondParentList) {
@@ -12,7 +12,7 @@ function TestEnvTeamList(secondParentList) {
 
   const [data, setData] = useState(secondParentList.list);
   const [isEditList, setEditList] = useState(false);
-  // const [form] = Form.useForm();
+  const [form] = Form.useForm();
   // console.log(data);
   // const cRef: any ;
   useImperativeHandle(secondParentList.cRef, () => ({
@@ -21,19 +21,20 @@ function TestEnvTeamList(secondParentList) {
       console.log(newVal);
     },
     getFormValues: () => {
-      // console.log('当前表格数据：', form.getFieldsValue());
-      console.log(666);
-      saveTable();
+      console.log('当前表格数据：', form.getFieldsValue());
     },
     enterEditKRsState: () => {
       console.log('进入编辑状态：');
-      editall()
       // setData(data);
       // console.log('jump:', data);
       // console.log('isEditList:', isEditList);
       // setEditList(true);
     },
   }));
+
+  const saveKRs = (v, item) => {
+    console.log('保存KRs', v, item);
+  };
 
   const addOneKRs = () => {
     let index = data.length + 1;
@@ -44,8 +45,8 @@ function TestEnvTeamList(secondParentList) {
       key: '1-1-2',
       myAction: '详情',
       myAdmin: '',
-      myWeight: '',
       myFinish: '',
+      myWeight: '',
     };
     let newData = [...data, obj];
     setData(newData);
@@ -54,56 +55,9 @@ function TestEnvTeamList(secondParentList) {
 
   const delOneKR = (index) => {
     console.log('删除index', index);
-    data.splice(index, 1);
-    let newData = [...data];
-    setData(newData);
-  };
-
-  const getmyFinish = (value: string, index: number) => {
-    console.log(value);
-    let copydata = JSON.parse(JSON.stringify(data));
-    copydata[index].myFinish = value;
-    setData(copydata);
-  };
-  const getContent = (value: string, index: number) => {
-    console.log(value);
-    let copydata = JSON.parse(JSON.stringify(data));
-    copydata[index].content = value;
-    setData(copydata);
-  };
-  const getmyWeight = (value: string, index: number) => {
-    console.log(value);
-    let copydata = JSON.parse(JSON.stringify(data));
-    copydata[index].myWeight = value;
-    setData(copydata);
-  };
-
-  const saveRow = (id: number) => {
-    let copydata = JSON.parse(JSON.stringify(data));
-    let index = data.findIndex((item) => item.id === id);
-    copydata[index] = Object.assign(copydata[index], {
-      edit: false,
-    });
-    setData(copydata);
-  };
-
-  const saveTable: any = () => {
-    let copydata = JSON.parse(JSON.stringify(data));
-    copydata.forEach((item: any) => {
-      item.isEditKRs = false;
-    });
-    setData(copydata);
-    console.log(data);
-  };
-  const editall:any = () => {
-    let copydata = JSON.parse(JSON.stringify(data));
-    copydata.forEach((item: any, index: number) => {
-      console.log(index);
-      item.isEditKRs = true;
-    });
-
-    setData(copydata);
-    // console.log(data)
+    data.splice(index,1)
+    let newData = [...data]
+    setData(newData)
   };
 
   const jump = () => {
@@ -124,30 +78,51 @@ function TestEnvTeamList(secondParentList) {
         if (item.isEditKRs) {
           return (
             <div className="TestEnvTeamEditRow" key={ind}>
-              <div className="wrap">
-                <Input
-                  placeholder="KRs"
-                  value={item.content}
-                  style={{ width: '200px' }}
-                  onChange={(e) => getContent(e.target.value, ind)}
-                />
-                <Input
-                  placeholder="权重"
-                  value={item.myWeight}
-                  style={{ width: '200px' }}
-                  onChange={(e) => getmyWeight(e.target.value, ind)}
-                />
-                <Input
-                  placeholder="完成度"
-                  value={item.myFinish}
-                  style={{ width: '200px' }}
-                  onChange={(e) => getmyFinish(e.target.value, ind)}
-                />
-
-                
-                <button  onClick={() => saveRow(item.id)}>保存</button>
-                <Button onClick={() => delOneKR(ind)}>删除</Button>
-              </div>
+              <Form
+                name="normal_login"
+                form={form}
+                // className="login-form"
+                // initialValues={{ remember: true }}
+                onFinish={(v) => saveKRs(v, item)}
+                layout="inline"
+              >
+                <Form.Item
+                  label={'KR' + (ind + 1)}
+                  name={'content-' + ind}
+                  initialValue={item.content}
+                  rules={[{ required: true, message: '大O不能为空' }]}
+                >
+                  <Input placeholder="Objective" />
+                </Form.Item>
+                <Form.Item
+                  label={'权重'}
+                  name={'myWeight-' + ind}
+                  initialValue={item.myWeight}
+                  rules={[{ required: true, message: '权重不能为空' }]}
+                >
+                  <Input placeholder="myWeight" />
+                </Form.Item>
+                <Form.Item
+                  label={'完成度'}
+                  name={'myFinish-' + ind}
+                  initialValue={item.myFinish}
+                  rules={[{ required: true, message: '完成度不能为空' }]}
+                >
+                  <Input placeholder="myFinish" />
+                </Form.Item>
+                <Form.Item>
+                  <Button type="primary" htmlType="submit" className="login-form-button">
+                    保存888
+                  </Button>
+                  <Button
+                    type="primary"
+                    onClick={() => delOneKR(ind)}
+                    className="login-form-button"
+                  >
+                    删除
+                  </Button>
+                </Form.Item>
+              </Form>
             </div>
           );
         } else {
@@ -168,13 +143,16 @@ function TestEnvTeamList(secondParentList) {
         }
       })}
 
-      <div className="addOneKRCla">
-        <Button onClick={addOneKRs}>添加KR666</Button>
-        <Button onClick={saveTable}>保存</Button>
-        <Button onClick={editall}>全体编辑</Button>
+      <div className="addOneKRCla" onClick={addOneKRs}>
+        添加KR666
       </div>
     </div>
   );
 }
 
 export default hot(TestEnvTeamList);
+
+
+/*
+页面不更更新
+*/

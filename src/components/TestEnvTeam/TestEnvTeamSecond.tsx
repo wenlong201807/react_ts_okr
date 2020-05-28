@@ -46,9 +46,10 @@ function TestEnvTeamSecond(TableList: any) {
     console.log(objItem);
     // setEditingKey('');
     // // setHeadValue('');
-    setEditObjList(true);
-    childRef.current.enterEditKRsState();
+    // setEditObjList(true);
+    // childRef.current.enterEditKRsState();
     // childRef.current.changeVal();
+
     // childRef.current.getFormValues();
   };
 
@@ -69,11 +70,12 @@ function TestEnvTeamSecond(TableList: any) {
     // KRs 进入编辑状态时，表头时不可编辑的，并且设置当前KRs 列表为可编辑状态
     setEditingKey(''); // 1.表头时不可编辑的  
     console.log('进入objItem编辑列表', objItem);
-    objItem.headItem.isEditKRs = true; // 2.并且设置当前KRs 列表为可编辑状态
-     // 3.将列表中的编辑列表状态设置成true
-    objItem.list.forEach(item => {
-       item.isEditKRs = true
-     })
+    objItem.headItem.isEditKRs = true; // 2.并且设置当前KRs 表头切换成可编辑的保存按钮
+     // 3.将列表中的编辑列表状态设置成true enterEditKRsState
+     childRef.current.enterEditKRsState();
+    // objItem.list.forEach(item => {
+    //    item.isEditKRs = true
+    //  })
     const newObjData = [...data];
     // console.log('修改之后的isAction',newObjData)
     setData(newObjData);
@@ -83,7 +85,8 @@ function TestEnvTeamSecond(TableList: any) {
     objItem.headItem.isEditKRs = false; // 2.并且设置当前KRs 列表为不可编辑状态
 
     childRef.current.getFormValues(); // 3.获取编辑之后的input数据
-    // 3.将列表中的编辑列表状态设置成true
+  
+    // 4.将列表中的编辑列表状态设置成true
     objItem.list.forEach(item => {
       item.isEditKRs = false
     })
