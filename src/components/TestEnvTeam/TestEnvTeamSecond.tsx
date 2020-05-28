@@ -14,11 +14,11 @@ function TestEnvTeamSecond(TableList: any) {
   const [data, setData] = useState(TableList.objectArr);
   const [editingKey, setEditingKey] = useState('');
   const [oldheadValue, setOldheadValue] = useState('');
-  const [isEditObjList, setEditObjList] = useState(false);
+  const [isEditObjList, setEditObjList] = useState(false); // 当前数据如果要编辑，将对应内容设置为true
   const childRef: any = useRef();
 
   const isEditing = (record) => record.headItem.head === editingKey;
-  const isEditObjListChange = (record) => record.headItem.isEditObjHead === isEditObjList;
+  const isEditObjListChange = (record) => record.headItem.isEditKRs === isEditObjList;
 
   const jump = () => {
     setData(data);
@@ -53,11 +53,7 @@ function TestEnvTeamSecond(TableList: any) {
   };
 
   const editObjective = (objItem) => {
-    // console.log('修改objective==objItem', objItem);
     let currentHead = objItem.headItem.head;
-    // console.log('laoshi:', currentHead);
-    console.log('获取当前头信息objItem.headItem.head：', currentHead);
-
     setOldheadValue(currentHead);
     setEditingKey(currentHead);
   };
@@ -70,21 +66,26 @@ function TestEnvTeamSecond(TableList: any) {
   };
 
   const editObjList = (objItem) => {
+    // KRs 进入编辑状态时，表头时不可编辑的，并且设置当前KRs 列表为可编辑状态
+    setEditingKey(''); // 1.表头时不可编辑的  
     console.log('进入objItem编辑列表', objItem);
-    objItem.headItem.isEditObjHead = true;
+    objItem.headItem.isEditKRs = true; // 2.并且设置当前KRs 列表为可编辑状态
     const newObjData = [...data];
     // console.log('修改之后的isAction',newObjData)
     setData(newObjData);
   };
   const saveObjList = (objItem) => {
-    childRef.current.getFormValues();
+    // objItem.headItem.isEditObjHead = false; // 表头也是不可编辑状态
+    setEditingKey(''); // 1.表头时不可编辑的 
+    objItem.headItem.isEditKRs = false; // 2.并且设置当前KRs 列表为不可编辑状态
+    // setEditObjList(false) // 保存时，为不可编辑状态
+    // childRef.current.getFormValues();
     console.log('进入objItem保存列表', objItem);
-    objItem.headItem.isEditObjHead = false;
     const newObjData = [...data];
     // console.log('保存之后的isAction',newObjData)
     setData(newObjData);
     // setEditObjList(false);
-    console.log('进入objItem修改之后', isEditObjList, objItem);
+    // console.log('进入objItem修改之后', isEditObjList, objItem);
   };
   const delObject = (objItem) => {
     console.log('删除objective==objItem', objItem);
@@ -157,8 +158,7 @@ function TestEnvTeamSecond(TableList: any) {
                 </div>
               </div>
               <TestEnvTeamList
-                cRef={childRef}
-                isEditList={false}
+                cRef={childRef}           
                 key={objIndex}
                 {...objItem}
               ></TestEnvTeamList>
@@ -187,7 +187,7 @@ function TestEnvTeamSecond(TableList: any) {
                 </div>
                 <TestEnvTeamList
                   cRef={childRef}
-                  isEditList={false}
+                 
                   key={objIndex}
                   {...objItem}
                 ></TestEnvTeamList>
@@ -212,7 +212,7 @@ function TestEnvTeamSecond(TableList: any) {
                 </div>
                 <TestEnvTeamList
                   cRef={childRef}
-                  isEditList={true}
+                
                   key={objIndex}
                   {...objItem}
                 ></TestEnvTeamList>

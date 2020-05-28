@@ -34,6 +34,7 @@ function TestEnvTeamOKR2() {
               myFinish: '20%',
               myAdmin: '郭靖',
               myAction: '详情',
+              isEditKRs: false,
             },
             {
               id: 2,
@@ -43,6 +44,7 @@ function TestEnvTeamOKR2() {
               myFinish: '70%',
               myAdmin: '文',
               myAction: '详情',
+              isEditKRs: false,
             },
           ],
         },
@@ -67,6 +69,7 @@ function TestEnvTeamOKR2() {
               myFinish: '20%',
               myAdmin: '朱允文',
               myAction: '详情',
+              isEditKRs: false,
             },
             {
               id: 2,
@@ -76,6 +79,7 @@ function TestEnvTeamOKR2() {
               myFinish: '70%',
               myAdmin: '文言文',
               myAction: '详情',
+              isEditKRs: false,
             },
           ],
         },
@@ -107,6 +111,7 @@ function TestEnvTeamOKR2() {
               myFinish: '20%',
               myAdmin: '朱',
               myAction: '详情',
+              isEditKRs: false,
             },
             {
               id: 2,
@@ -116,6 +121,7 @@ function TestEnvTeamOKR2() {
               myFinish: '70%',
               myAdmin: '文',
               myAction: '详情',
+              isEditKRs: false,
             },
           ],
         },
@@ -140,6 +146,7 @@ function TestEnvTeamOKR2() {
               myFinish: '20%',
               myAdmin: '朱之歌',
               myAction: '详情',
+              isEditKRs: false,
             },
             {
               id: 2,
@@ -149,6 +156,7 @@ function TestEnvTeamOKR2() {
               myFinish: '70%',
               myAdmin: '文话',
               myAction: '详情',
+              isEditKRs: false,
             },
           ],
         },
@@ -168,7 +176,7 @@ function TestEnvTeamOKR2() {
       },
     ];
     setTestEnvTeamOKRData(list);
-  }
+  };
   return (
     <div className="TestEnvTeamOKR2Cla">
       <div className="titleWrap">
@@ -194,7 +202,6 @@ function TestEnvTeamOKR2() {
           </div>
         );
       })}
-      
     </div>
   );
 }

@@ -46,9 +46,9 @@ function TestEnvTeamList(secondParentList) {
   return (
     <div className="TestEnvTeamListCla">
       {data.map((item, ind) => {
-        // console.log('当前行内容item:', item);
+        console.log('当前行内容item:', item,'是否可编辑:',item.isEditKRs);
         // let isEdit = isEditList;
-        if (isEditList) {
+        if (item.isEditKRs) {
           return (
             <div className="TestEnvTeamEditRow" key={ind}>
               <Form
