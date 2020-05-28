@@ -18,7 +18,7 @@ function TestEnvTeamSecond(TableList: any) {
   const childRef: any = useRef();
 
   const isEditing = (record) => record.headItem.head === editingKey;
-  const isEditObjListChange = (record) => record.headItem.isAction === isEditObjList;
+  const isEditObjListChange = (record) => record.headItem.isEditObjHead === isEditObjList;
 
   const jump = () => {
     setData(data);
@@ -58,21 +58,21 @@ function TestEnvTeamSecond(TableList: any) {
 
   const saveObject = (values: any, objItem: any) => {
     objItem.headItem.head = values.myHead;
-    setEditingKey('');
     const newObjData = [...data];
     setData(newObjData);
+    setEditingKey('');
   };
 
   const editObjList = (objItem) => {
     console.log('进入objItem编辑列表', objItem);
-    objItem.headItem.isAction = true;
+    objItem.headItem.isEditObjHead = true;
     const newObjData = [...data];
     // console.log('修改之后的isAction',newObjData)
     setData(newObjData);
   };
   const saveObjList = (objItem) => {
     console.log('进入objItem保存列表', objItem);
-    objItem.headItem.isAction = false;
+    objItem.headItem.isEditObjHead = false;
     const newObjData = [...data];
     // console.log('保存之后的isAction',newObjData)
     setData(newObjData);
@@ -90,10 +90,8 @@ function TestEnvTeamSecond(TableList: any) {
   };
 
   const AddNewObject = () => {
-    console.log('AddNewObject', data);
-    setEditingKey('');
+    
     let len = data.length + 1;
-
     let NewObj = {
       key: len.toString(),
       id: len,
@@ -102,7 +100,7 @@ function TestEnvTeamSecond(TableList: any) {
         weight: '100%',
         finish: '0%',
         admin: '负责人',
-        isAction: true,
+        isEditObjHead: false,
       },
       list: [],
     };
@@ -110,6 +108,7 @@ function TestEnvTeamSecond(TableList: any) {
     data.push(NewObj);
     const newObjData = [...data];
     setData(newObjData);
+    setEditingKey('');
   };
 
   return (
@@ -177,10 +176,6 @@ function TestEnvTeamSecond(TableList: any) {
                     <UpOutlined />
                   </div>
                 </div>
-                {/*
-              是否可编辑子列表的内容
-  
-              */}
                 <TestEnvTeamList
                   cRef={childRef}
                   isEditList={false}
@@ -206,10 +201,6 @@ function TestEnvTeamSecond(TableList: any) {
                   </div>
                   <div className="objectArrow"></div>
                 </div>
-                {/*
-              是否可编辑子列表的内容
-  
-              */}
                 <TestEnvTeamList
                   cRef={childRef}
                   isEditList={true}
