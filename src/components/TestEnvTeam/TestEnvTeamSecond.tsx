@@ -44,8 +44,12 @@ function TestEnvTeamSecond(TableList: any) {
   // };
   const pToC = (objItem) => {
     console.log(objItem);
-    childRef.current.changeVal();
-    childRef.current.getFormValues();
+    // setEditingKey('');
+    // // setHeadValue('');
+    setEditObjList(true);
+    childRef.current.enterEditKRsState();
+    // childRef.current.changeVal();
+    // childRef.current.getFormValues();
   };
 
   const editObjective = (objItem) => {
@@ -71,6 +75,7 @@ function TestEnvTeamSecond(TableList: any) {
     setData(newObjData);
   };
   const saveObjList = (objItem) => {
+    childRef.current.getFormValues();
     console.log('进入objItem保存列表', objItem);
     objItem.headItem.isEditObjHead = false;
     const newObjData = [...data];
@@ -90,7 +95,6 @@ function TestEnvTeamSecond(TableList: any) {
   };
 
   const AddNewObject = () => {
-    
     let len = data.length + 1;
     let NewObj = {
       key: len.toString(),
@@ -196,7 +200,7 @@ function TestEnvTeamSecond(TableList: any) {
                   <div className="objectAdmin"></div>
                   <div className="objectIsAction">
                     <Button type="primary" onClick={() => saveObjList(objItem)}>
-                      保存5
+                      保存5KRs
                     </Button>
                   </div>
                   <div className="objectArrow"></div>

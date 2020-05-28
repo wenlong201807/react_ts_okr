@@ -21,6 +21,13 @@ function TestEnvTeamList(secondParentList) {
     },
     getFormValues: () => {
       console.log('当前表格数据：',form.getFieldsValue())
+    },
+    enterEditKRsState: () => {
+      console.log('进入编辑状态：')
+      // setData(data);
+      // console.log('jump:', data);
+      // console.log('isEditList:', isEditList);
+      setEditList(true);
     }
   }));
   const saveKRs = (v, item) => {
@@ -53,14 +60,14 @@ function TestEnvTeamList(secondParentList) {
                 layout="inline"
               >
                 <Form.Item
-                  name="content"
+                  name={"content-"+ind}
                   initialValue={item.content}
                   rules={[{ required: true, message: '大O不能为空' }]}
                 >
                   <Input placeholder="Objective" />
                 </Form.Item>
                 <Form.Item
-                  name="myWeight"
+                  name={"myWeight-"+ind}
                   initialValue={item.myWeight}
                   rules={[{ required: true, message: '权重不能为空' }]}
                 >
