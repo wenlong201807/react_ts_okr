@@ -22,12 +22,12 @@ function TestEnvTeamList(secondParentList) {
     },
     getFormValues: () => {
       // console.log('当前表格数据：', form.getFieldsValue());
-      console.log(666);
+      console.log('保存列表数据');
       saveTable();
     },
     enterEditKRsState: () => {
       console.log('进入编辑状态：');
-      editall()
+      editall();
       // setData(data);
       // console.log('jump:', data);
       // console.log('isEditList:', isEditList);
@@ -95,7 +95,7 @@ function TestEnvTeamList(secondParentList) {
     setData(copydata);
     console.log(data);
   };
-  const editall:any = () => {
+  const editall: any = () => {
     let copydata = JSON.parse(JSON.stringify(data));
     copydata.forEach((item: any, index: number) => {
       console.log(index);
@@ -124,30 +124,36 @@ function TestEnvTeamList(secondParentList) {
         if (item.isEditKRs) {
           return (
             <div className="TestEnvTeamEditRow" key={ind}>
-              <div className="wrap">
-                <Input
-                  placeholder="KRs"
-                  value={item.content}
-                  style={{ width: '200px' }}
-                  onChange={(e) => getContent(e.target.value, ind)}
-                />
-                <Input
-                  placeholder="权重"
-                  value={item.myWeight}
-                  style={{ width: '200px' }}
-                  onChange={(e) => getmyWeight(e.target.value, ind)}
-                />
-                <Input
-                  placeholder="完成度"
-                  value={item.myFinish}
-                  style={{ width: '200px' }}
-                  onChange={(e) => getmyFinish(e.target.value, ind)}
-                />
-
-                
-                <button  onClick={() => saveRow(item.id)}>保存</button>
-                <Button onClick={() => delOneKR(ind)}>删除</Button>
+              <div  className="objectKRs">KR{ind+1}:</div>
+              <Input
+              className="objectTitle"
+                placeholder="KRs"
+                value={item.content}
+                // style={{ width: '200px' }}
+                onChange={(e) => getContent(e.target.value, ind)}
+              />
+              <Input
+                className="objectWeight"
+                placeholder="权重"
+                value={item.myWeight}
+                // style={{ width: '200px' }}
+                onChange={(e) => getmyWeight(e.target.value, ind)}
+              />
+              <div  className="objectWeightPercent">%</div>
+              <Input
+                className="objectFinish"
+                placeholder="完成度"
+                value={item.myFinish}
+                // style={{ width: '200px' }}
+                onChange={(e) => getmyFinish(e.target.value, ind)}
+              />
+              <div  className="objectFinishPercent">%</div>
+              <div className="objectAdmin" onClick={() => saveRow(item.id)}>
+                {item.myAdmin}
               </div>
+              <Button className="objectIsAction" onClick={() => delOneKR(ind)}>
+                删除
+              </Button>
             </div>
           );
         } else {

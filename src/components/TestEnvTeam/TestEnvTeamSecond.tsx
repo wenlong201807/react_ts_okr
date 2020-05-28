@@ -20,6 +20,16 @@ function TestEnvTeamSecond(TableList: any) {
   const isEditing = (record) => record.headItem.head === editingKey;
   const isEditObjListChange = (record) => record.headItem.isEditKRs === isEditObjList;
 
+  const formItemLayout = {
+    labelCol: {
+      xs: { span: 24 },
+      sm: { span: 5 },
+    },
+    wrapperCol: {
+      xs: { span: 15 },
+      sm: { span: 12 },
+    },
+  };
   const jump = () => {
     setData(data);
     console.log('jump:', data);
@@ -68,28 +78,28 @@ function TestEnvTeamSecond(TableList: any) {
 
   const editObjList = (objItem) => {
     // KRs 进入编辑状态时，表头时不可编辑的，并且设置当前KRs 列表为可编辑状态
-    setEditingKey(''); // 1.表头时不可编辑的  
+    setEditingKey(''); // 1.表头时不可编辑的
     console.log('进入objItem编辑列表', objItem);
     objItem.headItem.isEditKRs = true; // 2.并且设置当前KRs 表头切换成可编辑的保存按钮
-     // 3.将列表中的编辑列表状态设置成true enterEditKRsState
-     childRef.current.enterEditKRsState();
-    // objItem.list.forEach(item => {
-    //    item.isEditKRs = true
-    //  })
+    // 3.将列表中的编辑列表状态设置成true enterEditKRsState
+    //  childRef.current.enterEditKRsState();
+    objItem.list.forEach((item) => {
+      item.isEditKRs = true;
+    });
     const newObjData = [...data];
     // console.log('修改之后的isAction',newObjData)
     setData(newObjData);
   };
   const saveObjList = (objItem) => {
-    setEditingKey(''); // 1.表头时不可编辑的 
+    setEditingKey(''); // 1.表头时不可编辑的
     objItem.headItem.isEditKRs = false; // 2.并且设置当前KRs 列表为不可编辑状态
 
     childRef.current.getFormValues(); // 3.获取编辑之后的input数据
-  
+
     // 4.将列表中的编辑列表状态设置成true
-    objItem.list.forEach(item => {
-      item.isEditKRs = false
-    })
+    objItem.list.forEach((item) => {
+      item.isEditKRs = false;
+    });
     const newObjData = [...data];
     // console.log('保存之后的isAction',newObjData)
     setData(newObjData);
@@ -139,10 +149,10 @@ function TestEnvTeamSecond(TableList: any) {
             <div className="contentEdit" key={objIndex} onClick={() => jump}>
               <div className="listTitle">
                 <div className="objectOrder">O{objIndex + 1}:</div>
-                <div className="objectInput">
+                <div className="formWrap">
                   <Form
-                    name="normal_login"
-                    // className="login-form"
+                    // name="normal_login"
+                    {...formItemLayout}
                     // initialValues={{ remember: true }}
                     onFinish={(v) => saveObject(v, objItem)}
                     layout="inline"
@@ -155,7 +165,7 @@ function TestEnvTeamSecond(TableList: any) {
                       <Input placeholder="Objective" />
                     </Form.Item>
                     <Form.Item>
-                      <Button type="primary" htmlType="submit" className="login-form-button">
+                      <Button className="objectInputBtn" type="primary" htmlType="submit">
                         保存6
                       </Button>
                     </Form.Item>
@@ -166,11 +176,7 @@ function TestEnvTeamSecond(TableList: any) {
                   <Button onClick={() => delObject(objItem)}>删除7</Button>
                 </div>
               </div>
-              <TestEnvTeamList
-                cRef={childRef}           
-                key={objIndex}
-                {...objItem}
-              ></TestEnvTeamList>
+              <TestEnvTeamList cRef={childRef} key={objIndex} {...objItem}></TestEnvTeamList>
             </div>
           );
         } else {
@@ -194,12 +200,7 @@ function TestEnvTeamSecond(TableList: any) {
                     <UpOutlined />
                   </div>
                 </div>
-                <TestEnvTeamList
-                  cRef={childRef}
-                 
-                  key={objIndex}
-                  {...objItem}
-                ></TestEnvTeamList>
+                <TestEnvTeamList cRef={childRef} key={objIndex} {...objItem}></TestEnvTeamList>
               </div>
             );
           } else {
@@ -219,12 +220,7 @@ function TestEnvTeamSecond(TableList: any) {
                   </div>
                   <div className="objectArrow"></div>
                 </div>
-                <TestEnvTeamList
-                  cRef={childRef}
-                
-                  key={objIndex}
-                  {...objItem}
-                ></TestEnvTeamList>
+                <TestEnvTeamList cRef={childRef} key={objIndex} {...objItem}></TestEnvTeamList>
               </div>
             );
           }
