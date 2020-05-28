@@ -7,7 +7,7 @@ import '@/styles/TestEnvTeam/TestEnvTeamList.less';
 function TestEnvTeamList(secondParentList) {
   // console.log('secondParentList.headItem.isAction:', secondParentList.headItem.isAction);
   // console.log('secondParentList.isEditList:', secondParentList.isEditList);
-  console.log('当前父组件的secondParentList所有:', secondParentList);
+  // console.log('当前父组件的secondParentList所有:', secondParentList);
 
   const [data, setData] = useState(secondParentList.list);
   const [isEditList, setEditList] = useState(secondParentList.isEditList);

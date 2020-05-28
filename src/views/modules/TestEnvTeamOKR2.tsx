@@ -22,6 +22,8 @@ function TestEnvTeamOKR2() {
             finish: '56%',
             admin: '李雷',
             isEditObjHead: false,
+            isEditKRs: false,
+            isExpandKRsList: false,
           },
           list: [
             {
@@ -53,6 +55,8 @@ function TestEnvTeamOKR2() {
             finish: '96%',
             admin: '景甜',
             isEditObjHead: false,
+            isEditKRs: false,
+            isExpandKRsList: false,
           },
           list: [
             {
@@ -91,6 +95,8 @@ function TestEnvTeamOKR2() {
             finish: '56%',
             admin: '哪吒',
             isEditObjHead: false,
+            isEditKRs: false,
+            isExpandKRsList: false,
           },
           list: [
             {
@@ -122,6 +128,8 @@ function TestEnvTeamOKR2() {
             finish: '56%',
             admin: '刘亦菲',
             isEditObjHead: false,
+            isEditKRs: false,
+            isExpandKRsList: false,
           },
           list: [
             {

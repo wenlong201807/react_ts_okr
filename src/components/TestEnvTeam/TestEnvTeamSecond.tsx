@@ -56,6 +56,8 @@ function TestEnvTeamSecond(TableList: any) {
     // console.log('修改objective==objItem', objItem);
     let currentHead = objItem.headItem.head;
     // console.log('laoshi:', currentHead);
+    console.log('获取当前头信息objItem.headItem.head：', currentHead);
+
     setOldheadValue(currentHead);
     setEditingKey(currentHead);
   };
@@ -105,6 +107,8 @@ function TestEnvTeamSecond(TableList: any) {
         finish: '0%',
         admin: '负责人',
         isEditObjHead: false,
+        isEditKRs: false,
+        isExpandKRsList: false,
       },
       list: [],
     };
@@ -112,7 +116,8 @@ function TestEnvTeamSecond(TableList: any) {
     data.push(NewObj);
     const newObjData = [...data];
     setData(newObjData);
-    setEditingKey('');
+    setEditingKey(''); // 进入编辑状态
+    setOldheadValue(''); // 清空原有数据
   };
 
   return (
