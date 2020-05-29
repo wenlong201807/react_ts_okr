@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef,useContext } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Form, Menu, Dropdown, Input, Button } from 'antd';
 // import { Button ,Menu, Dropdown } from 'antd';
@@ -6,11 +6,14 @@ import { EllipsisOutlined, UpOutlined } from '@ant-design/icons';
 
 import TestEnvTeamList from '@/components/TestEnvTeam/TestEnvTeamList';
 import '@/styles/TestEnvTeam/TestEnvTeamSecond.less';
+import { observer } from 'mobx-react';
+import store from '@/moxstore/okrStore';
 
-function TestEnvTeamSecond(TableList: any) {
+
+export default observer(function (TableList: any) {
   // console.log('TableList:', TableList);
   // console.log('TableList.objectArr:', TableList.objectArr);
-
+  const okrstore = useContext(store);
   const [data, setData] = useState(TableList.objectArr);
   const [editingKey, setEditingKey] = useState('');
   const [oldheadValue, setOldheadValue] = useState('');
@@ -43,7 +46,8 @@ function TestEnvTeamSecond(TableList: any) {
       <Menu>
         <Menu.Item onClick={() => editObjective(objItem)}> 修改Objective</Menu.Item>
         <Menu.Item onClick={() => delObject(objItem)}>删除Objective</Menu.Item>
-        <Menu.Item onClick={() => editObjList(objItem)}>修改KPIs</Menu.Item>
+        {/*<Menu.Item onClick={() => editObjList(objItem)}>修改KPIs</Menu.Item>*/}
+        <Menu.Item onClick={()=> okrstore.editrow(objItem.id)}>修改KPIs</Menu.Item>
         <Menu.Item onClick={() => pToC(objItem)}>test</Menu.Item>
       </Menu>
     );
@@ -77,17 +81,12 @@ function TestEnvTeamSecond(TableList: any) {
   };
 
   const editObjList = (objItem) => {
-    // KRs 进入编辑状态时，表头时不可编辑的，并且设置当前KRs 列表为可编辑状态
-    setEditingKey(''); // 1.表头时不可编辑的
-    console.log('进入objItem编辑列表', objItem);
-    objItem.headItem.isEditKRs = true; // 2.并且设置当前KRs 表头切换成可编辑的保存按钮
-    // 3.将列表中的编辑列表状态设置成true enterEditKRsState
-    //  childRef.current.enterEditKRsState();
+    setEditingKey('');
+    objItem.headItem.isEditKRs = true;
     objItem.list.forEach((item) => {
       item.isEditKRs = true;
     });
     const newObjData = [...data];
-    // console.log('修改之后的isAction',newObjData)
     setData(newObjData);
   };
   const saveObjList = (objItem) => {
@@ -231,6 +230,6 @@ function TestEnvTeamSecond(TableList: any) {
       </div>
     </div>
   );
-}
+})
 
-export default hot(TestEnvTeamSecond);
+// export default hot(TestEnvTeamSecond);

@@ -2,9 +2,10 @@
 import React, { useState, useImperativeHandle } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Input, Button } from 'antd';
+import { observer } from 'mobx-react';
 
 import '@/styles/TestEnvTeam/TestEnvTeamList.less';
-function TestEnvTeamList(secondParentList) {
+export default observer(function TestEnvTeamList(secondParentList) {
   // console.log('secondParentList.headItem.isAction:', secondParentList.headItem.isAction);
   // console.log('secondParentList.isEditList:', secondParentList.isEditList);
   // console.log('当前父组件的secondParentList所有:', secondParentList);
@@ -181,6 +182,6 @@ function TestEnvTeamList(secondParentList) {
       </div>
     </div>
   );
-}
+})
 
-export default hot(TestEnvTeamList);
+// export default hot(TestEnvTeamList);
