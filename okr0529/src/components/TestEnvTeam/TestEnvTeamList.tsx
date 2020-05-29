@@ -1,9 +1,8 @@
 // import React, { useState } from 'react';
-import React, { useState, useContext, useImperativeHandle } from 'react';
-// import { hot } from 'react-hot-loader/root';
+import React, { useState, useImperativeHandle } from 'react';
+import { hot } from 'react-hot-loader/root';
 import { Input, Button } from 'antd';
 import { observer } from 'mobx-react';
-import RootStoreContext from '@/moxstore/rootStroe/index';
 
 import '@/styles/TestEnvTeam/TestEnvTeamList.less';
 export default observer(function TestEnvTeamList(secondParentList) {
@@ -11,10 +10,6 @@ export default observer(function TestEnvTeamList(secondParentList) {
   // console.log('secondParentList.isEditList:', secondParentList.isEditList);
   // console.log('当前父组件的secondParentList所有:', secondParentList);
   console.log('secondParentList.list:', secondParentList.list);
-
-  const { okrStore } = useContext(RootStoreContext);
-  console.log('子组件中使用:', okrStore);
-  // const { TestEnvTeamOKRData } = okrStore;
 
   const [data, setData] = useState(secondParentList.list);
   const [isEditList, setEditList] = useState(false);
@@ -130,9 +125,9 @@ export default observer(function TestEnvTeamList(secondParentList) {
         if (item.isEditKRs) {
           return (
             <div className="TestEnvTeamEditRow" key={ind}>
-              <div className="objectKRs">KR{ind + 1}:</div>
+              <div  className="objectKRs">KR{ind+1}:</div>
               <Input
-                className="objectTitle"
+              className="objectTitle"
                 placeholder="KRs"
                 value={item.content}
                 // style={{ width: '200px' }}
@@ -145,7 +140,7 @@ export default observer(function TestEnvTeamList(secondParentList) {
                 // style={{ width: '200px' }}
                 onChange={(e) => getmyWeight(e.target.value, ind)}
               />
-              <div className="objectWeightPercent">%</div>
+              <div  className="objectWeightPercent">%</div>
               <Input
                 className="objectFinish"
                 placeholder="完成度"
@@ -153,7 +148,7 @@ export default observer(function TestEnvTeamList(secondParentList) {
                 // style={{ width: '200px' }}
                 onChange={(e) => getmyFinish(e.target.value, ind)}
               />
-              <div className="objectFinishPercent">%</div>
+              <div  className="objectFinishPercent">%</div>
               <div className="objectAdmin" onClick={() => saveRow(item.id)}>
                 {item.myAdmin}
               </div>
@@ -187,6 +182,6 @@ export default observer(function TestEnvTeamList(secondParentList) {
       </div>
     </div>
   );
-});
+})
 
 // export default hot(TestEnvTeamList);

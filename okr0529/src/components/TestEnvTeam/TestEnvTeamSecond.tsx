@@ -1,5 +1,5 @@
-import React, { useState, useRef, useContext } from 'react';
-// import { hot } from 'react-hot-loader/root';
+import React, { useState, useRef,useContext } from 'react';
+import { hot } from 'react-hot-loader/root';
 import { Form, Menu, Dropdown, Input, Button } from 'antd';
 // import { Button ,Menu, Dropdown } from 'antd';
 import { EllipsisOutlined, UpOutlined } from '@ant-design/icons';
@@ -7,13 +7,13 @@ import { EllipsisOutlined, UpOutlined } from '@ant-design/icons';
 import TestEnvTeamList from '@/components/TestEnvTeam/TestEnvTeamList';
 import '@/styles/TestEnvTeam/TestEnvTeamSecond.less';
 import { observer } from 'mobx-react';
-import RootStoreContext from '@/moxstore/rootStroe/index';
+import store from '@/moxstore/okrStore';
+
 
 export default observer(function (TableList: any) {
   // console.log('TableList:', TableList);
   // console.log('TableList.objectArr:', TableList.objectArr);
-  const { okrStore } = useContext(RootStoreContext);
-  console.log('zhongjian子组件中使用:', okrStore);
+  const okrstore = useContext(store);
   const [data, setData] = useState(TableList.objectArr);
   const [editingKey, setEditingKey] = useState('');
   const [oldheadValue, setOldheadValue] = useState('');
@@ -46,10 +46,8 @@ export default observer(function (TableList: any) {
       <Menu>
         <Menu.Item onClick={() => editObjective(objItem)}> 修改Objective</Menu.Item>
         <Menu.Item onClick={() => delObject(objItem)}>删除Objective</Menu.Item>
-        {/**/}
-        <Menu.Item onClick={() => editObjList(objItem)}>修改KPIs</Menu.Item>
-        {/* <Menu.Item onClick={()=> okrstore.editrow(objItem.id)}>修改KPIs</Menu.Item> */}
-
+        {/*<Menu.Item onClick={() => editObjList(objItem)}>修改KPIs</Menu.Item>*/}
+        <Menu.Item onClick={()=> okrstore.editrow(objItem.id)}>修改KPIs</Menu.Item>
         <Menu.Item onClick={() => pToC(objItem)}>test</Menu.Item>
       </Menu>
     );
@@ -232,6 +230,6 @@ export default observer(function (TableList: any) {
       </div>
     </div>
   );
-});
+})
 
 // export default hot(TestEnvTeamSecond);

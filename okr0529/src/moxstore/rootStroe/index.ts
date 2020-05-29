@@ -3,7 +3,6 @@
  */
 import testStore from '../testStore';
 import okrStore from '../okrStore';
-import devStore from '@/moxstore/devStore';
 // import indexStore from './indexStore';
 // import newBuiltStore from './newBuiltStore';
 // import detailStore from './detailStore';
@@ -15,7 +14,6 @@ import createHashSource from "hash-source";
 const RootStoreContext = createContext({
   testStore,
   okrStore,
-  devStore,
     // detailStore,
     // newBuiltStore,
     // calendarStore,

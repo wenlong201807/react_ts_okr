@@ -1,11 +1,14 @@
 import React from 'react';
-// import { hot } from 'react-hot-loader/root';
+import { hot } from 'react-hot-loader/root';
 // import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import './App.scss';
 import { observer } from 'mobx-react';
 
 import Home from './views/Home';
+// import Login from './views/Login';
+// import Empty from './views/Empty';
 
+// const { Header, Sider, Content } = Layout;
 
 export default observer(function App() {
   return (

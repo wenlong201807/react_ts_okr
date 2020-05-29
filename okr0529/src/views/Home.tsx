@@ -7,31 +7,29 @@ import { Menu } from 'antd';
 import { AppstoreOutlined,SettingOutlined } from '@ant-design/icons';
 const { SubMenu } = Menu;
 
-import '@/styles/reflect/home.less';
-import About from '@/views/About';
-import Teams from '@/views/modules/Teams';
-import BaseCenterOKR from '@/views/modules/BaseCenterOKR';
-import TestEnvTeamOKR from '@/views/modules/TestEnvTeamOKR';
-import TestEnvTeamOKR2 from '@/views/modules/TestEnvTeamOKR2';
-import Login from '@/views/Login';
-import Empty from '@/views/Empty';
-import CollapseSelf from '@/components/collapse';
-// import List from '@/components/List';
-import editEdit from '@/components/editEdit';
-import multiRowForm from '@/components/multiRowForm';
-import CRUD from '@/components/CRUD';
-import formSelf from '@/components/formSelf';
-import Editorrow from '@/components/EditorRow';
-import Editorcell from '@/components/Editorcell';
-import testMobx from '@/views/testMobx';
-import Wrap from './useContextStore/wrap'
+import '../styles/reflect/home.less';
+import About from './About';
+import Teams from './modules/Teams';
+import BaseCenterOKR from './modules/BaseCenterOKR';
+import TestEnvTeamOKR from './modules/TestEnvTeamOKR';
+import TestEnvTeamOKR2 from './modules/TestEnvTeamOKR2';
+import Login from './Login';
+import Empty from './Empty';
+import CollapseSelf from '../components/collapse';
+// import List from '../components/List';
+import editEdit from '../components/editEdit';
+import multiRowForm from '../components/multiRowForm';
+import CRUD from '../components/CRUD';
+import Editorrow from '../components/EditorRow';
+import Editorcell from '../components/Editorcell';
+import testMobx from './testMobx';
 
 import history from '@/historys';
 
 function Home() {
   let state: any = {
     theme: 'light',
-    current: '/home/TestEnvTeamOKR2',
+    current: '/home/list',
   };
   let [status, setStatus] = useState(state);
 
@@ -59,7 +57,7 @@ function Home() {
             mode="inline"
           >
             <SubMenu key="sub1" icon={<AppstoreOutlined />} title="我的OKR">
-              <Menu.Item key="/home/TestEnvTeamOKR">
+              <Menu.Item key="/home/TestEnvTeamOKR0">
                 <span onClick={() => jumpToTarget('/home/TestEnvTeamOKR')}>王伟(待定)</span>
               </Menu.Item>
             </SubMenu>
@@ -106,9 +104,6 @@ function Home() {
             <Menu.Item key="/home/CRUD">
               <span onClick={() => jumpToTarget("/home/CRUD")}>表单CRUD</span>
             </Menu.Item>
-            <Menu.Item key="/home/formSelf">
-              <span onClick={() => jumpToTarget("/home/formSelf")}>表单自定义宽度</span>
-            </Menu.Item>
             <Menu.Item key="/home/multiRowForm">
               <span onClick={() => jumpToTarget("/home/multiRowForm")}>多行表单</span>
             </Menu.Item>
@@ -129,9 +124,6 @@ function Home() {
             </Menu.Item>
             <Menu.Item key="testMobx">
               <span onClick={() => jumpToTarget("/testMobx")}>调试mobx</span>
-            </Menu.Item>
-            <Menu.Item key="Wrap">
-              <span onClick={() => jumpToTarget("/Wrap")}>Wrap</span>
             </Menu.Item>
           </SubMenu>
             {/*
@@ -158,13 +150,11 @@ function Home() {
 
               <Route path="/home/editEdit" component={editEdit} />
               <Route path="/home/CRUD" component={CRUD} />
-              <Route path="/home/formSelf" component={formSelf} />
               <Route path="/home/EditorRow" component={Editorrow} />
               <Route path="/home/Editorcell" component={Editorcell} />
               <Route path="/login" component={Login} />
               <Route path="/Empty" component={Empty} />
               <Route path="/testMobx" component={testMobx} />
-              <Route path="/Wrap" component={Wrap} />
             </Switch>
           </HashRouter>
         </div>
