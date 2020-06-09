@@ -27,11 +27,13 @@ const DemoFormK = () => {
         return;
       case 'other':
         form.setFieldsValue({ note: 'Hi there!' });
-        return;
+        return
+      default:
+        form.setFieldsValue({ note: 'Hiee there!' });
     }
   };
 
-  const onFinish = (values) => {
+  const onFinish = (values:any) => {
     console.log(values);
   };
 

@@ -3,6 +3,7 @@ import React, { useState, useContext, useImperativeHandle } from 'react';
 // import { hot } from 'react-hot-loader/root';
 import { Input, Button } from 'antd';
 import { observer } from 'mobx-react';
+import history from '@/historys';
 import RootStoreContext from '@/moxstore/rootStroe/index';
 
 import '@/styles/TestEnvTeam/TestEnvTeamList.less';
@@ -121,6 +122,7 @@ export default observer(function TestEnvTeamList(secondParentList) {
   const jumpToTeamDetail = (row) => {
     console.log('团队年度KR详情', row);
     console.log('团队年666详情', secondParentList);
+    history.push('/outer');
   };
   return (
     <div className="TestEnvTeamListCla">
