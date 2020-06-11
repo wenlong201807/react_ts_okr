@@ -132,17 +132,7 @@ const commonConfig: Configuration = {
                         },
                     },
                 ],
-            },
-            {
-                test: /\.scss$/,
-                use: [
-                    ...getCssLoaders(2),
-                    {
-                        loader: 'sass-loader',
-                        options: { sourceMap: true },
-                    },
-                ],
-            },
+            },          
             {
                 test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
                 use: [

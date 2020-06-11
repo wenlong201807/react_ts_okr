@@ -1,7 +1,7 @@
 import React from 'react';
 // import { hot } from 'react-hot-loader/root';
 // import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
-import './App.scss';
+import './App.less';
 import { observer } from 'mobx-react';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Login from '@/views/Login';

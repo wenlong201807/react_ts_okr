@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import { hot } from 'react-hot-loader/root';
 import '@/styles/TestEnvTeam/TestEnvTeamCollapse.less';
 
-import { Collapse, Input, Button, Form, message,Popover,Menu } from 'antd';
+import { Collapse, Input, Button, Form, message, Dropdown, Menu } from 'antd';
 
-import { PlusCircleOutlined, SendOutlined, EllipsisOutlined,CloseOutlined } from '@ant-design/icons';
+import {
+  PlusCircleOutlined,
+  SendOutlined,
+  EllipsisOutlined,
+  CloseOutlined,
+} from '@ant-design/icons';
 import TestEnvTeamList from '@/components/TestEnvTeam/TestEnvTeamList';
 // import TestEnvTeamTable from '@/components/TestEnvTeam/TestEnvTeamTable';
 const { Panel } = Collapse;
@@ -12,34 +17,6 @@ const { Panel } = Collapse;
 function callback(key) {
   console.log(key);
 }
-
-const choiceAction = ({ editingKey,
-  editObjective,
-  editResult,
-  row,
-  delNewCollapse }) => {
-  console.log(editingKey);
- 
-  return (
-    <Menu>
-      <Menu.Item>
-        <span className="EditDelRowCla" onClick={() => editObjective(row)}>
-        编辑Objective
-        </span>
-      </Menu.Item>
-      <Menu.Item>
-        <span className="EditDelRowCla" onClick={() => editResult(row)}>
-        编辑Result
-        </span>
-      </Menu.Item>
-      <Menu.Item>
-        <span className="EditDelRowCla" onClick={() => delNewCollapse(row)}>
-          删除Objective
-        </span>
-      </Menu.Item>
-    </Menu>
-  );
-};
 
 const TestEnvTeamCollapse = (parentObejct: any) => {
   // console.log('parentObejct:',parentObejct.objectArr)
@@ -113,8 +90,17 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
   console.log('editingKey:', editingKey);
   // const [CollapseListData, setCollapseListData] = useState(CollapseList);
 
-  const myHead = (row,order) => {
-    console.log('折叠面板表头内容：', row, isEditing,order);
+  const choiceAction = ({ row }) => {
+    return (
+      <Menu>
+        <Menu.Item onClick={() => editObjective(row)}>编辑Objective</Menu.Item>
+        <Menu.Item onClick={() => editResult(row)}>编辑Result</Menu.Item>
+        <Menu.Item onClick={() => delNewCollapse(row)}>删除Objective</Menu.Item>
+      </Menu>
+    );
+  };
+  const myHead = (row, order) => {
+    console.log('折叠面板表头内容：', row, isEditing, order);
     console.log('折叠面板表头内容order：', order);
     // console.log('折叠面板表头是否存在内容row.headItem.head：', row.headItem.head);
     const isEditInput = isEditing(row);
@@ -122,12 +108,11 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
     if (isEditInput) {
       return (
         <div className="collapseHeaderCla">
-          <div className="objectOrder">O{order+1}:</div>
+          <div className="objectOrder">O{order + 1}:</div>
 
           <div className="objectInput">
             <Form.Item
               name={'headSelf'}
-              
               style={{
                 margin: 0,
               }}
@@ -143,7 +128,7 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
             </Form.Item>
           </div>
           <div className="objectAdmin">
-          <CloseOutlined  onClick={() => delNewCollapse(row)}/>
+            <CloseOutlined onClick={() => delNewCollapse(row)} />
           </div>
           <div className="objectIsAction">
             <Button
@@ -161,25 +146,15 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
       return (
         <div className="collapseHeaderCla">
           <div className="objectTitle">
-            <span className="objectTitleNum">O{order+1}:</span> {row.headItem.head}
+            <span className="objectTitleNum">O{order + 1}:</span> {row.headItem.head}
           </div>
           <div className="objectWeight">权重：{row.headItem.weight}%</div>
           <div className="objectFinish">完成度：{row.headItem.finish}%</div>
           <div className="objectAdmin">负责人</div>
           <div className="objectIsAction">
-          <Popover
-          placement="bottom"
-          content={choiceAction({
-            editingKey,
-            editObjective,
-            editResult,
-            row,
-            delNewCollapse
-          })}
-          trigger="click"
-        >
-          <EllipsisOutlined />
-        </Popover>
+            <Dropdown overlay={choiceAction({ row })}>
+              <EllipsisOutlined />
+            </Dropdown>
           </div>
         </div>
       );
@@ -214,19 +189,18 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
   };
 
   const editObjective = (row) => {
-    console.log('editObjective', row)
+    console.log('editObjective', row);
     console.log('当前页面中现有的数据：', CollapseListData);
     const newCollapseListData = [...CollapseListData];
     const index = newCollapseListData.findIndex((item) => row.key === item.key);
-    console.log('需要编辑的行', index)
+    console.log('需要编辑的行', index);
     // 选中需要编辑的head的内容
-    let oldHead = newCollapseListData[index].headItem.head
-    setEditingKey(oldHead)
-    
-  }
+    let oldHead = newCollapseListData[index].headItem.head;
+    setEditingKey(oldHead);
+  };
   const editResult = (row) => {
-    console.log('editResult',row)
-  }
+    console.log('editResult', row);
+  };
 
   const delNewCollapse = (row) => {
     // console.log(row)
@@ -236,7 +210,7 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
     newCollapseListData.splice(index, 1);
     setCollapseListData(newCollapseListData);
     setEditingKey('');
-  }
+  };
 
   const addOneCollapse = () => {
     console.log(66, CollapseListData);
@@ -283,7 +257,7 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
           bordered={false}
           expandIconPosition={'right'}
         >
-          {CollapseListData.map((item,order) => {
+          {CollapseListData.map((item, order) => {
             return (
               <Panel header={myHead(item, order)} key={item.key}>
                 {/*<TestEnvTeamTable key={item.key} {...item}></TestEnvTeamTable>*/}
