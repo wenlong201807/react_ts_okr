@@ -59,8 +59,7 @@ const DemoFormK = () => {
           <Input />
         </Form.Item>
         <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
-          <Select
-            placeholder="Select a option and change input text above"
+          <Select         
             onChange={onGenderChange}
             allowClear
           >

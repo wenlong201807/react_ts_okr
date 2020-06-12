@@ -54,18 +54,7 @@ const EditableCell = ({
 
 const choiceAction = ({ editingKey, edit, record, delRow }) => {
   console.log(editingKey);
-  // <Button type="link" disabled={editingKey !== ''} onClick={() => delRow(record)}>
-  //     删除
-  // </Button>;
-  /**
-     *  <Popconfirm title="确定要取消修改吗?" onConfirm={cancelUpdate}>
-                            <Button>取消</Button>
-                        </Popconfirm>
 
-                          <div className="EditDelRowCla" onClick={(e) => delRow(e,record)}>
-                    删除
-                </div>
-    */
   return (
     <div className="rowHandlerChange">
       <div
@@ -116,7 +105,7 @@ const BaseCenterOKR = () => {
   };
 
   const delRow = (record) => {
-    console.log('delRow--record:', record.id);
+    // console.log('delRow--record:', record.id);
     const newData = [...data];
     const index = newData.findIndex((item) => record.id === item.id);
     newData.splice(index, 1); // 删除指定行数据
@@ -124,15 +113,15 @@ const BaseCenterOKR = () => {
   };
 
   const addOneRow = () => {
-    console.log('editingKey:', editingKey);
+    // console.log('editingKey:', editingKey);
     if (editingKey) {
-      console.log('请先保存当前编辑内容');
+      // console.log('请先保存当前编辑内容');
       message.warning('请先保存当前编辑内容');
     } else {
       form.resetFields();
       let len = data.length;
       const newIndex = data[len - 1].id + 1;
-      console.log(len, data[len - 1]);
+      // console.log(len, data[len - 1]);
       setEditingKey(newIndex.toString()); // 新添加的这一行变成可编辑状态
       const newRow = {
         id: newIndex,

@@ -102,7 +102,6 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
 
   const stopDefault = (e) => {
     e.stopPropagation();
-    console.log('组织默认行为');
   };
   const myHead = (row, order) => {
     console.log('折叠面板表头内容：', row, isEditing, order);
@@ -129,6 +128,8 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
                 },
               ]}
             >
+              {/* */}
+              {/* <Input /> */}
               <Input defaultValue={row.headItem.head} />
             </Form.Item>
           </div>
@@ -202,6 +203,10 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
     // 选中需要编辑的head的内容
     let oldHead = newCollapseListData[index].headItem.head;
     setEditingKey(oldHead);
+
+    // form.setFieldsValue({
+    //   headSelf: newCollapseListData[index].headItem.head,
+    // });
   };
   const editResult = (row) => {
     console.log('editResult', row);
@@ -223,6 +228,9 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
       message.warning('请先保存当前编辑的Objective');
     } else {
       form.resetFields();
+      form.setFieldsValue({
+        headSelf: '',
+      });
       let len = CollapseListData.length;
       // console.log('list:', CollapseListData[len - 1].list)
 
@@ -277,9 +285,6 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
         <PlusCircleOutlined></PlusCircleOutlined>
         <span className="addTargetCla">添加Objective</span>
       </div>
-      {/*      
-        <AddBtn addOneCollapse={addOneCollapse}/>
-      */}
     </div>
   );
 };

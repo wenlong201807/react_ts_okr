@@ -35,7 +35,8 @@ const jumpToTarget = (path: any) => {
 function Home() {
   const state: any = {
     theme: 'light',
-    current: '/home/TestEnvTeamOKR2',
+    current: '/home/BaseCenterOKR',
+    // current: '/home/TestEnvTeamOKR2',
   };
   const [status, setStatus] = useState(state);
 
@@ -64,11 +65,8 @@ function Home() {
               </Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" icon={<AppstoreOutlined />} title="团队OKR">
-              <Menu.Item key="/home/TestEnvTeamOKR">
-                <span onClick={() => jumpToTarget('/home/TestEnvTeamOKR')}>测试环境团队</span>
-              </Menu.Item>
               <Menu.Item key="/home/TestEnvTeamOKR2">
-                <span onClick={() => jumpToTarget('/home/TestEnvTeamOKR2')}>测试环境团队2</span>
+                <span onClick={() => jumpToTarget('/home/TestEnvTeamOKR2')}>测试环境团队</span>
               </Menu.Item>
             </SubMenu>
             <SubMenu key="sub3" icon={<AppstoreOutlined />} title="个人OKR管理">
@@ -86,6 +84,8 @@ function Home() {
             <Menu.Item key="/home/BaseCenterOKR">
               <span onClick={() => jumpToTarget('/home/BaseCenterOKR')}>中心OKR基线</span>
             </Menu.Item>
+
+            {/*  
             <SubMenu key="sub5" icon={<AppstoreOutlined />} title="测试中...">
               <Menu.Item key="/home/about">
                 <span onClick={() => jumpToTarget('/home/about')}>自我测试</span>
@@ -97,12 +97,6 @@ function Home() {
               <Menu.Item key="/home/collapse">
                 <span onClick={() => jumpToTarget('/home/collapse')}>折叠面板(共用的)</span>
               </Menu.Item>
-
-              {/*
-            <Menu.Item key="/home/list">
-              <span onClick={() => jumpToTarget("/home/list">列表</span>
-            </Menu.Item>
-            */}
               <Menu.Item key="/home/CRUD">
                 <span onClick={() => jumpToTarget('/home/CRUD')}>表单CRUD</span>
               </Menu.Item>
@@ -129,10 +123,6 @@ function Home() {
                 <span onClick={() => jumpToTarget('/Wrap')}>Wrap</span>
               </Menu.Item>
             </SubMenu>
-            {/*
-             <Menu.Item key="/home/Editorcell">
-              <span onClick={() => jumpToTarget("/home/Editorcell">编辑单元格</span>
-            </Menu.Item>
             
             */}
           </Menu>
@@ -156,7 +146,7 @@ function Home() {
               <Route path="/home/formSelf" component={formSelf} />
               <Route path="/home/EditorRow" component={Editorrow} />
               <Route path="/home/Editorcell" component={Editorcell} />
-         
+
               <Route path="/testMobx" component={testMobx} />
               <Route path="/Wrap" component={Wrap} />
             </Switch>
