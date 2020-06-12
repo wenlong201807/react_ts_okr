@@ -99,6 +99,11 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
       </Menu>
     );
   };
+
+  const stopDefault = (e) => {
+    e.stopPropagation();
+    console.log('组织默认行为');
+  };
   const myHead = (row, order) => {
     console.log('折叠面板表头内容：', row, isEditing, order);
     console.log('折叠面板表头内容order：', order);
@@ -107,7 +112,7 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
     // console.log('是否可编辑：', isEditInput);
     if (isEditInput) {
       return (
-        <div className="collapseHeaderCla">
+        <div className="collapseHeaderCla" onClick={(e) => stopDefault(e)}>
           <div className="objectOrder">O{order + 1}:</div>
 
           <div className="objectInput">
@@ -144,7 +149,7 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
       );
     } else {
       return (
-        <div className="collapseHeaderCla">
+        <div className="collapseHeaderCla" onClick={(e) => stopDefault(e)}>
           <div className="objectTitle">
             <span className="objectTitleNum">O{order + 1}:</span> {row.headItem.head}
           </div>
