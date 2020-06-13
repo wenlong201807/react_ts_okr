@@ -4,19 +4,16 @@ import { Form, Input, Button } from 'antd';
 
 import '@/styles/test/formSelfEdit.less';
 
-const layout = {
-  labelCol: { span: 3 },
-  wrapperCol: { span: 8 },
-};
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
+// const layout = {
+//   labelCol: { span: 2 },
+//   wrapperCol: { span: 4 },
+// };
 
 const formSelfEdit = () => {
   const dynamicArr = [{ key: 1, KRContent: '', weight: '', finished: '' }];
   const [form] = Form.useForm();
   const [dArr, setDArr] = useState(dynamicArr);
-  const [editingKey, setEditingKey] = useState(''); // 空字符串为不可编辑，'edit' 为编辑
+  const [editingKey, setEditingKey] = useState('edit'); // 空字符串为不可编辑，'edit' 为编辑
 
   const addOneInput = () => {
     console.log('addOneInput');
@@ -83,25 +80,24 @@ const formSelfEdit = () => {
   const isEdit = () => {
     console.log('是否编辑');
     setEditingKey('edit'); // 可编辑状态
-    // form.setFieldsValue({
-    //   note: 'Hello world!',
-    // });
   };
 
   if (editingKey) {
     return (
       <div>
-        <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
+        {/*  <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>  */}
+        <Form form={form} name="control-hooks" onFinish={onFinish}>
           {dArr.map((item) => {
             return (
-              <div key={item.key}>
+              <div key={item.key} className="editListClaWrap">
                 <Form.Item noStyle shouldUpdate>
                   {() => {
                     return (
                       <Form.Item
+                        className="editKRCla"
                         name={'KRContent-' + item.key}
                         label={'KR' + item.key}
-                        rules={[{ required: true, message: `KR${item.key}内容不能为空` }]}
+                        rules={[{ required: true, message: `KR${item.key}不能为空` }]}
                         initialValue={item.KRContent}
                       >
                         <Input />
@@ -113,9 +109,10 @@ const formSelfEdit = () => {
                   {() => {
                     return (
                       <Form.Item
+                        className="editweightCla"
                         name={'weight-' + item.key}
                         label={'权重' + item.key}
-                        rules={[{ required: true, message: `权重内容不能为空` }]}
+                        rules={[{ required: true, message: `权重不能为空` }]}
                         initialValue={item.weight}
                       >
                         <Input />
@@ -127,9 +124,10 @@ const formSelfEdit = () => {
                   {() => {
                     return (
                       <Form.Item
+                        className="editfinishedCla"
                         name={'finished-' + item.key}
                         label={'完成度' + item.key}
-                        rules={[{ required: true, message: `完成度内容不能为空` }]}
+                        rules={[{ required: true, message: `完成度不能为空` }]}
                         initialValue={item.finished}
                       >
                         <Input />
@@ -137,29 +135,15 @@ const formSelfEdit = () => {
                     );
                   }}
                 </Form.Item>
-                <Button htmlType="button" onClick={() => DelOne(item.key)}>
-                  删除{item.key}
-                </Button>
+                <div className="editDelCla">
+                  <Button htmlType="button" onClick={() => DelOne(item.key)}>
+                    删除{item.key}
+                  </Button>
+                </div>
+                <hr />
               </div>
             );
           })}
-
-          {/*   // 模板
-          <Form.Item noStyle shouldUpdate>
-            {() => {
-              return (
-                <Form.Item name="dName2" label="C2" rules={[{ required: true }]}>
-                  <Input />
-                </Form.Item>
-              );
-            }}
-          </Form.Item>
-        */}
-          <Form.Item {...tailLayout}>
-            <Button type="primary" htmlType="submit">
-              获取所有表单内容
-            </Button>
-          </Form.Item>
         </Form>
 
         <Button onClick={addOneInput}>添加一个input</Button>
@@ -172,12 +156,14 @@ const formSelfEdit = () => {
         <Button onClick={isEdit}>进入编辑状态</Button>
         {dArr.map((item) => {
           return (
-            <div key={item.key}>
-              <div>
-                {'KR' + item.key}:{item.KRContent}
+            <div key={item.key} className="ListClaWrap">
+              <div className="KRCla">
+                <span className="KRClaTitle"> {'KR' + item.key}:</span>
+                {item.KRContent}
               </div>
-              <div>权重:{item.weight}</div>
-              <div>完成度:{item.weight}</div>
+              <div className="weightCla">权重:{item.weight}</div>
+              <div className="finishedCla">完成度:{item.weight}</div>
+              <div className="DelCla">完成度:{item.weight}</div>
             </div>
           );
         })}
