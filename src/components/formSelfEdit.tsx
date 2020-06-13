@@ -4,10 +4,10 @@ import { Form, Input, Button } from 'antd';
 
 import '@/styles/test/formSelfEdit.less';
 
-// const layout = {
-//   labelCol: { span: 2 },
-//   wrapperCol: { span: 4 },
-// };
+const layoutFormItem = {
+  labelCol: { span: 3 },
+  // wrapperCol: { span: 4 },
+};
 
 const formSelfEdit = () => {
   const dynamicArr = [{ key: 1, KRContent: '', weight: '', finished: '' }];
@@ -94,6 +94,7 @@ const formSelfEdit = () => {
                   {() => {
                     return (
                       <Form.Item
+                        {...layoutFormItem}
                         className="editKRCla"
                         name={'KRContent-' + item.key}
                         label={'KR' + item.key}
@@ -109,6 +110,7 @@ const formSelfEdit = () => {
                   {() => {
                     return (
                       <Form.Item
+                        // {...layoutFormItem}
                         className="editweightCla"
                         name={'weight-' + item.key}
                         label={'权重' + item.key}
@@ -124,6 +126,7 @@ const formSelfEdit = () => {
                   {() => {
                     return (
                       <Form.Item
+                        // {...layoutFormItem}
                         className="editfinishedCla"
                         name={'finished-' + item.key}
                         label={'完成度' + item.key}
