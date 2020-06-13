@@ -1,10 +1,8 @@
 // import React from 'react';
 import React, { useState } from 'react';
-import { Form, Input, Button, Select } from 'antd';
+import { Form, Input, Button } from 'antd';
 
 import '@/styles/test/formSelf.less';
-
-const { Option } = Select;
 
 const layout = {
   labelCol: { span: 3 },
@@ -14,10 +12,11 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-const DemoFormK = () => {
-  const dynamicArr = [{ key: 1, name: 'default', weight: 'weight', value: 'defaultValue' }];
+const formSelf = () => {
+  const dynamicArr = [{ key: 1, KRContent: '', weight: '', finished: '' }];
   const [form] = Form.useForm();
   const [dArr, setDArr] = useState(dynamicArr);
+  const [editingKey, setEditingKey] = useState(''); // 空字符串为不可编辑，'edit' 为编辑
 
   const addOneInput = () => {
     console.log('addOneInput');
@@ -25,10 +24,9 @@ const DemoFormK = () => {
     let obj: any = {};
     if (dArr.length) {
       lastKey = dArr[dArr.length - 1].key + 1;
-      lastKey = dArr[dArr.length - 1].key + 1;
-      obj = { key: lastKey, name: 'default', weight: 'weight', value: 'defaultValue' };
+      obj = { key: lastKey, KRContent: '', weight: '', finished: '' };
     } else {
-      obj = { key: 1, name: 'default', weight: 'weight', value: 'defaultValue' };
+      obj = { key: 1, KRContent: '', weight: '', finished: '' };
     }
 
     dArr.push(obj);
@@ -38,144 +36,154 @@ const DemoFormK = () => {
 
   const DelOne = (index) => {
     console.log(index);
-    dArr.splice(index, 1);
-    // let obj = { key: lastKey, name: 'default', value: 'defaultValue' };
-    // dArr.push(obj);
+    let DelInd = dArr.findIndex((val) => val.key == index);
+    dArr.splice(DelInd, 1);
     const newArr = [...dArr];
     setDArr(newArr);
   };
 
-  const onGenderChange = (value) => {
-    switch (value) {
-      case 'male':
-        form.setFieldsValue({ note: 'Hi, man!' });
-        return;
-      case 'female':
-        form.setFieldsValue({ note: 'Hi, lady!' });
-        return;
-      case 'other':
-        form.setFieldsValue({ note: 'Hi there!' });
-        return;
-      default:
-        form.setFieldsValue({ note: 'Hiee there!' });
+  const onFinish = (values: any) => {
+    console.log(values);
+    let updateArr: any = [];
+    let valueArr: any = Object.entries(values);
+    let len = valueArr.length;
+    let rowNumber = Math.floor(len / 3);
+    for (let i = 0; i < rowNumber; i++) {
+      updateArr.push({});
+    }
+    console.log(updateArr, len, rowNumber, valueArr);
+    let j = 0;
+    while (j < len) {
+      // console.log(valueArr[j]);
+      let Unionkey = valueArr[j][0].split('-')[1];
+      let key = valueArr[j][0].split('-')[0];
+      let value = valueArr[j][1];
+      console.log('每一行的内容:', Unionkey, key, value);
+      updateArr[Math.floor(j / 3)][key] = value;
+      updateArr[Math.floor(j / 3)]['key'] = Number(Unionkey);
+      j++;
+    }
+    console.log('updateArr', updateArr);
+    const newArr = [...updateArr];
+    setDArr(newArr);
+    setEditingKey(''); // bu可编辑状态
+  };
+
+  const getAllFormValue = async () => {
+    console.log('获取所有内容', form);
+    try {
+      let rowData: any = await form.validateFields();
+      console.log('form.validateFields(),返回当前行数据:', rowData);
+      onFinish(rowData);
+    } catch (errInfo) {
+      console.log('需要填写完整才能提交:', errInfo);
     }
   };
 
-  const onFinish = (values: any) => {
-    console.log(values);
-    getAllFormValue(values);
+  const isEdit = () => {
+    console.log('是否编辑');
+    setEditingKey('edit'); // 可编辑状态
+    // form.setFieldsValue({
+    //   note: 'Hello world!',
+    // });
   };
 
-  const onReset = () => {
-    form.resetFields();
-  };
-  const getAllFormValue = (values: any = '所有input内容') => {
-    console.log('获取所有内容：', values);
-    // console.log('获取指定内容：', form.getFieldValue('note'));
-    // form.getFieldValue('note')
-  };
+  if (editingKey) {
+    return (
+      <div>
+        <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
+          {dArr.map((item) => {
+            return (
+              <div key={item.key}>
+                <Form.Item noStyle shouldUpdate>
+                  {() => {
+                    return (
+                      <Form.Item
+                        name={'KRContent-' + item.key}
+                        label={'KR' + item.key}
+                        rules={[{ required: true, message: `KR${item.key}内容不能为空` }]}
+                        initialValue={item.KRContent}
+                      >
+                        <Input />
+                      </Form.Item>
+                    );
+                  }}
+                </Form.Item>
+                <Form.Item noStyle shouldUpdate>
+                  {() => {
+                    return (
+                      <Form.Item
+                        name={'weight-' + item.key}
+                        label={'权重' + item.key}
+                        rules={[{ required: true, message: `权重内容不能为空` }]}
+                        initialValue={item.weight}
+                      >
+                        <Input />
+                      </Form.Item>
+                    );
+                  }}
+                </Form.Item>
+                <Form.Item noStyle shouldUpdate>
+                  {() => {
+                    return (
+                      <Form.Item
+                        name={'finished-' + item.key}
+                        label={'完成度' + item.key}
+                        rules={[{ required: true, message: `完成度内容不能为空` }]}
+                        initialValue={item.finished}
+                      >
+                        <Input />
+                      </Form.Item>
+                    );
+                  }}
+                </Form.Item>
+                <Button htmlType="button" onClick={() => DelOne(item.key)}>
+                  删除{item.key}
+                </Button>
+              </div>
+            );
+          })}
 
-  const onFill = () => {
-    form.setFieldsValue({
-      note: 'Hello world!',
-      gender: 'male',
-    });
-  };
+          {/*   // 模板
+          <Form.Item noStyle shouldUpdate>
+            {() => {
+              return (
+                <Form.Item name="dName2" label="C2" rules={[{ required: true }]}>
+                  <Input />
+                </Form.Item>
+              );
+            }}
+          </Form.Item>
+        */}
+          <Form.Item {...tailLayout}>
+            <Button type="primary" htmlType="submit">
+              获取所有表单内容
+            </Button>
+          </Form.Item>
+        </Form>
 
-  return (
-    <div>
-      <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
-        <Form.Item name="note" label="Note" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
-          <Select onChange={onGenderChange} allowClear>
-            <Option value="male">male</Option>
-            <Option value="female">female</Option>
-            <Option value="other">other</Option>
-          </Select>
-        </Form.Item>
-        <Form.Item
-          noStyle
-          shouldUpdate={(prevValues, currentValues) => prevValues.gender !== currentValues.gender}
-        >
-          {({ getFieldValue }) => {
-            return getFieldValue('gender') === 'other' ? (
-              <Form.Item
-                name="customizeGender"
-                label="Customize Gender"
-                rules={[{ required: true }]}
-              >
-                <Input />
-              </Form.Item>
-            ) : null;
-          }}
-        </Form.Item>
-
-        {dArr.map((item, index) => {
+        <Button onClick={addOneInput}>添加一个input</Button>
+        <Button onClick={getAllFormValue}>完成</Button>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <Button onClick={isEdit}>进入编辑状态</Button>
+        {dArr.map((item) => {
           return (
-            <div key={index}>
-              <Form.Item noStyle shouldUpdate>
-                {() => {
-                  return (
-                    <Form.Item
-                      name={item.name + item.key}
-                      label={item.name + item.key}
-                      rules={[{ required: true }]}
-                    >
-                      <Input />
-                    </Form.Item>
-                  );
-                }}
-              </Form.Item>
-              <Form.Item noStyle shouldUpdate>
-                {() => {
-                  return (
-                    <Form.Item
-                      name={item.weight + item.key}
-                      label={item.weight + item.key}
-                      rules={[{ required: true }]}
-                    >
-                      <Input />
-                    </Form.Item>
-                  );
-                }}
-              </Form.Item>
-              <Button htmlType="button" onClick={() => DelOne(index)}>
-                删除{item.key}
-              </Button>
+            <div key={item.key}>
+              <div>
+                {'KR' + item.key}:{item.KRContent}
+              </div>
+              <div>权重:{item.weight}</div>
+              <div>完成度:{item.weight}</div>
             </div>
           );
         })}
-
-        {/*   // 模板
-        <Form.Item noStyle shouldUpdate>
-          {() => {
-            return (
-              <Form.Item name="dName2" label="C2" rules={[{ required: true }]}>
-                <Input />
-              </Form.Item>
-            );
-          }}
-        </Form.Item>
-      */}
-        <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit">
-            获取所有表单内容
-          </Button>
-          <Button htmlType="button" onClick={onReset}>
-            Reset
-          </Button>
-          <Button type="link" htmlType="button" onClick={onFill}>
-            Fill form
-          </Button>
-        </Form.Item>
-      </Form>
-      <h1>分割线</h1>
-      <Button onClick={getAllFormValue}>获取所有表格的值</Button>
-      <Button onClick={addOneInput}>添加一个input</Button>
-    </div>
-  );
+      </div>
+    );
+  }
 };
 
-export default DemoFormK;
+export default formSelf;

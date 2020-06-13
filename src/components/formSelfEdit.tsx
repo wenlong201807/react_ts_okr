@@ -18,10 +18,6 @@ const formSelfEdit = () => {
   const [dArr, setDArr] = useState(dynamicArr);
   const [editingKey, setEditingKey] = useState(''); // 空字符串为不可编辑，'edit' 为编辑
 
-  // const isEditing = (record) => record.headItem.head === editingKey;
-  // const [CurrentList, setCurrentList] = useState([]);
-  // console.log('editingKey:', editingKey);
-
   const addOneInput = () => {
     console.log('addOneInput');
     let lastKey: any = 0;
@@ -63,14 +59,6 @@ const formSelfEdit = () => {
       let key = valueArr[j][0].split('-')[0];
       let value = valueArr[j][1];
       console.log('每一行的内容:', Unionkey, key, value);
-
-      // let rowObj = {
-      //   [key]: value,
-      // };
-      if (j % 3 == 0) {
-        // updateArr[Unionkey - 1]['key'] = Number(Unionkey);
-        console.log('当前索引:', Number(Unionkey));
-      }
       updateArr[Math.floor(j / 3)][key] = value;
       updateArr[Math.floor(j / 3)]['key'] = Number(Unionkey);
       j++;
@@ -81,8 +69,15 @@ const formSelfEdit = () => {
     setEditingKey(''); // bu可编辑状态
   };
 
-  const onReset = () => {
-    form.resetFields();
+  const getAllFormValue = async () => {
+    console.log('获取所有内容', form);
+    try {
+      let rowData: any = await form.validateFields();
+      console.log('form.validateFields(),返回当前行数据:', rowData);
+      onFinish(rowData);
+    } catch (errInfo) {
+      console.log('需要填写完整才能提交:', errInfo);
+    }
   };
 
   const isEdit = () => {
@@ -97,9 +92,9 @@ const formSelfEdit = () => {
     return (
       <div>
         <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
-          {dArr.map((item, index) => {
+          {dArr.map((item) => {
             return (
-              <div key={index}>
+              <div key={item.key}>
                 <Form.Item noStyle shouldUpdate>
                   {() => {
                     return (
@@ -164,14 +159,11 @@ const formSelfEdit = () => {
             <Button type="primary" htmlType="submit">
               获取所有表单内容
             </Button>
-            <Button htmlType="button" onClick={onReset}>
-              Reset
-            </Button>
           </Form.Item>
         </Form>
-        <h1>分割线</h1>
 
         <Button onClick={addOneInput}>添加一个input</Button>
+        <Button onClick={getAllFormValue}>完成</Button>
       </div>
     );
   } else {
