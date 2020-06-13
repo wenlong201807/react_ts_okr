@@ -28,7 +28,6 @@ const formSelfEdit = () => {
     let obj: any = {};
     if (dArr.length) {
       lastKey = dArr[dArr.length - 1].key + 1;
-      lastKey = dArr[dArr.length - 1].key + 1;
       obj = { key: lastKey, KRContent: '', weight: '', finished: '' };
     } else {
       obj = { key: 1, KRContent: '', weight: '', finished: '' };
@@ -41,7 +40,8 @@ const formSelfEdit = () => {
 
   const DelOne = (index) => {
     console.log(index);
-    dArr.splice(index, 1);
+    let DelInd = dArr.findIndex((val) => val.key == index);
+    dArr.splice(DelInd, 1);
     const newArr = [...dArr];
     setDArr(newArr);
   };
@@ -58,7 +58,7 @@ const formSelfEdit = () => {
     console.log(updateArr, len, rowNumber, valueArr);
     let j = 0;
     while (j < len) {
-      console.log(valueArr[j]);
+      // console.log(valueArr[j]);
       let Unionkey = valueArr[j][0].split('-')[1];
       let key = valueArr[j][0].split('-')[0];
       let value = valueArr[j][1];
@@ -68,9 +68,11 @@ const formSelfEdit = () => {
       //   [key]: value,
       // };
       if (j % 3 == 0) {
-        updateArr[Unionkey - 1]['key'] = Number(Unionkey);
+        // updateArr[Unionkey - 1]['key'] = Number(Unionkey);
+        console.log('当前索引:', Number(Unionkey));
       }
-      updateArr[Unionkey - 1][key] = value;
+      updateArr[Math.floor(j / 3)][key] = value;
+      updateArr[Math.floor(j / 3)]['key'] = Number(Unionkey);
       j++;
     }
     console.log('updateArr', updateArr);
@@ -140,7 +142,7 @@ const formSelfEdit = () => {
                     );
                   }}
                 </Form.Item>
-                <Button htmlType="button" onClick={() => DelOne(index)}>
+                <Button htmlType="button" onClick={() => DelOne(item.key)}>
                   删除{item.key}
                 </Button>
               </div>
