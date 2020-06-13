@@ -36,26 +36,25 @@ const CRUD = () => {
               {fields.map((field, index) => (
                 <Form.Item
                   {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-                  label={index === 0 ? 'Passengers' : `第${index+1}个:`}
+                  label={index === 0 ? 'Passengers' : `第${index + 1}个:`}
                   required={false}
                   key={field.key}
                 >
                   <Form.Item
                     {...field}
-                    
                     // validateTrigger={['onChange', 'onBlur']}
                     rules={[
                       {
                         // required: true,
                         whitespace: true,
-                        message: "必填项",
+                        message: '必填项',
                       },
                     ]}
                     noStyle
                   >
-                    <Input placeholder="passenger name" style={{ width: '60%' }} />
+                    <Input placeholder="passenger name" style={{ width: '30%' }} />
                   </Form.Item>
-                
+
                   {fields.length > 1 ? (
                     <MinusCircleOutlined
                       className="dynamic-delete-button"

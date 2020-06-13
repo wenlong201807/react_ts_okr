@@ -120,6 +120,7 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
               style={{
                 margin: 0,
               }}
+              // initialValues={headSelf:'dffb'}
               rules={[
                 {
                   required: true,
@@ -127,10 +128,11 @@ const TestEnvTeamCollapse = (parentObejct: any) => {
                   // message: `KR${title} 不能为空`,
                 },
               ]}
+              initialValue={row.headItem.head}
             >
-              {/* */}
-              {/* <Input /> */}
-              <Input defaultValue={row.headItem.head} />
+              {/* <Input defaultValue={row.headItem.head} /> */}
+              {/* <Input />   initialValues*/}
+              <Input />
             </Form.Item>
           </div>
           <div className="objectAdmin">

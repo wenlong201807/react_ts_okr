@@ -19,6 +19,7 @@ import editEdit from '@/components/editEdit';
 import multiRowForm from '@/components/multiRowForm';
 import CRUD from '@/components/CRUD';
 import formSelf from '@/components/formSelf';
+import formSelfEdit from '@/components/formSelfEdit';
 import Editorrow from '@/components/EditorRow';
 import Editorcell from '@/components/Editorcell';
 import testMobx from '@/views/testMobx';
@@ -101,7 +102,10 @@ function Home() {
                 <span onClick={() => jumpToTarget('/home/CRUD')}>表单CRUD</span>
               </Menu.Item>
               <Menu.Item key="/home/formSelf">
-                <span onClick={() => jumpToTarget('/home/formSelf')}>表单自定义宽度</span>
+                <span onClick={() => jumpToTarget('/home/formSelf')}>表单自定义添删</span>
+              </Menu.Item>
+              <Menu.Item key="/home/formSelfEdit">
+                <span onClick={() => jumpToTarget('/home/formSelfEdit')}>表单自定义修改</span>
               </Menu.Item>
               <Menu.Item key="/home/multiRowForm">
                 <span onClick={() => jumpToTarget('/home/multiRowForm')}>多行表单</span>
@@ -144,6 +148,7 @@ function Home() {
               <Route path="/home/editEdit" component={editEdit} />
               <Route path="/home/CRUD" component={CRUD} />
               <Route path="/home/formSelf" component={formSelf} />
+              <Route path="/home/formSelfEdit" component={formSelfEdit} />
               <Route path="/home/EditorRow" component={Editorrow} />
               <Route path="/home/Editorcell" component={Editorcell} />
 
