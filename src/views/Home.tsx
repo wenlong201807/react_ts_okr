@@ -85,7 +85,7 @@ function Home() {
               <span onClick={() => jumpToTarget('/home/BaseCenterOKR')}>中心OKR基线</span>
             </Menu.Item>
 
-            {/*  
+            {/*  */}
             <SubMenu key="sub5" icon={<AppstoreOutlined />} title="测试中...">
               <Menu.Item key="/home/about">
                 <span onClick={() => jumpToTarget('/home/about')}>自我测试</span>
@@ -124,7 +124,7 @@ function Home() {
               </Menu.Item>
             </SubMenu>
             
-            */}
+            
           </Menu>
         </div>
         <div className="content">

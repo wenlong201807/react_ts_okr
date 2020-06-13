@@ -45,9 +45,9 @@ const Login = () => {
 
         <Form.Item>
           <Button type="primary" htmlType="submit" className="login-form-button">
-            Log in
+            登录
           </Button>
-          Or <span>register now!</span>
+          {/* Or <span>register now!</span> */}
         </Form.Item>
       </Form>
     </div>

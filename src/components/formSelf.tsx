@@ -1,5 +1,5 @@
-import React from 'react';
-// import React, { useState } from 'react';
+// import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, Select } from 'antd';
 
 import '@/styles/test/formSelf.less';
@@ -15,7 +15,35 @@ const tailLayout = {
 };
 
 const DemoFormK = () => {
+  const dynamicArr = [{ key: 1, name: 'default', weight: 'weight', value: 'defaultValue' }];
   const [form] = Form.useForm();
+  const [dArr, setDArr] = useState(dynamicArr);
+
+  const addOneInput = () => {
+    console.log('addOneInput');
+    let lastKey: any = 0;
+    let obj: any = {};
+    if (dArr.length) {
+      lastKey = dArr[dArr.length - 1].key + 1;
+      lastKey = dArr[dArr.length - 1].key + 1;
+      obj = { key: lastKey, name: 'default', weight: 'weight', value: 'defaultValue' };
+    } else {
+      obj = { key: 1, name: 'default', weight: 'weight', value: 'defaultValue' };
+    }
+
+    dArr.push(obj);
+    const newArr = [...dArr];
+    setDArr(newArr);
+  };
+
+  const DelOne = (index) => {
+    console.log(index);
+    dArr.splice(index, 1);
+    // let obj = { key: lastKey, name: 'default', value: 'defaultValue' };
+    // dArr.push(obj);
+    const newArr = [...dArr];
+    setDArr(newArr);
+  };
 
   const onGenderChange = (value) => {
     switch (value) {
@@ -27,21 +55,23 @@ const DemoFormK = () => {
         return;
       case 'other':
         form.setFieldsValue({ note: 'Hi there!' });
-        return
+        return;
       default:
         form.setFieldsValue({ note: 'Hiee there!' });
     }
   };
 
-  const onFinish = (values:any) => {
+  const onFinish = (values: any) => {
     console.log(values);
+    getAllFormValue(values);
   };
 
   const onReset = () => {
     form.resetFields();
   };
-  const getAllFormValue = () => {
-    console.log('获取指定内容：', form.getFieldValue('note'));
+  const getAllFormValue = (values: any = '所有input内容') => {
+    console.log('获取所有内容：', values);
+    // console.log('获取指定内容：', form.getFieldValue('note'));
     // form.getFieldValue('note')
   };
 
@@ -59,10 +89,7 @@ const DemoFormK = () => {
           <Input />
         </Form.Item>
         <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
-          <Select         
-            onChange={onGenderChange}
-            allowClear
-          >
+          <Select onChange={onGenderChange} allowClear>
             <Option value="male">male</Option>
             <Option value="female">female</Option>
             <Option value="other">other</Option>
@@ -84,9 +111,57 @@ const DemoFormK = () => {
             ) : null;
           }}
         </Form.Item>
+
+        {dArr.map((item, index) => {
+          return (
+            <div key={index}>
+              <Form.Item noStyle shouldUpdate>
+                {() => {
+                  return (
+                    <Form.Item
+                      name={item.name + item.key}
+                      label={item.name + item.key}
+                      rules={[{ required: true }]}
+                    >
+                      <Input />
+                    </Form.Item>
+                  );
+                }}
+              </Form.Item>
+              <Form.Item noStyle shouldUpdate>
+                {() => {
+                  return (
+                    <Form.Item
+                      name={item.weight + item.key}
+                      label={item.weight + item.key}
+                      rules={[{ required: true }]}
+                    >
+                      <Input />
+                    </Form.Item>
+                  );
+                }}
+              </Form.Item>
+              <Button htmlType="button" onClick={() => DelOne(index)}>
+                删除{item.key}
+              </Button>
+            </div>
+          );
+        })}
+
+        {/*   // 模板
+        <Form.Item noStyle shouldUpdate>
+          {() => {
+            return (
+              <Form.Item name="dName2" label="C2" rules={[{ required: true }]}>
+                <Input />
+              </Form.Item>
+            );
+          }}
+        </Form.Item>
+      */}
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit">
-            Submit
+            获取所有表单内容
           </Button>
           <Button htmlType="button" onClick={onReset}>
             Reset
@@ -97,9 +172,8 @@ const DemoFormK = () => {
         </Form.Item>
       </Form>
       <h1>分割线</h1>
-      <Button type="link" onClick={getAllFormValue}>
-        获取所有表格的值
-      </Button>
+      <Button onClick={getAllFormValue}>获取所有表格的值</Button>
+      <Button onClick={addOneInput}>添加一个input</Button>
     </div>
   );
 };
