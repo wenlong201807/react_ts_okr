@@ -13,6 +13,7 @@ import BaseCenterOKR from '@/views/TeamOKR/BaseCenterOKR';
 import TestEnvTeamOKR from '@/views/TeamOKR/TestEnvTeamOKR';
 import TestEnvTeamOKR2 from '@/views/TeamOKR/TestEnvTeamOKR2';
 
+import PanoramicView from '@/views/TeamOKRExam/PanoramicView';
 import CollapseSelf from '@/components/collapse';
 // import List from '@/components/List';
 import editEdit from '@/components/editEdit';
@@ -21,7 +22,6 @@ import CRUD from '@/components/CRUD';
 import formSelf from '@/components/formSelf';
 import formSelfEdit from '@/components/formSelfEdit';
 import Editorrow from '@/components/EditorRow';
-import CommonTitle from '@/components/CommonTitle';
 import Editorcell from '@/components/Editorcell';
 import testMobx from '@/views/testMobx';
 import history from '@/historys';
@@ -77,7 +77,9 @@ function Home() {
               <Menu.Item key="7">张三</Menu.Item>
             </SubMenu>
             <SubMenu key="sub4" icon={<SettingOutlined />} title="团队OKR考核">
-              <Menu.Item key="9">考核全景视图</Menu.Item>
+              <Menu.Item key="/home/PanoramicView">
+                <div onClick={() => jumpToTarget('/home/PanoramicView')}>考核全景视图</div>
+              </Menu.Item>
               <Menu.Item key="10">系统组</Menu.Item>
               <Menu.Item key="11">开发组</Menu.Item>
               <Menu.Item key="12">网络组</Menu.Item>
@@ -102,9 +104,7 @@ function Home() {
               <Menu.Item key="/home/CRUD">
                 <span onClick={() => jumpToTarget('/home/CRUD')}>表单CRUD</span>
               </Menu.Item>
-              <Menu.Item key="/home/CommonTitle">
-                <span onClick={() => jumpToTarget('/home/CommonTitle')}>公共头部</span>
-              </Menu.Item>
+
               <Menu.Item key="/home/formSelf">
                 <span onClick={() => jumpToTarget('/home/formSelf')}>表单自定义添删</span>
               </Menu.Item>
@@ -142,6 +142,7 @@ function Home() {
               <Route path="/home/BaseCenterOKR" component={BaseCenterOKR} />
               <Route path="/home/TestEnvTeamOKR" component={TestEnvTeamOKR} />
               <Route path="/home/TestEnvTeamOKR2" component={TestEnvTeamOKR2} />
+              <Route path="/home/PanoramicView" component={PanoramicView} />
               <Route path="/home/collapse" component={CollapseSelf} />
 
               <Route path="/home/multiRowForm" component={multiRowForm} />
@@ -152,7 +153,7 @@ function Home() {
               <Route path="/home/formSelf" component={formSelf} />
               <Route path="/home/formSelfEdit" component={formSelfEdit} />
               <Route path="/home/EditorRow" component={Editorrow} />
-              <Route path="/home/CommonTitle" component={CommonTitle} />
+
               <Route path="/home/Editorcell" component={Editorcell} />
 
               <Route path="/testMobx" component={testMobx} />

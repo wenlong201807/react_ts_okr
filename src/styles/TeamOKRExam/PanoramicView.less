@@ -1,0 +1,53 @@
+.PanoramicViewClaWrap {
+  // background: pink;
+  // 头部标题，可公用，暂留
+  .CommonTitleClaWrap {
+    margin: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    height: 55px;
+    line-height: 55px;
+
+    .baseTitel {
+      font-family: '微软雅黑';
+      font-weight: 400;
+      font-style: normal;
+      font-size: 16px;
+    }
+    .baseRight {
+      display: flex;
+      justify-content: space-between;
+      width: 300px;
+      // background: pink;
+    }
+  }
+
+  // 统计数据展示，一行**数据总览
+  .dataAssumeClaWrap {
+    display: flex;
+    height: 100px;
+    margin-bottom: 20px;
+    background: yellowgreen;
+    justify-content: space-around;
+    text-align: center;
+    .dataAssumeCla {
+      flex: 1;
+      margin: 20px auto;
+      &:nth-child(2) {
+        border-left: 1px solid red;
+        border-right: 1px solid red;
+      }
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  // 团队成员列表区
+  .teamListClaWrap {
+    display: flex;
+    height: 100px;
+    background: bisque;
+    justify-content: space-around;
+  }
+}

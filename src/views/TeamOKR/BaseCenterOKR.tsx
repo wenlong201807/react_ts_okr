@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 // import React, { useContext, useState, useEffect, useRef } from 'react';
 import {
@@ -63,7 +63,7 @@ const EditableCell = ({
   );
 };
 
-const BaseCenterOKR = () => {
+const BaseCenterOKR: React.FC = () => {
   const originData: any = [
     {
       id: 1,
@@ -82,7 +82,16 @@ const BaseCenterOKR = () => {
 
   const [form] = Form.useForm();
   const [data, setData] = useState(originData);
+  // const [count, setCount] = useState(0);
   const [editingKey, setEditingKey] = useState('');
+  const childRef: any = useRef();
+  console.log(childRef);
+
+  // 父调用子的方法
+  const pToChildFn = () => {
+    console.log('父调用子的方法', childRef);
+    childRef.current._childFn();
+  };
 
   const isEditing = (record) => record.key === editingKey;
 
@@ -194,17 +203,21 @@ const BaseCenterOKR = () => {
     }
   };
 
-  const sendCancen = () => {
-    console.log('取消发送');
-  };
-  const sendAllData = () => {
-    if (editingKey) {
-      console.log('请先保存当前编辑内容,才能发送数据');
-      message.warning('请先保存当前编辑内容,才能发送数据');
-    } else {
-      console.log('发送所有数据', data);
-    }
-  };
+  // const sendCancen = () => {
+  //   console.log('取消发送');
+  // };
+  // const sendAllData = () => {
+  //   if (editingKey) {
+  //     console.log('请先保存当前编辑内容,才能发送数据');
+  //     message.warning('请先保存当前编辑内容,才能发送数据');
+  //   } else {
+  //     console.log('发送所有数据', data);
+  //   }
+  // };
+
+  // const parantHandler = () => {
+  //   console.log('父组件方法给子组件使用的');
+  // };
 
   const columns = [
     {
@@ -294,7 +307,13 @@ const BaseCenterOKR = () => {
   });
   return (
     <div className="editorCellCla">
-      <CommonTitle></CommonTitle>
+      <CommonTitle
+        // ref={childRef}
+        // ref={childRef}
+        cRef={childRef}
+        msg={'count'}
+        // changeCount={(code: number) => setCount(code)}
+      ></CommonTitle>
       <div className="tableContainerPerson">
         <Form form={form} component={false}>
           <Table
@@ -314,7 +333,10 @@ const BaseCenterOKR = () => {
         <PlusCircleOutlined></PlusCircleOutlined>
         添加目标
       </div>
-      <div className="calcelSaveCla">
+      <span onClick={pToChildFn}>父调用子组件的方法</span>
+
+      {/*  
+       <div className="calcelSaveCla">
         <Button
           onClick={() => sendCancen()}
           type="primary"
@@ -336,6 +358,8 @@ const BaseCenterOKR = () => {
           保存
         </Button>
       </div>
+      
+      */}
     </div>
   );
 };
