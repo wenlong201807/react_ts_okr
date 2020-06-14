@@ -53,6 +53,7 @@
     "history": "^4.10.1",
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.2",
+    "moment": "^2.26.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-hot-loader": "^4.12.19",

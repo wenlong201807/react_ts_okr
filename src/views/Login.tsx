@@ -8,7 +8,7 @@ import '../styles/reflect/login.less';
 
 const onFinish = (values: any) => {
   console.log('Received values of form:', values);
-  history.push('/home');
+  history.push('/home/BaseCenterOKR');
 };
 const Login = () => {
   return (

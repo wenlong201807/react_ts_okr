@@ -21,6 +21,7 @@ import CRUD from '@/components/CRUD';
 import formSelf from '@/components/formSelf';
 import formSelfEdit from '@/components/formSelfEdit';
 import Editorrow from '@/components/EditorRow';
+import CommonTitle from '@/components/CommonTitle';
 import Editorcell from '@/components/Editorcell';
 import testMobx from '@/views/testMobx';
 import history from '@/historys';
@@ -101,6 +102,9 @@ function Home() {
               <Menu.Item key="/home/CRUD">
                 <span onClick={() => jumpToTarget('/home/CRUD')}>表单CRUD</span>
               </Menu.Item>
+              <Menu.Item key="/home/CommonTitle">
+                <span onClick={() => jumpToTarget('/home/CommonTitle')}>公共头部</span>
+              </Menu.Item>
               <Menu.Item key="/home/formSelf">
                 <span onClick={() => jumpToTarget('/home/formSelf')}>表单自定义添删</span>
               </Menu.Item>
@@ -119,7 +123,7 @@ function Home() {
               <Menu.Item key="/home/Editorcell">
                 <span onClick={() => jumpToTarget('/home/Editorcell')}>编辑单元格</span>
               </Menu.Item>
-              
+
               <Menu.Item key="testMobx">
                 <span onClick={() => jumpToTarget('/testMobx')}>调试mobx</span>
               </Menu.Item>
@@ -127,8 +131,6 @@ function Home() {
                 <span onClick={() => jumpToTarget('/Wrap')}>Wrap</span>
               </Menu.Item>
             </SubMenu>
-            
-            
           </Menu>
         </div>
         <div className="content">
@@ -150,6 +152,7 @@ function Home() {
               <Route path="/home/formSelf" component={formSelf} />
               <Route path="/home/formSelfEdit" component={formSelfEdit} />
               <Route path="/home/EditorRow" component={Editorrow} />
+              <Route path="/home/CommonTitle" component={CommonTitle} />
               <Route path="/home/Editorcell" component={Editorcell} />
 
               <Route path="/testMobx" component={testMobx} />

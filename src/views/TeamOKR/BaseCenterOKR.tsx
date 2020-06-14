@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 // import React, { useContext, useState, useEffect, useRef } from 'react';
 import {
   Table,
@@ -7,12 +8,22 @@ import {
   Form,
   Button,
   message,
-  DatePicker,
-  Popconfirm,
-  Popover,
+  // DatePicker,
+  // Popconfirm,
+  // Popover,
+  Modal,
+  Dropdown,
+  Menu,
 } from 'antd';
 
-import { PlusCircleOutlined, EllipsisOutlined } from '@ant-design/icons';
+import {
+  PlusCircleOutlined,
+  EllipsisOutlined,
+  CloseOutlined,
+  ExclamationCircleOutlined,
+} from '@ant-design/icons';
+
+import CommonTitle from '@/components/CommonTitle';
 
 import { hot } from 'react-hot-loader/root';
 import '@/styles/reflect/BaseCenterOKR.less';
@@ -52,25 +63,6 @@ const EditableCell = ({
   );
 };
 
-const choiceAction = ({ editingKey, edit, record, delRow }) => {
-  console.log(editingKey);
-
-  return (
-    <div className="rowHandlerChange">
-      <div
-        className="EditDelRowCla"
-        // disabled={editingKey !== ''}
-        onClick={(e) => edit(e, record)}
-      >
-        编辑
-      </div>
-      <Popconfirm title="确定要取消删除吗?" onConfirm={() => delRow(record)}>
-        <div className="EditDelRowCla">删除</div>
-      </Popconfirm>
-    </div>
-  );
-};
-
 const BaseCenterOKR = () => {
   const originData: any = [
     {
@@ -94,8 +86,17 @@ const BaseCenterOKR = () => {
 
   const isEditing = (record) => record.key === editingKey;
 
-  const edit = (e, record) => {
-    console.log('edit--record--cell:', e, record);
+  const choiceAction = (row) => {
+    return (
+      <Menu>
+        <Menu.Item onClick={() => edit(row)}>编辑</Menu.Item>
+        <Menu.Item onClick={() => delRow(row)}>删除</Menu.Item>
+      </Menu>
+    );
+  };
+
+  const edit = (record: any) => {
+    console.log('edit--record--cell:', record);
     form.setFieldsValue({
       centerObjectCatage: '',
       targetMean: '',
@@ -106,10 +107,23 @@ const BaseCenterOKR = () => {
 
   const delRow = (record) => {
     // console.log('delRow--record:', record.id);
-    const newData = [...data];
-    const index = newData.findIndex((item) => record.id === item.id);
-    newData.splice(index, 1); // 删除指定行数据
-    setData(newData);
+    Modal.confirm({
+      title: '确定要删除吗？',
+      icon: <ExclamationCircleOutlined />,
+      // content: 'Bla bla ...',
+      okText: '确认',
+      cancelText: '取消',
+      onCancel: () => {
+        console.log('取消');
+      },
+      onOk: () => {
+        console.log('删除');
+        const newData = [...data];
+        const index = newData.findIndex((item) => record.id === item.id);
+        newData.splice(index, 1); // 删除指定行数据
+        setData(newData);
+      },
+    });
   };
 
   const addOneRow = () => {
@@ -120,15 +134,26 @@ const BaseCenterOKR = () => {
     } else {
       form.resetFields();
       let len = data.length;
-      const newIndex = data[len - 1].id + 1;
-      // console.log(len, data[len - 1]);
-      setEditingKey(newIndex.toString()); // 新添加的这一行变成可编辑状态
-      const newRow = {
-        id: newIndex,
-        key: newIndex.toString(),
-        centerObjectCatage: ``,
-        targetMean: ``,
-      };
+      let newIndex: any;
+      let newRow: any;
+      if (len) {
+        setEditingKey(newIndex.toString()); // 新添加的这一行变成可编辑状态
+        newIndex = data[len - 1].id + 1;
+        newRow = {
+          id: newIndex,
+          key: newIndex.toString(),
+          centerObjectCatage: ``,
+          targetMean: ``,
+        };
+      } else {
+        setEditingKey('1'); // 新添加的这一行变成可编辑状态
+        newRow = {
+          id: 1,
+          key: '1',
+          centerObjectCatage: ``,
+          targetMean: ``,
+        };
+      }
       data.push(newRow);
       const newData = [...data];
       setData(newData);
@@ -181,10 +206,6 @@ const BaseCenterOKR = () => {
     }
   };
 
-  const yearOnChange = (date, dateString) => {
-    console.log(date, dateString);
-  };
-
   const columns = [
     {
       title: '序列号',
@@ -223,13 +244,17 @@ const BaseCenterOKR = () => {
             >
               保存
             </Button>
-            <Popconfirm title="确定要取消修改吗?" onConfirm={() => cancelUpdate(record)}>
+            <CloseOutlined onClick={() => cancelUpdate(record)} />
+            {/*  
+             <Popconfirm title="确定要取消修改吗?" onConfirm={() => cancelUpdate(record)}>
               <Button>取消</Button>
             </Popconfirm>
+            */}
           </span>
         ) : (
           <div>
-            <Popover
+            {/* 
+              <Popover
               placement="bottom"
               content={choiceAction({
                 editingKey,
@@ -241,6 +266,10 @@ const BaseCenterOKR = () => {
             >
               <EllipsisOutlined />
             </Popover>
+              */}
+            <Dropdown overlay={choiceAction(record)}>
+              <EllipsisOutlined />
+            </Dropdown>
           </div>
         );
       },
@@ -265,19 +294,7 @@ const BaseCenterOKR = () => {
   });
   return (
     <div className="editorCellCla">
-      <div className="centerTitle">
-        <div className="baseTitle">实施管理中心年度目标</div>
-        <div className="baseRight">
-          <div>
-            {' '}
-            <DatePicker onChange={yearOnChange} picker="year" />
-          </div>
-          <div>
-            {' '}
-            <Button type="primary">导出</Button>
-          </div>
-        </div>
-      </div>
+      <CommonTitle></CommonTitle>
       <div className="tableContainerPerson">
         <Form form={form} component={false}>
           <Table
