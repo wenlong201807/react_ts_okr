@@ -19,7 +19,7 @@ const currentYear = moment().format(dateFormat);
 const CommonTitle = (props, ref) => {
   const [dataYear, setDataYear] = useState(currentYear);
   // 接收父组件的传值
-  const { msg } = props;
+  const { msg, getDate } = props;
 
   console.log(msg, props, ref);
   // 暴露的子组件方法，给父组件调用
@@ -44,9 +44,9 @@ const CommonTitle = (props, ref) => {
     // return current && current >= moment(new Date(String(Number(dataYear) + 1)));
   };
   const yearOnChange = (date, dateString) => {
-    console.log(date, dateString);
-    console.log(dateString);
+    console.log(date);
     setDataYear(dateString);
+    getDate(dateString);
   };
   return (
     <div className="CommonTitleClaWrap">

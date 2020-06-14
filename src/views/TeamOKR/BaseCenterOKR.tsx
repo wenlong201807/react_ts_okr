@@ -218,7 +218,9 @@ const BaseCenterOKR: React.FC = () => {
   // const parantHandler = () => {
   //   console.log('父组件方法给子组件使用的');
   // };
-
+  const getdata = (data) => {
+    console.log(data);
+  };
   const columns = [
     {
       title: '序列号',
@@ -310,6 +312,7 @@ const BaseCenterOKR: React.FC = () => {
       <CommonTitle
         // ref={childRef}
         // ref={childRef}
+        getDate={getdata}
         cRef={childRef}
         msg={'count'}
         // changeCount={(code: number) => setCount(code)}
