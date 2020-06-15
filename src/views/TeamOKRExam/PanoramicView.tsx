@@ -5,6 +5,7 @@ const { Search } = Input;
 const { Option } = Select;
 import { GetData } from '@/services/api/testGetData.ts';
 import moment from 'moment';
+import history from '@/historys';
 // import '@/styles/CommonTitle.less';
 import '@/styles/TeamOKRExam/PanoramicView.less';
 
@@ -49,6 +50,16 @@ function PanoramicView() {
   const yearOnChange = (date, dateString) => {
     console.log(date);
     setDataYear(dateString);
+  };
+
+  const jumpToExame = (key) => {
+    console.log('key:', key);
+    history.push('/PersonOKRExame');
+  };
+
+  const jumpToPersonYearOKRDetail = (key) => {
+    console.log('key:', key);
+    history.push('/PersonYearKRDetail');
   };
   return (
     <div className="PanoramicViewClaWrap">
@@ -97,6 +108,9 @@ function PanoramicView() {
         <h2 className="title">团队成员列表</h2>
 
         <div className="optionGroupBtn">
+          <Button type="primary" style={{ width: 100, marginRight: 10 }}>
+            添加成员
+          </Button>
           <Select
             defaultValue="lucy1"
             onChange={groupSelChange}
@@ -157,49 +171,49 @@ function PanoramicView() {
       </div>
 
       <div className="tableContentWrap">
-      
-      <div className="tableContent">
-        <div className="name">
-          <img src="" alt="wu" className="nameImg" />
-          <div className="nameContent">
-            <span className="upName">小明</span>
-            <span className="downName">自评完成度99%</span>
+        <div className="tableContent">
+          <div className="name">
+            <img src="" alt="wu" className="nameImg" />
+            <div className="nameContent">
+              <span className="upName">小明</span>
+              <span className="downName">自评完成度99%</span>
+            </div>
+          </div>
+          <div className="reason">第一季度</div>
+          <div className="grayCol">已考核</div>
+          <div className="grayCol">一级</div>
+          <div className="grayCol">99.5分</div>
+          <div className="timeCol">20120-06-16 14:03</div>
+          <div className="tableAction">
+            <span className="btnAction" onClick={() => jumpToExame('1')}>
+              考核
+            </span>
+            <span className="btnAction" onClick={() => jumpToPersonYearOKRDetail('1')}>
+              详情
+            </span>
           </div>
         </div>
-        <div className="reason">第一季度</div>
-        <div className="grayCol">已考核</div>
-        <div className="grayCol">一级</div>
-        <div className="grayCol">99.5分</div>
-        <div className="timeCol">20120-06-16 14:03</div>
-        <div className="tableAction">
-          <span className="btnAction" onClick={getDaTA}>
-            考核
-          </span>
-          <span className="btnAction">详情</span>
-        </div>
-      </div>
 
-      <div className="tableContent">
-        <div className="name">
-          <img src="" alt="wu" className="nameImg" />
-          <div className="nameContent">
-            <span className="upName">小明</span>
-            <span className="downName">自评完成度99%</span>
+        <div className="tableContent">
+          <div className="name">
+            <img src="" alt="wu" className="nameImg" />
+            <div className="nameContent">
+              <span className="upName">小明</span>
+              <span className="downName">自评完成度99%</span>
+            </div>
+          </div>
+          <div className="reason">第一季度</div>
+          <div className="grayCol">已考核</div>
+          <div className="grayCol">一级</div>
+          <div className="grayCol">99.5分</div>
+          <div className="timeCol">20120-06-16 14:03</div>
+          <div className="tableAction">
+            <span className="btnAction" onClick={getDaTA}>
+              考核
+            </span>
+            <span className="btnAction">详情</span>
           </div>
         </div>
-        <div className="reason">第一季度</div>
-        <div className="grayCol">已考核</div>
-        <div className="grayCol">一级</div>
-        <div className="grayCol">99.5分</div>
-        <div className="timeCol">20120-06-16 14:03</div>
-        <div className="tableAction">
-          <span className="btnAction" onClick={getDaTA}>
-            考核
-          </span>
-          <span className="btnAction">详情</span>
-        </div>
-      </div>
-      
       </div>
 
       <div className="pageNavClaWrap">

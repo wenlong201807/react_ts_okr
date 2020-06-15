@@ -122,7 +122,8 @@ export default observer(function TestEnvTeamList(secondParentList) {
   const jumpToTeamDetail = (row) => {
     console.log('团队年度KR详情', row);
     console.log('团队年666详情', secondParentList);
-    history.push('/outer');
+    history.push('/PersonYearKRDetail');
+    // history.push('/outer');
   };
   return (
     <div className="TestEnvTeamListCla">
