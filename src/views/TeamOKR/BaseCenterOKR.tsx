@@ -146,8 +146,8 @@ const BaseCenterOKR: React.FC = () => {
       let newIndex: any;
       let newRow: any;
       if (len) {
-        setEditingKey(newIndex.toString()); // 新添加的这一行变成可编辑状态
         newIndex = data[len - 1].id + 1;
+        setEditingKey(newIndex.toString()); // 新添加的这一行变成可编辑状态
         newRow = {
           id: newIndex,
           key: newIndex.toString(),
