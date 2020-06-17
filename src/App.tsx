@@ -9,6 +9,7 @@ import Empty from '@/views/Empty';
 import Home from '@/views/Home';
 import PersonOKRExame from '@/views/TeamOKRExam/PersonOKRExame';
 import PersonYearKRDetail from '@/views/TeamOKRExam/PersonYearKRDetail';
+import TeamYearKRDetail from '@/views/TeamOKRExam/TeamYearKRDetail';
 import Outer from '@/views/Outer';
 
 export default observer(function App() {
@@ -22,6 +23,7 @@ export default observer(function App() {
           <Route path="/home" component={Home} />
           <Route path="/PersonOKRExame" component={PersonOKRExame} />
           <Route path="/PersonYearKRDetail" component={PersonYearKRDetail} />
+          <Route path="/TeamYearKRDetail" component={TeamYearKRDetail} />
           <Route path="/outer" component={Outer} />
           <Route path="/404" component={Empty} />
           {/* */}
