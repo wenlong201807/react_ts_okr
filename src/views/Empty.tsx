@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Input, Button } from 'antd';
 import { GetData } from '@/services/api/testGetData.ts';
-// import _ from 'lodash';
-// let array: any = [1];
-// let other: any = _.concat(array, 2, [3], [[4]]);
+import _ from 'lodash';
+let array: any = [1];
+let other: any = _.concat(array, 2, [3], [[4]]);
 
-// console.log(other);
+console.log(other);
 // => [1, 2, 3, [4]]
 
-// console.log(array);
+console.log(array);
 // => [1]
 
 // const loginBtn = () => {

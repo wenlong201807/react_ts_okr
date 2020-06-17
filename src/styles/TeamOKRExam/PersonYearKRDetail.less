@@ -1,7 +1,8 @@
 .PersonYearKRDetailWrap {
   background-color: rgba(245, 247, 249, 1);
   box-sizing: border-box;
-  height: calc(100vh - 45px);
+  height: calc(100vh);
+  overflow: scroll;
   .topNav {
     display: flex;
     justify-content: space-between;
@@ -25,6 +26,7 @@
     background-color: rgba(255, 255, 255, 1);
     .title {
       padding-top: 20px;
+      margin: 0px 0px 0px 0px;
       display: flex;
       justify-content: space-around;
       font-family: '微软雅黑';
@@ -32,20 +34,40 @@
       font-style: normal;
       font-size: 15px;
       color: #000000;
+      .finishTop {
+        // background: red;
+      }
     }
     .content {
       // height: 70px;
       // line-height: 70px;
       display: flex;
       justify-content: space-around;
+      margin: 0px 0px 0px 0px;
     }
     .subtitle_55 {
-      width: 55%;
-      background: red;
+      width: 70%;
+      // background: red;
     }
-    .small_15 {
-      width: 15%;
+    .yearKRTop {
+      width: 10%;
       // background: pink;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .finishTop {
+      width: 10%;
+      // background: pink;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .adminTop {
+      width: 10%;
+      // background: pink;
+      text-align: center;
+
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -58,7 +80,7 @@
       color: #000000;
     }
     .mr_third {
-      padding-left: 120px;
+      padding-left: 50px;
       padding-bottom: 16px;
       // background: pink;
     }
@@ -68,7 +90,9 @@
       margin-left: 40px;
       // background: burlywood;
     }
+
     .small_fas_15 {
+      padding-left: 64px;
       font-style: normal;
       font-size: 10px;
       color: #aaaaaa;
@@ -79,37 +103,31 @@
     }
     .small_finish_15 {
       box-sizing: border-box;
-      padding-right: 30px;
+      // padding-right: 30px;
       // background: yellowgreen;
     }
   }
 
   .reasonKRDetailClaWrap {
     // background: pink;
-    margin: 0px 45px;
-    background-color: rgba(255, 255, 255, 1);
-    .titleWhite {
-      position: relative;
-      height: 3px;
-      width: 30px;
-      background: rgba(255, 255, 255, 1);
-      top: 50px;
-      left: calc(100% - 30px);
-    }
+    margin: 0px 45px 0px;
+
     .reasonKRDetailTitle {
+      margin: 0px 0px 0px 0px;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       // padding: 0px 33px;
       height: 50px;
       line-height: 50px;
       // background: pink;
+      background-color: rgba(255, 255, 255, 1);
       border-bottom: 1px solid #ccc;
       .headOne {
         box-sizing: border-box;
         padding-left: 35px;
-        width: 85%;
+        width: 90%;
         text-align: left;
-        background: yellowgreen;
+        // background: yellowgreen;
         font-family: '微软雅黑';
         font-weight: 400;
         font-style: normal;
@@ -118,9 +136,11 @@
       }
       .headRight {
         box-sizing: border-box;
-        padding-left: 70px;
+        padding-right: 20px;
+        text-align: right;
+        // background: yellow;
         cursor: pointer;
-        width: 15%;
+        width: 10%;
         font-family: 'Arial Normal', 'Arial';
         font-weight: 400;
         font-style: normal;
@@ -130,80 +150,168 @@
       }
     }
 
+    // 季度KR详情内容部分
+    .detailContentWrap {
+      box-sizing: border-box;
+      // padding-bottom: 0px;
+    }
+
     .reasonTitle {
+      box-sizing: border-box;
+      margin: 0px 0px 0px 0px;
+      // background: yellowgreen;
+      background: rgba(255, 255, 255, 1);
       display: flex;
       justify-content: space-around;
       // background: pink;
       // padding: 0px 33px;
-      height: 40px;
-      line-height: 40px;
+      height: 45px;
+      line-height: 45px;
       font-family: '微软雅黑';
       font-weight: 400;
       font-style: normal;
       font-size: 15px;
       color: #000000;
-      .headTwo {
-        // box-sizing: border-box;
-        padding-left: 40px;
-        width: 55%;
+      // border-bottom: 1px solid #ccc;
 
+      .headTwo {
+        box-sizing: border-box;
+        margin-left: 67px;
+        width: calc(70% - 67px);
+        // width: 70%;
+        border-bottom: 1px solid #ccc;
         // background: yellowgreen;
         .blueDot {
           display: inline-block;
           border-radius: 50%;
           width: 10px;
           height: 10px;
-          margin-left: 27px;
           margin-right: 5px;
           // background: inherit;
           background-color: rgba(45, 140, 240, 1);
         }
       }
       .reasonWeight {
-        width: 15%;
+        width: 10%;
+        border-bottom: 1px solid #ccc;
       }
       .reasonFinish {
-        width: 15%;
+        width: 10%;
+        border-bottom: 1px solid #ccc;
       }
       .action {
-        width: 15%;
+        box-sizing: border-box;
+        width: calc(10% - 40px);
+        margin-right: 40px;
+        display: flex;
+        justify-content: flex-end;
+        // background: red;
         cursor: pointer;
+        border-bottom: 1px solid #ccc;
         .headTwoRight {
-          margin-left: 30px;
-          padding-left: 30px;
+          // margin-left: 30px;
+          // background: pink;
+          text-align: left;
+          padding-right: 20px;
+          padding-left: 20px;
           cursor: pointer;
         }
       }
     }
 
+    .reasonContentShow {
+      display: block;
+      // margin: 0px 0px 0px;
+      margin-bottom: 5px;
+      // background: red;
+      background: rgba(255, 255, 255, 1);
+      // background: pink;
+    }
+    .reasonContentHide {
+      display: none;
+    }
+
     .KRContentWrap {
       display: flex;
       justify-content: space-around;
-
+      // background: burlywood;
+      // padding: 10px 0px;
+      box-sizing: border-box;
+      // border-bottom: 1px solid #ccc;
       .KR {
         box-sizing: border-box;
-        padding-left: 100px;
-        width: 55%;
+        // width: 70%;
+        margin-left: 100px;
+        padding: 10px 0px;
+        width: calc(70% - 100px);
+        border-bottom: 1px solid #ccc;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        background: red;
+        // background: pink;
+        font-family: '微软雅黑';
+        font-weight: 400;
+        font-style: normal;
+        font-size: 14px;
+        color: #555555;
+        .innerTitle {
+          display: inline-block;
+          width: 40px;
+          // background: pink;
+        }
+        .connectTeam {
+          padding-left: 40px;
+          // background: yellowgreen;
+          font-style: normal;
+          font-size: 10px;
+          color: #aaaaaa;
+        }
       }
-    
+
       .small_15 {
-        width: 15%;
+        box-sizing: border-box;
+        width: 10%;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        background: pink;
-        
-      }
-     
-      .small_finish_15 {
-        box-sizing: border-box;
-        padding-right: 30px;
+        border-bottom: 1px solid #ccc;
         // background: yellowgreen;
       }
+
+      .none_word {
+        box-sizing: border-box;
+        width: calc(10% - 90px);
+        margin-right: 90px;
+        border-bottom: 1px solid #ccc;
+      }
+    }
+
+    .addKRBtn {
+      box-sizing: border-box;
+      padding: 15px 90px 0px 100px;
+      cursor: pointer;
+      font-family: '微软雅黑';
+      font-weight: 400;
+      font-style: normal;
+      font-size: 12px;
+      color: #aaaaaa;
+      &:hover {
+        color: rgba(45, 140, 240, 1);
+      }
+    }
+    .descTitle {
+      padding: 15px 90px 0px 100px;
+      // background: pink;
+    }
+
+    .processInput {
+      // border: 1px solid #ccc;
+      // margin: 0px;
+      // background-color: red;
+      // height: 70px;
+      padding: 5px 90px 0px 100px;
+      height: 80px;
+      // margin-bottom: 10px;
     }
   }
 }
