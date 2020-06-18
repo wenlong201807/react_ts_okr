@@ -3,7 +3,7 @@
 import React, { useImperativeHandle, forwardRef, useState } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Button, DatePicker } from 'antd';
-import { GetData } from '@/services/api/testGetData.ts';
+
 import moment from 'moment';
 import '@/styles/CommonTitle.less';
 
@@ -34,10 +34,7 @@ const CommonTitle = (props, ref) => {
     };
   });
   const getDaTA = () => {
-    const param = {};
-    GetData(param).then((res: any) => {
-      console.log(res);
-    });
+    console.log('66');
   };
   const disabledDate = (current) => {
     return current > moment(new Date(String(Number(currentYear) + 1)));

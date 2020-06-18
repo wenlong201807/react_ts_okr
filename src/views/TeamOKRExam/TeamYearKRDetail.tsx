@@ -247,7 +247,7 @@ function TeamYearKRDetail() {
 
       {/*最底下放置 第三层页面 ==> 团队季度KR详情页面*/}
       <Drawer
-        title="Basic Drawer"
+        title="团队季度KR详情"
         placement="right"
         closable={false}
         onClose={onCloseDrawer}

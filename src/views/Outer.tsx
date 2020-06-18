@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Input, Button } from 'antd';
 import history from '@/historys';
-import { GetData } from '@/services/api/testGetData.ts';
+
 import { Collapse } from 'antd';
 import { CaretRightOutlined } from '@ant-design/icons';
 import '@/views/Outer.less';
@@ -47,10 +47,7 @@ function Outer() {
   };
 
   const getDaTA = () => {
-    const param = {};
-    GetData(param).then((res: any) => {
-      console.log(res);
-    });
+    console.log(66);
   };
   return (
     <div className="Outer">

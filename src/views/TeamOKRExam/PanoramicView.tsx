@@ -3,7 +3,7 @@ import { hot } from 'react-hot-loader/root';
 import { Button, DatePicker, Input, Pagination, Select } from 'antd';
 const { Search } = Input;
 const { Option } = Select;
-import { GetData } from '@/services/api/testGetData.ts';
+
 import moment from 'moment';
 import history from '@/historys';
 // import '@/styles/CommonTitle.less';
@@ -39,10 +39,7 @@ function PanoramicView() {
   };
 
   const getDaTA = () => {
-    const param = {};
-    GetData(param).then((res: any) => {
-      console.log(res);
-    });
+    console.log(66);
   };
   const disabledDate = (current) => {
     return current > moment(new Date(String(Number(currentYear) + 1)));
