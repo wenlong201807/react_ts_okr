@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import { hot } from 'react-hot-loader/root';
 import classnames from 'classnames';
-import { Progress, Menu, Dropdown, Drawer } from 'antd';
-
-import { LeftOutlined, PlusOutlined, UpOutlined, RightOutlined } from '@ant-design/icons';
+import { Progress, Input, Menu, Dropdown } from 'antd';
+const { TextArea } = Input;
+import {
+  LeftOutlined,
+  CloseOutlined,
+  PlusOutlined,
+  UpOutlined,
+  RightOutlined,
+} from '@ant-design/icons';
 import history from '@/historys';
-import TeamReasonKRDetail from '@/views/TeamOKRExam/TeamReasonKRDetail';
 
-import '@/styles/TeamOKRExam/TeamYearKRDetail.less';
+import '@/styles/TeamOKRExam/TeamReasonKRDetail.less';
 
-function TeamYearKRDetail() {
+function TeamReasonKRDetail() {
   const [isExpandKR, setIsExpandKR] = useState(true);
   const [isExpandAll, setIsExpandKRAll] = useState(true);
-  const [visibleDrawer, setVisibleDrawer] = useState(false);
 
   const choiceAction = (row = { default: '666' }) => {
     return (
@@ -36,33 +40,29 @@ function TeamYearKRDetail() {
     console.log('66');
     setIsExpandKRAll(!isExpandAll);
   };
-
-  const openTeamReasonDetail = () => {
-    console.log('打开第三层，团队季度KR详情页面');
-    setVisibleDrawer(true);
+  const backToPersonKR = () => {
+    history.push('/home/TestEnvTeamOKR');
   };
-
-  const onCloseDrawer = () => {
-    setVisibleDrawer(false);
-  };
-
   const jumpToMyOKR = (key) => {
     console.log('key:', key);
-    history.push('/home/TestEnvTeamOKR2');
+    history.push('/home/TestEnvTeamOKR');
   };
   return (
-    <div className="TeamYearKRDetailWrap">
+    <div className="PersonYearKRDetailWrap">
       <div className="topNav">
         <div>
           <LeftOutlined onClick={() => jumpToMyOKR('1')} />
-          <span className="title">团队年度KR详情</span>
+          <span className="title">个人年度KR详情</span>
+        </div>
+        <div onClick={backToPersonKR}>
+          <CloseOutlined />
         </div>
       </div>
 
       <div className="yearRelative">
         <div className="title">
           <div className="subtitle_55">
-            <span className="subtitle_third">年度KR21：</span> 测试环境绿灯雷达监测开发工作
+            <span className="subtitle_third">年度KR2：</span> 测试环境绿灯雷达监测开发工作
           </div>
           <div className=" yearKRTop">年度KR权重</div>
           <div className=" finishTop">完成度</div>
@@ -73,14 +73,12 @@ function TeamYearKRDetail() {
           <div className="subtitle_55 mr_third">
             <div className="small_fas_15">中心目标：实施平台化战略</div>
             <div className="small_fas_15">团队O1：配合智慧协同平台建设完成测试环境可视化展示</div>
-            {/*
             <div className="small_fas_15">
               ----个人O2：配合智慧协同平台，完成绿灯雷达的相关开发工作
             </div>
             <div className="small_fas_15">
               团队年度KR1：根据测试环境绿灯雷达监测，展示测试环境作战地图上各组件的应用健康检查情况
             </div>
-            */}
           </div>
           <div className="yearKRTop">20%</div>
           <div className="finishTop small_finish_15">
@@ -124,23 +122,12 @@ function TeamYearKRDetail() {
           <div className={classnames({ reasonContentShow: true, reasonContentHide: isExpandKR })}>
             {/* 每一个KR*/}
             <div className="KRContentWrap">
-              <div className="KR" onClick={openTeamReasonDetail}>
-                <div>
-                  <span className="innerTitle">KR1：</span> 完成B类系统组件的绿灯案例纳管
-                </div>
-              </div>
-              <div className="small_15">50%</div>
-              <div className="small_15">
-                <Progress percent={30} />
-              </div>
-              <div className="none_word"></div>
-            </div>
-
-            {/* 每一个KR*/}
-            <div className="KRContentWrap">
               <div className="KR">
                 <div>
-                  <span className="innerTitle">KR1：</span> 完成B类系统组件的绿灯案例纳管
+                  <span className="innerTitle">KR1：</span> 完成方案设计及实施计划制定
+                </div>
+                <div className="connectTeam">
+                  团队季度KR1：配合智慧协同平台建设完成测试环境可视化展示
                 </div>
               </div>
               <div className="small_15">50%</div>
@@ -156,6 +143,9 @@ function TeamYearKRDetail() {
                 <div>
                   <span className="innerTitle">KR1：</span> 完成方案设计及实施计划制定
                 </div>
+                <div className="connectTeam">
+                  团队季度KR1：配合智慧协同平台建设完成测试环境可视化展示
+                </div>
               </div>
               <div className="small_15">50%</div>
               <div className="small_15">
@@ -167,6 +157,10 @@ function TeamYearKRDetail() {
             {/*添加 KR 按钮 , 个人progress进度*/}
             <div className="addKRBtn">
               <PlusOutlined /> 添加KR按钮
+            </div>
+            <div className="descTitle">个人progress进度：</div>
+            <div className="processInput">
+              <TextArea rows={2} />
             </div>
           </div>
 
@@ -181,10 +175,7 @@ function TeamYearKRDetail() {
             <div className="reasonWeight">季度权重:100%</div>
             <div className="reasonFinish">完成度:60%</div>
             <div className="action">
-              <Dropdown overlay={choiceAction}>
-                <span className="headTwoRight">...</span>
-              </Dropdown>
-
+              <span className="headTwoRight">...</span>
               <span className="headTwoRight">
                 <UpOutlined />
               </span>
@@ -192,115 +183,15 @@ function TeamYearKRDetail() {
           </div>
 
           {/* 每一个季度的KR  ***可展开收起的部分 **通过添加，删除样式控制 className={{'reasonContentShow':true reasonContentHide:false}}*/}
-          <div className={classnames({ reasonContentShow: true, reasonContentHide: isExpandKR })}>
-            {/* 每一个KR*/}
-            <div className="KRContentWrap">
-              <div className="KR">
-                <div>
-                  <span className="innerTitle">KR1：</span> 完成B类系统组件的绿灯案例纳管
-                </div>
-              </div>
-              <div className="small_15">50%</div>
-              <div className="small_15">
-                <Progress percent={30} />
-              </div>
-              <div className="none_word"></div>
-            </div>
-
-            {/* 每一个KR*/}
-            <div className="KRContentWrap">
-              <div className="KR">
-                <div>
-                  <span className="innerTitle">KR1：</span> 完成B类系统组件的绿灯案例纳管
-                </div>
-              </div>
-              <div className="small_15">50%</div>
-              <div className="small_15">
-                <Progress percent={30} />
-              </div>
-              <div className="none_word">详情</div>
-            </div>
-
+          <div className="reasonContentShow">
             {/* 每一个KR*/}
             <div className="KRContentWrap">
               <div className="KR">
                 <div>
                   <span className="innerTitle">KR1：</span> 完成方案设计及实施计划制定
                 </div>
-              </div>
-              <div className="small_15">50%</div>
-              <div className="small_15">
-                <Progress percent={30} />
-              </div>
-              <div className="none_word">详情</div>
-            </div>
-
-            {/*添加 KR 按钮 , 个人progress进度*/}
-            <div className="addKRBtn">
-              <PlusOutlined /> 添加KR按钮
-            </div>
-          </div>
-
-          {/* 以上为完整一个季度的 */}
-          {/* 以上为完整一个季度的 */}
-        </div>
-      </div>
-
-      {/* 个人年度KR与团队年度KR关联关系 */}
-      <div className="personTeamYearKRConnectClaWrap">
-        <div className="reasonKRDetailTitle">
-          <div className="headOne">个人年度KR与团队年度KR关联关系</div>
-          <span className="headRight" onClick={expandAll}>
-            {isExpandAll ? <UpOutlined /> : <RightOutlined />}
-          </span>
-        </div>
-
-        {/*季度KR详情内容部分*/}
-        <div
-          className={classnames({ detailContentWrap: true, detailContentWrapHide: isExpandAll })}
-        >
-          {/* 季度标题 */}
-          <div className="reasonTitle">
-            <div className="headTwo">
-              <span className="blueDot"></span> 小明
-            </div>
-            <div className="reasonWeight"></div>
-            <div className="reasonFinish"></div>
-            <div className="action">
-            {/*
-            <Dropdown overlay={choiceAction}>
-                <span className="headTwoRight">...</span>
-              </Dropdown>
-            */}
-              
-
-              <span className="headTwoRight" onClick={expandKR}>
-                {isExpandKR ? <UpOutlined /> : <RightOutlined />}
-              </span>
-            </div>
-          </div>
-
-          {/* 每一个季度的KR  ***可展开收起的部分 **通过添加，删除样式控制 className={{'reasonContentShow':true reasonContentHide:false}}*/}
-          <div className={classnames({ reasonContentShow: true, reasonContentHide: isExpandKR })}>
-            {/* 每一个KR*/}
-            <div className="KRContentWrap">
-              <div className="KR" onClick={openTeamReasonDetail}>
-                <div>
-                  <span className="innerTitle">个人年度KR89:</span> 根据智慧协同品平台的实际要求，按时完成测试环境可视化的各项工作
-                </div>
-              </div>
-              <div className="small_15"></div>
-              <div className="small_15">
-                <Progress percent={30} />
-              </div>
-              <div className="none_word">详情</div>
-            </div>
-
-            {/* 每一个KR*/}
-            <div className="KRContentWrap">
-              <div className="KR">
-                <div>
-                  <span className="innerTitle">KR1：</span> 完成B类系统组件的绿灯案例纳管
+                <div className="connectTeam">
+                  团队季度KR1：配合智慧协同平台建设完成测试环境可视化展示
                 </div>
               </div>
               <div className="small_15">50%</div>
@@ -316,6 +207,9 @@ function TeamYearKRDetail() {
                 <div>
                   <span className="innerTitle">KR1：</span> 完成方案设计及实施计划制定
                 </div>
+                <div className="connectTeam">
+                  团队季度KR1：配合智慧协同平台建设完成测试环境可视化展示
+                </div>
               </div>
               <div className="small_15">50%</div>
               <div className="small_15">
@@ -327,6 +221,10 @@ function TeamYearKRDetail() {
             {/*添加 KR 按钮 , 个人progress进度*/}
             <div className="addKRBtn">
               <PlusOutlined /> 添加KR按钮
+            </div>
+            <div className="descTitle">个人progress进度：</div>
+            <div className="processInput">
+              <TextArea rows={2} />
             </div>
           </div>
 
@@ -341,10 +239,7 @@ function TeamYearKRDetail() {
             <div className="reasonWeight">季度权重:100%</div>
             <div className="reasonFinish">完成度:60%</div>
             <div className="action">
-              <Dropdown overlay={choiceAction}>
-                <span className="headTwoRight">...</span>
-              </Dropdown>
-
+              <span className="headTwoRight">...</span>
               <span className="headTwoRight">
                 <UpOutlined />
               </span>
@@ -352,26 +247,15 @@ function TeamYearKRDetail() {
           </div>
 
           {/* 每一个季度的KR  ***可展开收起的部分 **通过添加，删除样式控制 className={{'reasonContentShow':true reasonContentHide:false}}*/}
-          <div className={classnames({ reasonContentShow: true, reasonContentHide: isExpandKR })}>
+          <div className="reasonContentShow">
             {/* 每一个KR*/}
             <div className="KRContentWrap">
               <div className="KR">
                 <div>
-                  <span className="innerTitle">KR1：</span> 完成B类系统组件的绿灯案例纳管
+                  <span className="innerTitle">KR1：</span> 完成方案设计及实施计划制定
                 </div>
-              </div>
-              <div className="small_15">50%</div>
-              <div className="small_15">
-                <Progress percent={30} />
-              </div>
-              <div className="none_word"></div>
-            </div>
-
-            {/* 每一个KR*/}
-            <div className="KRContentWrap">
-              <div className="KR">
-                <div>
-                  <span className="innerTitle">KR1：</span> 完成B类系统组件的绿灯案例纳管
+                <div className="connectTeam">
+                  团队季度KR1：配合智慧协同平台建设完成测试环境可视化展示
                 </div>
               </div>
               <div className="small_15">50%</div>
@@ -387,6 +271,9 @@ function TeamYearKRDetail() {
                 <div>
                   <span className="innerTitle">KR1：</span> 完成方案设计及实施计划制定
                 </div>
+                <div className="connectTeam">
+                  团队季度KR1：配合智慧协同平台建设完成测试环境可视化展示
+                </div>
               </div>
               <div className="small_15">50%</div>
               <div className="small_15">
@@ -399,28 +286,18 @@ function TeamYearKRDetail() {
             <div className="addKRBtn">
               <PlusOutlined /> 添加KR按钮
             </div>
+            <div className="descTitle">个人progress进度：</div>
+            <div className="processInput">
+              <TextArea rows={2} />
+            </div>
           </div>
 
           {/* 以上为完整一个季度的 */}
           {/* 以上为完整一个季度的 */}
         </div>
       </div>
-
-      {/*最底下放置 第三层页面 ==> 团队季度KR详情页面*/}
-      <Drawer
-        title="团队季度KR详情"
-        placement="right"
-        width={'70%'}
-        closable={false}
-        onClose={onCloseDrawer}
-        visible={visibleDrawer}
-      >
-        <p>Some contents...</p>
-        <TeamReasonKRDetail></TeamReasonKRDetail>
-        <p>Some contents...</p>
-      </Drawer>
     </div>
   );
 }
 
-export default hot(TeamYearKRDetail);
+export default hot(TeamReasonKRDetail);

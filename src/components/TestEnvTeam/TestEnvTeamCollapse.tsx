@@ -18,11 +18,11 @@ function callback(key) {
   console.log(key);
 }
 
-const TestEnvTeamCollapse = (parentObejct: any) => {
+const TestEnvTeamCollapse = (parentObejct) => {
   // console.log('parentObejct:',parentObejct.objectArr)
   // console.log('parentObejct:',parentObejct)
 
-  const CollapseList: any = [
+  const CollapseList = [
     {
       key: '1',
       id: 1,

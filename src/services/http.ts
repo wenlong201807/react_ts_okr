@@ -1,5 +1,39 @@
 import axios from 'axios';
 import { message } from 'antd';
+import history from '@/historys';
+const instance: any = axios.create({
+  timeout: 59999,
+});
+
+// http request 拦截器
+instance.interceptors.request.use(
+  (config) => {
+    let token = localStorage.getItem('cshj_token');
+    if (token) {
+      config.headers.Authorization = 'Bearer ' + token;
+    } else {
+      config.headers.Authorization = 'Basic dGVzdDp0ZXN0';
+    }
+    return config;
+  },
+  (err) => Promise.reject(err),
+);
+
+instance.interceptors.response.use(
+  (res: any) => res,
+  (error: any) => {
+    if (error.response.status === 401) {
+      history.push('/logout');
+      message.error('无权限');
+    } else if (error.response.status === 403) {
+      message.error('权限不足');
+      return Promise.reject(error);
+    } else {
+      return Promise.reject(error);
+    }
+    return Promise.reject(error);
+  },
+);
 // 自定义判断元素类型JS
 // function toType(obj: any) {
 //   return {}.toString
@@ -36,11 +70,7 @@ function apiAxios(method, url, params) {
   //   params = filterNull(params);
   // }
   return new Promise((resolve, reject) => {
-    // if (!Login.default.GetLoginState()) { // 是否是登录状态
-    // }
-    axios.defaults.headers.common.Authorization =
-      localStorage.getItem('accessToken') || 'defaultAuthorization';
-    axios({
+    instance({
       method,
       url,
       data: method === 'POST' || method === 'PUT' ? params : null,
