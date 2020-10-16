@@ -34,7 +34,7 @@
   "browserslist": [
     "last 2 versions",
     "Firefox ESR",
-    "> 1%",
+    "> 2%",
     "ie >= 11"
   ],
   "dependencies": {
